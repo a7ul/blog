@@ -7,6 +7,7 @@
     "url": "https://github.com/master-atul/blog/issues"
   },
   "dependencies": {
+    "disqus-react": "^1.0.5",
     "gatsby": "next",
     "gatsby-plugin-feed": "next",
     "gatsby-plugin-google-analytics": "next",
@@ -20,6 +21,7 @@
     "gatsby-remark-responsive-iframe": "next",
     "gatsby-remark-smartypants": "next",
     "gatsby-source-filesystem": "next",
+    "gatsby-source-medium": "^1.0.14",
     "gatsby-transformer-remark": "next",
     "gatsby-transformer-sharp": "next",
     "lodash": "^4.17.5",

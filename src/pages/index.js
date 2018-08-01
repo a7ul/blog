@@ -3,17 +3,14 @@ import { Link } from 'gatsby';
 import get from 'lodash/get';
 import Helmet from 'react-helmet';
 import Bio from '../components/Bio';
+import Medium from '../components/Medium';
 import Layout from '../components/layout';
 import { rhythm } from '../utils/typography';
-
-const styles = {
-
-
-};
 
 const BlogIndex = (props) => {
   const siteTitle = get(props, 'data.site.siteMetadata.title');
   const posts = get(props, 'data.allMarkdownRemark.edges');
+  const mediumPosts = get(props, 'data.allMediumPost.edges');
   const { location } = props;
   return (
     <Layout location={location}>
@@ -38,6 +35,7 @@ const BlogIndex = (props) => {
           </div>
         );
       })}
+      <Medium posts={mediumPosts} />
       <Bio />
     </Layout>
   );
@@ -55,6 +53,7 @@ export const pageQuery = graphql`
     allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
       edges {
         node {
+          id
           excerpt
           fields {
             slug
@@ -62,6 +61,27 @@ export const pageQuery = graphql`
           frontmatter {
             date(formatString: "DD MMMM, YYYY")
             title
+          }
+        }
+      }
+    }
+    allMediumPost(sort: { fields: [firstPublishedAt], order: DESC }) {
+      edges {
+        node {
+          id
+          title
+          createdAt(formatString: "DD MMMM, YYYY")
+          firstPublishedAt(formatString: "DD MMMM, YYYY")
+          uniqueSlug
+          virtuals {
+            subtitle
+            previewImage {
+              imageId
+            }
+          }
+          author {
+            name
+            username
           }
         }
       }
