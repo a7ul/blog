@@ -5,7 +5,7 @@ module.exports = {
     description: 'Build. Hack. Rebuild. Hack...',
     siteUrl: 'https://master-atul.github.io/blog',
   },
-  pathPrefix: '/',
+  pathPrefix: '/blog',
   plugins: [
     {
       resolve: 'gatsby-source-filesystem',
