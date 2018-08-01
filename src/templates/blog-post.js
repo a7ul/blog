@@ -15,7 +15,7 @@ const BlogPostTemplate = (props) => {
   const { previous, next } = get(props, 'pageContext', {});
   const { location } = props;
 
-  const disqusShortname = 'masteratul';
+  const disqusShortname = 'atulr';
   const disqusConfig = {
     identifier: post.id,
     title: postTitle,
