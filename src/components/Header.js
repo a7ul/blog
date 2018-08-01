@@ -36,21 +36,17 @@ const styles = {
   },
 };
 
-const Header = () => {
-  const rootPath = `${__PATH_PREFIX__}/`; // eslint-disable-line no-undef
-
-  return (
-    <div style={styles.container}>
-      <div style={styles.website}>
-        <Link style={{ ...styles.link, padding: 0 }} to={rootPath}><img style={{ ...styles.icon, width: rhythm(2.5) }} src={bitmojiIcon} alt="atulr.com/blog" /></Link>
-      </div>
-      <div style={styles.social}>
-        <a style={styles.link} target="_blank" rel="noopener noreferrer" href="https://www.atulr.com"><img style={styles.icon} src={webIcon} alt="atulr.com" /></a>
-        <a style={styles.link} target="_blank" rel="noopener noreferrer" href="https://twitter.com/masteratul94"><img style={styles.icon} src={twitterIcon} alt="twitter" /></a>
-        <a style={styles.link} target="_blank" rel="noopener noreferrer" href="https://github.com/master-atul/"><img style={styles.icon} src={githubIcon} alt="github" /></a>
-      </div>
+const Header = () => (
+  <div style={styles.container}>
+    <div style={styles.website}>
+      <Link style={{ ...styles.link, padding: 0 }} to="/"><img style={{ ...styles.icon, width: rhythm(2.5) }} src={bitmojiIcon} alt="atulr.com/blog" /></Link>
     </div>
-  );
-};
+    <div style={styles.social}>
+      <a style={styles.link} target="_blank" rel="noopener noreferrer" href="https://www.atulr.com"><img style={styles.icon} src={webIcon} alt="atulr.com" /></a>
+      <a style={styles.link} target="_blank" rel="noopener noreferrer" href="https://twitter.com/masteratul94"><img style={styles.icon} src={twitterIcon} alt="twitter" /></a>
+      <a style={styles.link} target="_blank" rel="noopener noreferrer" href="https://github.com/master-atul/"><img style={styles.icon} src={githubIcon} alt="github" /></a>
+    </div>
+  </div>
+);
 
 export default Header;
