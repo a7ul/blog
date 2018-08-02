@@ -4,11 +4,11 @@ import Header from './Header';
 
 const styles = {
   innerContainer: {
-    // margin: '0 15%',
     marginLeft: 'auto',
     marginRight: 'auto',
     maxWidth: rhythm(35),
     padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
+    paddingTop: '3px',
   },
 };
 

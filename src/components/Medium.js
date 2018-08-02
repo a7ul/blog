@@ -8,7 +8,8 @@ const styles = {
     marginBottom: rhythm(1 / 4),
   },
   mediumTag: {
-
+    fontStyle: 'italic',
+    fontWeight: 'bold',
   },
   mediumIcon: {
     width: rhythm(1),
@@ -28,11 +29,14 @@ const Medium = ({ posts }) => posts.map(({ node }) => {
     <div key={node.id}>
       <h3 style={styles.title}>
         <a style={{ boxShadow: 'none' }} target="_blank" rel="noreferrer noopener" href={link}>
-          {title} <img style={styles.mediumIcon} src={mediumIcon} alt="medium.com" />
+          {title}<img style={styles.mediumIcon} src={mediumIcon} alt="medium.com" />
         </a>
       </h3>
       <small>
-        {node.firstPublishedAt} <span style={styles.mediumTag}>(published at medium.com/@atulanand94)</span>
+        {node.firstPublishedAt} on
+        <span style={styles.mediumTag}>
+          {' '}medium.com
+        </span>
       </small>
       <p>{subtitle }</p>
     </div>

@@ -6,6 +6,7 @@ import { DiscussionEmbed } from 'disqus-react';
 import Bio from '../components/Bio';
 import Layout from '../components/layout';
 import { rhythm, scale } from '../utils/typography';
+import Seo from '../components/Seo';
 
 
 const BlogPostTemplate = (props) => {
@@ -23,6 +24,7 @@ const BlogPostTemplate = (props) => {
 
   return (
     <Layout location={location}>
+      <Seo postData={post} />
       <Helmet title={`${postTitle} | ${siteTitle}`} />
       <h1>{postTitle}</h1>
       <p
@@ -87,10 +89,14 @@ export const pageQuery = graphql`
     }
     markdownRemark(fields: { slug: { eq: $slug } }) {
       id
+      excerpt
       html
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
+      }
+      fields {
+        slug
       }
     }
   }

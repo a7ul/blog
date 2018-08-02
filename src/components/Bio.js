@@ -1,5 +1,5 @@
 import React from 'react';
-
+import config from '../config';
 // Import typefaces
 import 'typeface-montserrat';
 import 'typeface-merriweather';
@@ -21,7 +21,7 @@ const styles = {
 const Bio = () => (
   <div>
     <p style={styles.intro}>
-      <img src="https://avatars2.githubusercontent.com/u/4029423?s=200" alt="Atul R" style={styles.avatar} />
+      <img src={config.image} alt="Atul R" style={styles.avatar} />
       Written by<strong> <a href="https://www.atulr.com" target="_blank" rel="noopener noreferrer">Atul R</a></strong>{' '}
       a full-stack web developer 🖥,{' '}<a href="https://www.reactnative.guide" target="_blank" rel="noopener noreferrer">author</a> 📖 and trainer 👨🏽‍🎓.
       He primarily works on Javascript ecosystem and
