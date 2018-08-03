@@ -7,7 +7,27 @@ import Bio from '../components/Bio';
 import Layout from '../components/layout';
 import { rhythm, scale } from '../utils/typography';
 import Seo from '../components/Seo';
+import config from '../config';
+import Share from '../components/Share';
 
+const styles = {
+  date: {
+    ...scale(-1 / 5),
+    display: 'block',
+    marginBottom: rhythm(1),
+    marginTop: rhythm(-1),
+  },
+  navLinkContainer: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    listStyle: 'none',
+    padding: 0,
+  },
+  post: {
+    paddingBottom: rhythm(1),
+  },
+};
 
 const BlogPostTemplate = (props) => {
   const post = get(props, 'data.markdownRemark');
@@ -15,63 +35,31 @@ const BlogPostTemplate = (props) => {
   const postTitle = `${post.frontmatter.title}`;
   const { previous, next } = get(props, 'pageContext', {});
   const { location } = props;
-
-  const disqusShortname = 'atulr';
-  const disqusConfig = {
-    identifier: post.id,
-    title: postTitle,
-  };
+  const disqusConfig = { identifier: post.id, title: postTitle };
+  const url = `${config.url}${get(post, 'fields.slug', '')}`;
 
   return (
     <Layout location={location}>
       <Seo postData={post} />
       <Helmet title={`${postTitle} | ${siteTitle}`} />
       <h1>{postTitle}</h1>
-      <p
-        style={{
-          ...scale(-1 / 5),
-          display: 'block',
-          marginBottom: rhythm(1),
-          marginTop: rhythm(-1),
-        }}
-      >
-        {post.frontmatter.date}
-      </p>
-      <div dangerouslySetInnerHTML={{ __html: post.html }} />
-      <hr
-        style={{
-          marginBottom: rhythm(1),
-        }}
-      />
-
-      <DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
-
+      <p style={styles.date}>{post.frontmatter.date}</p>
+      <article style={styles.post} dangerouslySetInnerHTML={{ __html: post.html }} />
+      <Share text={postTitle} url={url} />
+      <DiscussionEmbed shortname={config.disqusShortName} config={disqusConfig} />
       <Bio />
 
-      <ul
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          justifyContent: 'space-between',
-          listStyle: 'none',
-          padding: 0,
-        }}
-      >
-        {previous && (
-        <li>
-          <Link to={previous.fields.slug} rel="prev">
-                ← {previous.frontmatter.title}
-          </Link>
-        </li>
-        )}
-
-        {next && (
-        <li>
-          <Link to={next.fields.slug} rel="next">
-            {next.frontmatter.title} →
-          </Link>
-        </li>
-        )}
+      <ul style={styles.navLinkContainer}>
+        {
+          previous && (
+          <li>
+            <Link to={previous.fields.slug} rel="prev">← {previous.frontmatter.title}</Link>
+          </li>
+          )
+        }
+        {
+          next && (<li><Link to={next.fields.slug} rel="next">  {next.frontmatter.title} →</Link></li>)
+        }
       </ul>
     </Layout>
   );

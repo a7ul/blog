@@ -3,7 +3,7 @@ import { rhythm } from '../utils/typography';
 import Header from './Header';
 
 const styles = {
-  innerContainer: {
+  container: {
     marginLeft: 'auto',
     marginRight: 'auto',
     maxWidth: rhythm(35),
@@ -13,7 +13,7 @@ const styles = {
 };
 
 const Layout = ({ children }) => (
-  <div style={styles.innerContainer}>
+  <div style={styles.container}>
     <Header />
     {children}
   </div>

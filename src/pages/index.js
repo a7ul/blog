@@ -7,6 +7,12 @@ import Medium from '../components/Medium';
 import Layout from '../components/layout';
 import { rhythm } from '../utils/typography';
 
+const styles = {
+  title: {
+    marginBottom: rhythm(1 / 4),
+  },
+};
+
 const BlogIndex = (props) => {
   const siteTitle = get(props, 'data.site.siteMetadata.title');
   const posts = get(props, 'data.allMarkdownRemark.edges');
@@ -16,14 +22,10 @@ const BlogIndex = (props) => {
     <Layout location={location}>
       <Helmet title={siteTitle} />
       {posts.map(({ node }) => {
-        const title = get(node, 'frontmatter.title') || node.fields.slug;
+        const title = get(node, 'frontmatter.title', node.fields.slug);
         return (
           <div key={node.fields.slug}>
-            <h3
-              style={{
-                marginBottom: rhythm(1 / 4),
-              }}
-            >
+            <h3 style={styles.title}>
               <Link style={{ boxShadow: 'none' }} to={node.fields.slug}>
                 {title}
               </Link>
@@ -36,6 +38,7 @@ const BlogIndex = (props) => {
         );
       })}
       <Medium posts={mediumPosts} />
+      <hr />
       <Bio />
     </Layout>
   );

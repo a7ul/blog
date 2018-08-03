@@ -19,7 +19,7 @@ const styles = {
 };
 
 const Bio = () => (
-  <div>
+  <section>
     <p style={styles.intro}>
       <img src={config.image} alt="Atul R" style={styles.avatar} />
       Written by<strong> <a href="https://www.atulr.com" target="_blank" rel="noopener noreferrer">Atul R</a></strong>{' '}
@@ -30,7 +30,7 @@ const Bio = () => (
       and <span style={{ color: 'red' }}>❤</span> making useful tools for humans. {' '}
       <a href="https://twitter.com/masteratul94">You should follow him on Twitter  </a>
     </p>
-  </div>
+  </section>
 );
 
 export default Bio;
