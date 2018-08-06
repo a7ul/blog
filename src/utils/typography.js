@@ -1,18 +1,15 @@
 import Typography from 'typography';
-import Wordpress2016 from 'typography-theme-wordpress-2016';
+import theme from 'typography-theme-github';
 
-Wordpress2016.overrideThemeStyles = () => ({
+theme.overrideThemeStyles = () => ({
   'a.gatsby-resp-image-link': {
     boxShadow: 'none',
   },
-  h2: {
-    textDecoration: 'underline',
-  },
 });
 
-delete Wordpress2016.googleFonts;
+delete theme.googleFonts;
 
-const typography = new Typography(Wordpress2016);
+const typography = new Typography(theme);
 
 // Hot reload typography in development.
 if (process.env.NODE_ENV !== 'production') {

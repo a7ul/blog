@@ -37,11 +37,20 @@ const styles = {
     fontWeight: 'bold',
     marginTop: rhythm(-0.5),
   },
+  commentText: {
+    textAlign: 'center',
+  },
 };
 
 
-const Share = ({ text, url }) => (
-  <aside style={styles.container}>
+const Share = ({ text, url }) => ([
+  <p key="top-comment" style={styles.commentText}>
+    <strong>Like what you read?</strong><br />
+    <small>Please do let me know by commenting below.
+      If you feel like treating, you can also buy me a coffee ;)
+    </small>
+  </p>,
+  <aside key="container" style={styles.container}>
     <div style={styles.social}>
       <a className="resp-sharing-button__link" href={`https://facebook.com/sharer/sharer.php?u=${url}`} target="_blank" rel="noopener noreferrer" aria-label="">
         <div className="resp-sharing-button resp-sharing-button--facebook resp-sharing-button--small">
@@ -85,9 +94,8 @@ const Share = ({ text, url }) => (
       <img style={styles.coffee} src={coffeeImg} alt="coffee" />
       <div style={styles.donateText}>Buy me coffee </div>
     </a>
-  </aside>
-  //
-);
+  </aside>,
+]);
 
 
 export default Share;

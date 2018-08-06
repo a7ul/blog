@@ -18,19 +18,25 @@ Issues like these can be prevented by using HTTPS on development machine (localh
 Also, enabling HTTPS on the development version would allow it to be much more closer to the production version of the web app and hence would allow you to catch those bugs which would only show up after you deploy. 
 
 ## Overview of SSL Certificate generation process
+![ssl_drawing](./ssl_drawing.png)
 
+**Entities involved:**
+- CA (Certificate Authority): One who issues the SSL certificate for a domain
+- Applicant: One who applies for SSL Certificate
+- CSR (Certificate Signing Request): Request from Applicant to CA for issuing SSL certificate.
 
-
+**In short** the applicant will generate a CSR and send it to CA. The CA will then generate a SSL certificate for the domain.
+Lets dive into the details as we setup local HTTPS development environment.
 
 ## Setup local HTTPS development environemt
 
-*PS: Although this guide is for linux and Mac OS, Windows users can run equivalent commands and achieve the same result.*   
+*PS: Although this guide is for linux and Mac OS, Windows users can run equivalent commands and achieve the same result by downloading the openssl package for windows from [here](http://gnuwin32.sourceforge.net/packages/openssl.htm).*   
 
 ### Step 1: Creating a Certificate Signing Request
 
-Certificate Signing Request (CSR) is a message or block of encoded text sent from an applicant to a Certificate Authority (CA) in order to apply for a SSL Certificate. CSR usually contains all the information that needs to be stored in the SSL Certificate such as the organization name, common name (domain name), locality, and country along with public key of the applicant.
+**Certificate Signing Request (CSR)** is a message or block of encoded text sent from an applicant to a Certificate Authority (CA) in order to apply for a SSL Certificate. CSR usually contains all the information that needs to be stored in the SSL Certificate such as the organization name, common name (domain name), locality, and country along with public key of the applicant.
 
-In short:  CSR = (Some Information for Certificate) + (Public Key of applicant) 
+In short:  **CSR** = **(Some Information for Certificate)** + **(Public Key of applicant)** 
 
 A certificate authority (CA) will use a CSR to create your SSL certificate.
 Hence, we need a public key to proceed with generation of CSR, so lets create that first.
