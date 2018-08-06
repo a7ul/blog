@@ -41,6 +41,9 @@ module.exports = {
               username: '@atulanand94',
             },
           },
+          {
+            resolve: 'gatsby-plugin-sitemap',
+          },
         ],
       },
     },
