@@ -1,0 +1,593 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><style data-href="/blog/component---src-templates-blog-post-js.9f60763cae6496d3999b.css">.resp-sharing-button__icon{display:inline-block}.resp-sharing-button__link{color:#fff;display:inline-block;margin:.5em;text-decoration:none}.resp-sharing-button{border-radius:5px;font-family:Helvetica Neue,Helvetica,Arial,sans-serif;padding:.5em .75em;transition:25ms ease-out}.resp-sharing-button__icon svg{height:1em;margin-right:.4em;vertical-align:top;width:1em}.resp-sharing-button--small svg{margin:0;vertical-align:middle}.resp-sharing-button__icon{fill:none;stroke:#fff}.resp-sharing-button__icon--solid,.resp-sharing-button__icon--solidcircle{fill:#fff;stroke:none}.resp-sharing-button--twitter:hover{background-color:#2795e9}.resp-sharing-button--facebook:hover{background-color:#2d4373}.resp-sharing-button--whatsapp:hover{background-color:#1da851}.resp-sharing-button--hackernews{background-color:#f60}.resp-sharing-button--hackernews:focus,.resp-sharing-button--hackernews:hover{background-color:#fb6200}.resp-sharing-button--facebook{background-color:#3b5998;border-color:#3b5998}.resp-sharing-button--facebook:active,.resp-sharing-button--facebook:hover{background-color:#2d4373;border-color:#2d4373}.resp-sharing-button--twitter{background-color:#55acee;border-color:#55acee}.resp-sharing-button--twitter:active,.resp-sharing-button--twitter:hover{background-color:#2795e9;border-color:#2795e9}.resp-sharing-button--whatsapp{background-color:#25d366;border-color:#25d366}.resp-sharing-button--whatsapp:active,.resp-sharing-button--whatsapp:hover{background-color:#1da851;border-color:#1da851}
+
+/*# sourceMappingURL=component---src-templates-blog-post-js.9f60763cae6496d3999b.css.map*/</style><style data-href="/blog/0.6fab1dc050421dda38cc.css">@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:100;src:local("Montserrat Thin "),local("Montserrat-Thin"),url(/blog/static/montserrat-latin-100-50d279861fb3cbfed809eae6ed8b9ac9.woff2) format("woff2"),url(/blog/static/montserrat-latin-100-5e334eff013f12fbb8ed72c2a253f119.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:100;src:local("Montserrat Thin italic"),local("Montserrat-Thinitalic"),url(/blog/static/montserrat-latin-100italic-8c0705336558194799a8729840d7ed9d.woff2) format("woff2"),url(/blog/static/montserrat-latin-100italic-03e19243272affe738654a157625ec26.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:200;src:local("Montserrat Extra Light "),local("Montserrat-Extra Light"),url(/blog/static/montserrat-latin-200-4343d3d91a9446226e7a8bbb024111ad.woff2) format("woff2"),url(/blog/static/montserrat-latin-200-f2022ecd65a0703ec3edcb7641709a75.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:200;src:local("Montserrat Extra Light italic"),local("Montserrat-Extra Lightitalic"),url(/blog/static/montserrat-latin-200italic-116c4c4b14ef76b0555da09854512022.woff2) format("woff2"),url(/blog/static/montserrat-latin-200italic-89614a6008fc5c60739012463d0ee7e6.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:300;src:local("Montserrat Light "),local("Montserrat-Light"),url(/blog/static/montserrat-latin-300-d2ad295b60682a6537c358e06ea80c61.woff2) format("woff2"),url(/blog/static/montserrat-latin-300-3a371ee0d175f5c2b15ce1d6b981dc4e.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:300;src:local("Montserrat Light italic"),local("Montserrat-Lightitalic"),url(/blog/static/montserrat-latin-300italic-f6b6bf2431003f8142e800f9df157989.woff2) format("woff2"),url(/blog/static/montserrat-latin-300italic-16521668f5f238098329cdd7d27c391e.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:400;src:local("Montserrat Regular "),local("Montserrat-Regular"),url(/blog/static/montserrat-latin-400-240a84447b78da0920fcb07e378f2c5f.woff2) format("woff2"),url(/blog/static/montserrat-latin-400-b20cc131034316b1c85d0498fb9ed5c5.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:400;src:local("Montserrat Regular italic"),local("Montserrat-Regularitalic"),url(/blog/static/montserrat-latin-400italic-86172bb829de6be08b92512096b6aca6.woff2) format("woff2"),url(/blog/static/montserrat-latin-400italic-9405e78785a55cf0e4ea7669d4616ea9.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:500;src:local("Montserrat Medium "),local("Montserrat-Medium"),url(/blog/static/montserrat-latin-500-fb8d6b71dbe8d9294be43082936f649e.woff2) format("woff2"),url(/blog/static/montserrat-latin-500-50825d47af7ae47e055018eb689c6c99.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:500;src:local("Montserrat Medium italic"),local("Montserrat-Mediumitalic"),url(/blog/static/montserrat-latin-500italic-c0a555a4f8e997385a3eebbd4da0b9ee.woff2) format("woff2"),url(/blog/static/montserrat-latin-500italic-635de59c4be86285b1f70068c95b9816.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:600;src:local("Montserrat SemiBold "),local("Montserrat-SemiBold"),url(/blog/static/montserrat-latin-600-d5615136a08cfee70deb4be1ee1651df.woff2) format("woff2"),url(/blog/static/montserrat-latin-600-f300da4fb4fe00e23915f62b2c643681.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:600;src:local("Montserrat SemiBold italic"),local("Montserrat-SemiBolditalic"),url(/blog/static/montserrat-latin-600italic-10f29d139edacde92df63374c5672568.woff2) format("woff2"),url(/blog/static/montserrat-latin-600italic-2bc37d86a4ba12ce526c4af904a9946e.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:700;src:local("Montserrat Bold "),local("Montserrat-Bold"),url(/blog/static/montserrat-latin-700-7d77e1f03eefc452dab14d7f89080083.woff2) format("woff2"),url(/blog/static/montserrat-latin-700-81826529772e52f0f14a4c73c2f2c7f1.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:700;src:local("Montserrat Bold italic"),local("Montserrat-Bolditalic"),url(/blog/static/montserrat-latin-700italic-1dd2b53f1567a29e0505de9b27c4352c.woff2) format("woff2"),url(/blog/static/montserrat-latin-700italic-c162d257f5e9f9b108a96a604cfb2132.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:800;src:local("Montserrat ExtraBold "),local("Montserrat-ExtraBold"),url(/blog/static/montserrat-latin-800-d4e7bf86bbd8e5f43ca73fa831218648.woff2) format("woff2"),url(/blog/static/montserrat-latin-800-895aadbff357be35ac8dd107c7975ee7.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:800;src:local("Montserrat ExtraBold italic"),local("Montserrat-ExtraBolditalic"),url(/blog/static/montserrat-latin-800italic-fc0cbe442f7b3733c91e982e825c4daa.woff2) format("woff2"),url(/blog/static/montserrat-latin-800italic-b3362875067300abedb7a8fb97903258.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:normal;font-weight:900;src:local("Montserrat Black "),local("Montserrat-Black"),url(/blog/static/montserrat-latin-900-c8bdd772c0d1347720ff7e3fb72719f3.woff2) format("woff2"),url(/blog/static/montserrat-latin-900-1b99ef78e627dd9bbd0ca4b5c0789547.woff) format("woff")}@font-face{font-display:swap;font-family:Montserrat;font-style:italic;font-weight:900;src:local("Montserrat Black italic"),local("Montserrat-Blackitalic"),url(/blog/static/montserrat-latin-900italic-cb72c1f90f66c124fb897a75bec64c78.woff2) format("woff2"),url(/blog/static/montserrat-latin-900italic-b78bb9f8ecec6c5a924c873f1818095f.woff) format("woff")}
+@font-face{font-display:swap;font-family:Merriweather;font-style:normal;font-weight:300;src:local("Merriweather Light "),local("Merriweather-Light"),url(/blog/static/merriweather-latin-300-f015f1e9a46a3b9db4fd64564dacece4.woff2) format("woff2"),url(/blog/static/merriweather-latin-300-92dfe81b725c342d31d962da975c07a6.woff) format("woff")}@font-face{font-display:swap;font-family:Merriweather;font-style:italic;font-weight:300;src:local("Merriweather Light italic"),local("Merriweather-Lightitalic"),url(/blog/static/merriweather-latin-300italic-7fd86b32accf2df4403d1d4fa3a81502.woff2) format("woff2"),url(/blog/static/merriweather-latin-300italic-878b76f59d5ba58dd1652dc8d2a0f4f9.woff) format("woff")}@font-face{font-display:swap;font-family:Merriweather;font-style:normal;font-weight:400;src:local("Merriweather Regular "),local("Merriweather-Regular"),url(/blog/static/merriweather-latin-400-12dbf4c00ae43698f278b099e4b0ec9e.woff2) format("woff2"),url(/blog/static/merriweather-latin-400-1fffad22b085a877995812dbf1d9ac08.woff) format("woff")}@font-face{font-display:swap;font-family:Merriweather;font-style:italic;font-weight:400;src:local("Merriweather Regular italic"),local("Merriweather-Regularitalic"),url(/blog/static/merriweather-latin-400italic-1e0d3e8121d88969bfb153c8f174b758.woff2) format("woff2"),url(/blog/static/merriweather-latin-400italic-de18d4c4e8e808a7248a185f866ff094.woff) format("woff")}@font-face{font-display:swap;font-family:Merriweather;font-style:normal;font-weight:700;src:local("Merriweather Bold "),local("Merriweather-Bold"),url(/blog/static/merriweather-latin-700-dc8fec81a125fc63856587e6683da73b.woff2) format("woff2"),url(/blog/static/merriweather-latin-700-d7d2ed8e58f303392cc3fc00ba3a9186.woff) format("woff")}@font-face{font-display:swap;font-family:Merriweather;font-style:italic;font-weight:700;src:local("Merriweather Bold italic"),local("Merriweather-Bolditalic"),url(/blog/static/merriweather-latin-700italic-b7b7e5da4d7be8c12bd5a6c809edc8fc.woff2) format("woff2"),url(/blog/static/merriweather-latin-700italic-6210a5fc1c54ca85a5d82aa85d7a9b5c.woff) format("woff")}@font-face{font-display:swap;font-family:Merriweather;font-style:normal;font-weight:900;src:local("Merriweather Black "),local("Merriweather-Black"),url(/blog/static/merriweather-latin-900-43f870d543dd89fbeb66d417c0d97276.woff2) format("woff2"),url(/blog/static/merriweather-latin-900-8f3806df74937c7b8b53f24ae1e725d1.woff) format("woff")}@font-face{font-display:swap;font-family:Merriweather;font-style:italic;font-weight:900;src:local("Merriweather Black italic"),local("Merriweather-Blackitalic"),url(/blog/static/merriweather-latin-900italic-168c1ab28ed0e4e7d654334def288bc1.woff2) format("woff2"),url(/blog/static/merriweather-latin-900italic-ae7778f01871e35ee142ef207b313b34.woff) format("woff")}
+code[class*=language-],pre[class*=language-]{-moz-hyphens:none;-moz-tab-size:4;-ms-hyphens:none;-o-tab-size:4;-webkit-hyphens:none;background:none;color:#f8f8f2;font-family:Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace;hyphens:none;line-height:1.5;tab-size:4;text-align:left;text-shadow:0 1px rgba(0,0,0,.3);white-space:pre;word-break:normal;word-spacing:normal;word-wrap:normal}pre[class*=language-]{border-radius:.3em;margin:.5em 0;overflow:auto;padding:1em}:not(pre)>code[class*=language-],pre[class*=language-]{background:#272822}:not(pre)>code[class*=language-]{border-radius:.3em;padding:.1em;white-space:normal}.token.cdata,.token.comment,.token.doctype,.token.prolog{color:#708090}.token.punctuation{color:#f8f8f2}.namespace{opacity:.7}.token.constant,.token.deleted,.token.property,.token.symbol,.token.tag{color:#f92672}.token.boolean,.token.number{color:#ae81ff}.token.attr-name,.token.builtin,.token.char,.token.inserted,.token.selector,.token.string{color:#a6e22e}.language-css .token.string,.style .token.string,.token.entity,.token.operator,.token.url,.token.variable{color:#f8f8f2}.token.atrule,.token.attr-value,.token.class-name,.token.function{color:#e6db74}.token.keyword{color:#66d9ef}.token.important,.token.regex{color:#fd971f}.token.bold,.token.important{font-weight:700}.token.italic{font-style:italic}.token.entity{cursor:help}
+
+/*# sourceMappingURL=0.6fab1dc050421dda38cc.css.map*/</style><link rel="alternate" type="application/rss+xml" href="/blog/rss.xml"/><title data-react-helmet="true">🔐 HTTPS certificate generation explained! Now setup HTTPS for local development environment (without sudo) | Blog</title><meta data-react-helmet="true" name="description" content="Recently, Google security blog published an article  here  which states: Beginning in July 2018 with the release of Chrome 68, Chrome will…"/><meta data-react-helmet="true" name="image"/><meta data-react-helmet="true" name="keywords" content="a,b"/><meta data-react-helmet="true" property="og:url" content="https://master-atul.github.io/blog/localhost-https/"/><meta data-react-helmet="true" property="og:type" content="article"/><meta data-react-helmet="true" property="og:title" content="🔐 HTTPS certificate generation explained! Now setup HTTPS for local development environment (without sudo)"/><meta data-react-helmet="true" property="og:description" content="Recently, Google security blog published an article  here  which states: Beginning in July 2018 with the release of Chrome 68, Chrome will…"/><meta data-react-helmet="true" property="og:image"/><meta data-react-helmet="true" property="fb:app_id" content=""/><meta data-react-helmet="true" name="twitter:card" content="summary_large_image"/><meta data-react-helmet="true" name="twitter:creator" content="@masteratul94"/><meta data-react-helmet="true" name="twitter:title" content="🔐 HTTPS certificate generation explained! Now setup HTTPS for local development environment (without sudo)"/><meta data-react-helmet="true" name="twitter:description" content="Recently, Google security blog published an article  here  which states: Beginning in July 2018 with the release of Chrome 68, Chrome will…"/><meta data-react-helmet="true" name="twitter:image"/><style id="typography.js">html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block}audio:not([controls]){display:none;height:0}progress{vertical-align:baseline}[hidden],template{display:none}a{background-color:transparent;-webkit-text-decoration-skip:objects}a:active,a:hover{outline-width:0}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:inherit;font-weight:bolder}dfn{font-style:italic}h1{font-size:2em;margin:.67em 0}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}svg:not(:root){overflow:hidden}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}button,input,optgroup,select,textarea{font:inherit;margin:0}optgroup{font-weight:700}button,input{overflow:visible}button,select{text-transform:none}[type=reset],[type=submit],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-input-placeholder{color:inherit;opacity:.54}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}html{font:100%/1.625 -apple-system,'BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';box-sizing:border-box;overflow-y:scroll;}*{box-sizing:inherit;}*:before{box-sizing:inherit;}*:after{box-sizing:inherit;}body{color:hsla(0,0%,0%,0.8);font-family:-apple-system,'BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';font-weight:normal;word-wrap:break-word;font-kerning:normal;-moz-font-feature-settings:"kern", "liga", "clig", "calt";-ms-font-feature-settings:"kern", "liga", "clig", "calt";-webkit-font-feature-settings:"kern", "liga", "clig", "calt";font-feature-settings:"kern", "liga", "clig", "calt";}img{max-width:100%;margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}h1{margin-left:0;margin-right:0;margin-top:2.4375rem;padding-bottom:calc(0.40625rem - 1px);padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.21875rem;color:inherit;font-family:-apple-system,'BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';font-weight:600;text-rendering:optimizeLegibility;font-size:2rem;line-height:1.1;border-bottom:1px solid hsla(0,0%,0%,0.07);}h2{margin-left:0;margin-right:0;margin-top:1.625rem;padding-bottom:calc(0.40625rem - 1px);padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.40625rem;color:inherit;font-family:-apple-system,'BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';font-weight:600;text-rendering:optimizeLegibility;font-size:1.51572rem;line-height:1.1;border-bottom:1px solid hsla(0,0%,0%,0.07);}h3{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;color:inherit;font-family:-apple-system,'BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';font-weight:600;text-rendering:optimizeLegibility;font-size:1.31951rem;line-height:1.1;}h4{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;color:inherit;font-family:-apple-system,'BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';font-weight:600;text-rendering:optimizeLegibility;font-size:1rem;line-height:1.1;}h5{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;color:inherit;font-family:-apple-system,'BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';font-weight:600;text-rendering:optimizeLegibility;font-size:0.87055rem;line-height:1.1;}h6{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;color:hsla(0,0%,0%,0.53);font-family:-apple-system,'BlinkMacSystemFont','Segoe UI','Roboto','Helvetica','Arial',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';font-weight:600;text-rendering:optimizeLegibility;font-size:0.81225rem;line-height:1.1;}hgroup{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}ul{margin-left:1.625rem;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;list-style-position:outside;list-style-image:none;}ol{margin-left:1.625rem;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;list-style-position:outside;list-style-image:none;}dl{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}dd{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}p{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}figure{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}pre{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;font-size:0.85rem;line-height:1.625rem;}table{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;font-size:1rem;line-height:1.625rem;border-collapse:collapse;width:100%;}fieldset{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}blockquote{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:calc(0.8125rem - 1px);padding-right:0;padding-top:0;margin-bottom:0.8125rem;border-left:4px solid hsla(0,0%,0%,0.13);color:hsla(0,0%,0%,0.53);}form{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}noscript{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}iframe{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}hr{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:calc(0.8125rem - 1px);background:hsla(0,0%,0%,0.2);border:none;height:1px;}address{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:0.8125rem;}b{font-weight:600;}strong{font-weight:600;}dt{font-weight:600;}th{font-weight:600;}li{margin-bottom:calc(0.8125rem / 2);}ol li{padding-left:0;}ul li{padding-left:0;}li > ol{margin-left:1.625rem;margin-bottom:calc(0.8125rem / 2);margin-top:calc(0.8125rem / 2);}li > ul{margin-left:1.625rem;margin-bottom:calc(0.8125rem / 2);margin-top:calc(0.8125rem / 2);}blockquote *:last-child{margin-bottom:0;}li *:last-child{margin-bottom:0;}p *:last-child{margin-bottom:0;}li > p{margin-bottom:calc(0.8125rem / 2);}code{font-size:0.85rem;line-height:1.625rem;}kbd{font-size:0.85rem;line-height:1.625rem;}samp{font-size:0.85rem;line-height:1.625rem;}abbr{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;}acronym{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;}abbr[title]{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;text-decoration:none;}thead{text-align:left;}td,th{text-align:left;border-bottom:1px solid hsla(0,0%,0%,0.12);font-feature-settings:"tnum";-moz-font-feature-settings:"tnum";-ms-font-feature-settings:"tnum";-webkit-font-feature-settings:"tnum";padding-left:1.08333rem;padding-right:1.08333rem;padding-top:0.8125rem;padding-bottom:calc(0.8125rem - 1px);}th:first-child,td:first-child{padding-left:0;}th:last-child,td:last-child{padding-right:0;}h3,h4,h5,h6{margin-bottom:0.8125rem;margin-top:1.625rem;}ol,ul{margin-left:2.03125rem;}li>ol,li>ul{margin-left:2.03125rem;}a{color:#4078c0;text-decoration:none;}a:hover,a:active{text-decoration:underline;}a.gatsby-resp-image-link{box-shadow:none;}</style><link as="script" rel="preload" href="/blog/component---src-templates-blog-post-js-c8e62cf3a71d7e4721d9.js"/><link as="script" rel="preload" href="/blog/app-1b82749045fa2f71b7af.js"/><link as="script" rel="preload" href="/blog/7-73aaed745ed626fb0d55.js"/><link as="script" rel="preload" href="/blog/0-684e693bd516c363d1d2.js"/><link as="script" rel="preload" href="/blog/webpack-runtime-e7fe710fec3f26056e63.js"/><link rel="preload" href="/blog/static/d/791/path---localhost-https-4-e-7-875-bEQBsHeie2gQjucFuQyU9MJsJY.json" as="fetch" crossOrigin="use-credentials"/></head><body><div id="___gatsby"><div style="margin-left:auto;margin-right:auto;max-width:56.875rem;padding:2.4375rem 1.21875rem;padding-top:3px" data-reactroot=""><header style="position:relative;padding:5px 0"><div style="display:inline-block"><a style="padding:0;box-shadow:none" href="/blog/"><img style="display:inline-block;width:4.0625rem;margin:0" src="data:image/png;base64,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" alt="atulr.com/blog"/></a></div><div style="display:inline-block;right:0;position:absolute;padding-top:1.625rem"><a style="padding:0 5px;box-shadow:none" target="_blank" rel="noopener noreferrer" href="https://www.atulr.com"><img style="display:inline-block;width:1.625rem;margin:0" src="data:image/png;base64,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" alt="atulr.com"/></a><a style="padding:0 5px;box-shadow:none" target="_blank" rel="noopener noreferrer" href="https://twitter.com/masteratul94"><img style="display:inline-block;width:1.625rem;margin:0" src="data:image/svg+xml;base64,PHN2ZyBhcmlhLWxhYmVsbGVkYnk9InNpbXBsZWljb25zLXR3aXR0ZXItaWNvbiIgcm9sZT0iaW1nIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHRpdGxlIGlkPSJzaW1wbGVpY29ucy10d2l0dGVyLWljb24iPlR3aXR0ZXIgaWNvbjwvdGl0bGU+PHBhdGggZmlsbD0iIzE5QjVGRSIgZD0iTTIzLjk1NCA0LjU2OWMtLjg4NS4zODktMS44My42NTQtMi44MjUuNzc1IDEuMDE0LS42MTEgMS43OTQtMS41NzQgMi4xNjMtMi43MjMtLjk1MS41NTUtMi4wMDUuOTU5LTMuMTI3IDEuMTg0LS44OTYtLjk1OS0yLjE3My0xLjU1OS0zLjU5MS0xLjU1OS0yLjcxNyAwLTQuOTIgMi4yMDMtNC45MiA0LjkxNyAwIC4zOS4wNDUuNzY1LjEyNyAxLjEyNEM3LjY5MSA4LjA5NCA0LjA2NiA2LjEzIDEuNjQgMy4xNjFjLS40MjcuNzIyLS42NjYgMS41NjEtLjY2NiAyLjQ3NSAwIDEuNzEuODcgMy4yMTMgMi4xODggNC4wOTYtLjgwNy0uMDI2LTEuNTY2LS4yNDgtMi4yMjgtLjYxNnYuMDYxYzAgMi4zODUgMS42OTMgNC4zNzQgMy45NDYgNC44MjctLjQxMy4xMTEtLjg0OS4xNzEtMS4yOTYuMTcxLS4zMTQgMC0uNjE1LS4wMy0uOTE2LS4wODYuNjMxIDEuOTUzIDIuNDQ1IDMuMzc3IDQuNjA0IDMuNDE3LTEuNjggMS4zMTktMy44MDkgMi4xMDUtNi4xMDIgMi4xMDUtLjM5IDAtLjc3OS0uMDIzLTEuMTctLjA2NyAyLjE4OSAxLjM5NCA0Ljc2OCAyLjIwOSA3LjU1NyAyLjIwOSA5LjA1NCAwIDEzLjk5OS03LjQ5NiAxMy45OTktMTMuOTg2IDAtLjIwOSAwLS40Mi0uMDE1LS42My45NjEtLjY4OSAxLjgtMS41NiAyLjQ2LTIuNTQ4bC0uMDQ3LS4wMnoiLz48L3N2Zz4=" alt="twitter"/></a><a style="padding:0 5px;box-shadow:none" target="_blank" rel="noopener noreferrer" href="https://github.com/master-atul/"><img style="display:inline-block;width:1.625rem;margin:0" src="data:image/svg+xml;base64,PHN2ZyBhcmlhLWxhYmVsbGVkYnk9InNpbXBsZWljb25zLWdpdGh1Yi1pY29uIiByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGUgaWQ9InNpbXBsZWljb25zLWdpdGh1Yi1pY29uIj5HaXRIdWIgaWNvbjwvdGl0bGU+PHBhdGggZD0iTTEyIC4yOTdjLTYuNjMgMC0xMiA1LjM3My0xMiAxMiAwIDUuMzAzIDMuNDM4IDkuOCA4LjIwNSAxMS4zODUuNi4xMTMuODItLjI1OC44Mi0uNTc3IDAtLjI4NS0uMDEtMS4wNC0uMDE1LTIuMDQtMy4zMzguNzI0LTQuMDQyLTEuNjEtNC4wNDItMS42MUM0LjQyMiAxOC4wNyAzLjYzMyAxNy43IDMuNjMzIDE3LjdjLTEuMDg3LS43NDQuMDg0LS43MjkuMDg0LS43MjkgMS4yMDUuMDg0IDEuODM4IDEuMjM2IDEuODM4IDEuMjM2IDEuMDcgMS44MzUgMi44MDkgMS4zMDUgMy40OTUuOTk4LjEwOC0uNzc2LjQxNy0xLjMwNS43Ni0xLjYwNS0yLjY2NS0uMy01LjQ2Ni0xLjMzMi01LjQ2Ni01LjkzIDAtMS4zMS40NjUtMi4zOCAxLjIzNS0zLjIyLS4xMzUtLjMwMy0uNTQtMS41MjMuMTA1LTMuMTc2IDAgMCAxLjAwNS0uMzIyIDMuMyAxLjIzLjk2LS4yNjcgMS45OC0uMzk5IDMtLjQwNSAxLjAyLjAwNiAyLjA0LjEzOCAzIC40MDUgMi4yOC0xLjU1MiAzLjI4NS0xLjIzIDMuMjg1LTEuMjMuNjQ1IDEuNjUzLjI0IDIuODczLjEyIDMuMTc2Ljc2NS44NCAxLjIzIDEuOTEgMS4yMyAzLjIyIDAgNC42MS0yLjgwNSA1LjYyNS01LjQ3NSA1LjkyLjQyLjM2LjgxIDEuMDk2LjgxIDIuMjIgMCAxLjYwNi0uMDE1IDIuODk2LS4wMTUgMy4yODYgMCAuMzE1LjIxLjY5LjgyNS41N0MyMC41NjUgMjIuMDkyIDI0IDE3LjU5MiAyNCAxMi4yOTdjMC02LjYyNy01LjM3My0xMi0xMi0xMiIvPjwvc3ZnPg==" alt="github"/></a><a style="padding:0 5px;box-shadow:none" target="_blank" rel="noopener noreferrer" href="https://linkedin.com/in/atulanand94"><img style="display:inline-block;width:1.625rem;margin:0" src="data:image/svg+xml;base64,PHN2ZyBhcmlhLWxhYmVsbGVkYnk9InNpbXBsZWljb25zLWxpbmtlZGluLWljb24iIHJvbGU9ImltZyIgdmlld0JveD0iMCAwIDI0IDI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjx0aXRsZSBpZD0ic2ltcGxlaWNvbnMtbGlua2VkaW4taWNvbiI+TGlua2VkSW4gaWNvbjwvdGl0bGU+CjxwYXRoIGZpbGw9IiMwMDc3QjUiIGQ9Ik0yMC40NDcgMjAuNDUyaC0zLjU1NHYtNS41NjljMC0xLjMyOC0uMDI3LTMuMDM3LTEuODUyLTMuMDM3LTEuODUzIDAtMi4xMzYgMS40NDUtMi4xMzYgMi45Mzl2NS42NjdIOS4zNTFWOWgzLjQxNHYxLjU2MWguMDQ2Yy40NzctLjkgMS42MzctMS44NSAzLjM3LTEuODUgMy42MDEgMCA0LjI2NyAyLjM3IDQuMjY3IDUuNDU1djYuMjg2ek01LjMzNyA3LjQzM2MtMS4xNDQgMC0yLjA2My0uOTI2LTIuMDYzLTIuMDY1IDAtMS4xMzguOTItMi4wNjMgMi4wNjMtMi4wNjMgMS4xNCAwIDIuMDY0LjkyNSAyLjA2NCAyLjA2MyAwIDEuMTM5LS45MjUgMi4wNjUtMi4wNjQgMi4wNjV6bTEuNzgyIDEzLjAxOUgzLjU1NVY5aDMuNTY0djExLjQ1MnpNMjIuMjI1IDBIMS43NzFDLjc5MiAwIDAgLjc3NCAwIDEuNzI5djIwLjU0MkMwIDIzLjIyNy43OTIgMjQgMS43NzEgMjRoMjAuNDUxQzIzLjIgMjQgMjQgMjMuMjI3IDI0IDIyLjI3MVYxLjcyOUMyNCAuNzc0IDIzLjIgMCAyMi4yMjIgMGguMDAzeiIvPjwvc3ZnPg==" alt="linkedin"/></a></div></header><hr/><h1>🔐 HTTPS certificate generation explained! Now setup HTTPS for local development environment (without sudo)</h1><p style="font-size:0.87055rem;line-height:1.625rem;display:block;margin-bottom:1.625rem;margin-top:-1.625rem">August 06, 2018</p><article style="padding-bottom:1.625rem"><p>Recently, Google security blog published an article <a href="https://security.googleblog.com/2018/02/a-secure-web-is-here-to-stay.html">here</a> which states:</p>
+<blockquote>
+<p>Beginning in July 2018 with the release of Chrome 68, Chrome will mark all HTTP sites as “not secure”.</p>
+</blockquote>
+<p>Google has been pushing for HTTPS for sometime now. A blog post in 2014 <a href="https://webmasters.googleblog.com/2014/08/https-as-ranking-signal.html">here</a> tells us that Google’s search engine ranks HTTPS websites over unsecure HTTP websites.</p>
+<p>While more and more websites and apps are becoming HTTPS enabled, we still develop these web apps on our local development environment over HTTP.
+Since web browsers behave slighlty differently when serving HTTPS and HTTP website, this can lead to few issues when we deploy to production.</p>
+<p>One such issue is mixed content because some of the resource might be loaded using HTTP on a HTTPS site.  <a href="https://developers.google.com/web/fundamentals/security/prevent-mixed-content/what-is-mixed-content">More on mixed content here</a>
+
+  <a
+    class="gatsby-resp-image-link"
+    href="/blog/static/active-mixed-content-errors-c8517488bc3abb7f78a5f5108757ac11-2188b.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block; max-width:100% !important;; max-width: 586px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 75.25597269624573%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAIAAABr+ngCAAAACXBIWXMAAAsSAAALEgHS3X78AAACyklEQVQozyVSaW+jOADl//+f0WpnJ206ScDgA8xhMMQYCBCuJE3TNkC6ZT1a6enpyR/sd1ibg6A1zcYyS2BUlnnU9ca2m/2+iWOFI+ddkiiRe15iWYlhCAA6xrogeMsLbWyOB4yL3U4aRmpZuQK0Cl3nCIUYO7pODYMCwG2787zGNK+u+10Ui0Lfa1Oa1gidKZ1ZMDn2bJozdb6UZmzy/Ttj9zAcGXtzaGfbrU0Un9U552NZahPnpQlK08oNvQCg3G1LhMqQlYFf+v7B82rGlBAYSwAyXc8N45Wxi+/fskwbj8cK49LQS9MsICwhrDCqfv+udjvhOAxCDwCFxLaHIDgh1EE0S7mUh+V81r7jeMRo0vUHISOED4xnBB9JPHP+iMI55lMUzXF8dZwawSOEDeetlJfD4aOutWm/Ly3rAIBQTwEgdT1DKPM86bpSNew4igWlnJAMwsIwVMaPJPmIos9CtV3Xymq53dbAqAFQs7WW1W63FYQpIdw0Q8MIgZHapHfdBqGe4M8kuYv9v12nzXl+MsFViKkslyxbYv7NoyWTixB/sN8vebGk4kvs7zG/CzHG/BYE71U19Z2mSj8jdCGkV7d67oDgiTonmQ1FMeR5J+Upz4c0zXw/wVggJAkZkmSIotdMamquzLLkZiMUVGBgyO0mW6/l05MaJl2vs+1OuvTA2Dvn75736bpLni+qcGX7UR1f1QwYdQiptBeHDv+7sMzOJs12M/h+K8S9KFS1d9V8Kv58r6pa3t60sbP7cHcS1rC3zgnoY/2akanl45FNfTK20XRJp1tx7eImc9vUaSQdDn6Xu+8nod0uLPCeKfmbwL9s8pOSfzy68uiT46yp84zgL4xXBP2y8RNzVzb8kYTrS+9eejp+CO39NQndNQ9eZLwR4Ytgz4KtFSfhJg5emLMKnBWjq8h7PmQkF1ZbufebWL7q77n6D53dADQxLy9IAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="mixed-content"
+        title=""
+        src="/blog/static/active-mixed-content-errors-c8517488bc3abb7f78a5f5108757ac11-2188b.png"
+        srcset="/blog/static/active-mixed-content-errors-c8517488bc3abb7f78a5f5108757ac11-98951.png 200w,
+/blog/static/active-mixed-content-errors-c8517488bc3abb7f78a5f5108757ac11-0927d.png 400w,
+/blog/static/active-mixed-content-errors-c8517488bc3abb7f78a5f5108757ac11-2188b.png 586w"
+        sizes="(max-width: 586px) 100vw, 586px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    </p>
+<p>Issues like these can be prevented by using HTTPS on development machine (localhost).
+Also, enabling HTTPS on the development version would allow it to be much more closer to the production version of the web app and hence would allow you to catch those bugs which would only show up after you deploy. </p>
+<h2>Overview of SSL Certificate generation process</h2>
+<p>
+  <a
+    class="gatsby-resp-image-link"
+    href="/blog/static/ssl_drawing-daec267b6a9800ac655a7f79324ee5da-d256b.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block; max-width:100% !important;; max-width: 800px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 50%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAAAsTAAALEwEAmpwYAAABjElEQVQoz3VSyWoCQRT0Z8V/8O4X+Ace4iEHiQiK4sHEBa8uEZkZd6fdlyhu40zFeqHHBVLQdPfbut6rDuAGz/NkEYvFAt1uF5vNRu62bfu+/3bmqMkE8/kcAW3UmE6nyGQyaDQaME0T4XAYp9MJrw9fLhf0ej10Oh0oW0ENbFiGhYDruhIQiUQQCoVgWRaKxaIUU0ohmUzier0+FdRF6/U6Bv0BxvYYn/0KvgYVBOjY7XYolUqIRqOo1WpYLpfY7/eS5DiOz/6xGO3BYBDxtzjshcL79weMoXlnmM/nUa1W5Xw8HjEajdBut/3kV3bcyd4wjL/Xzh5cx73PMBaLoVAoyLnZbCKRSCCXy8lD2Wz2SYTZbCbjSKfT0hFF2fxsxecXZJHD4eAnUBwGksHkpqAGVeedI1mv11itVthutxgOh2LzWy6Xyz59yk9R2DYDWVyDXXDeVJg/gTEUMpVKSayIQmatVktmxu+gQXX5oF4EvwmZa78G8zl7KXg+n6UVMmPi4/Af8Wh7/dwavwmv7KcGYr65AAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="ssl_drawing"
+        title=""
+        src="/blog/static/ssl_drawing-daec267b6a9800ac655a7f79324ee5da-d256b.png"
+        srcset="/blog/static/ssl_drawing-daec267b6a9800ac655a7f79324ee5da-1aa72.png 200w,
+/blog/static/ssl_drawing-daec267b6a9800ac655a7f79324ee5da-76ac4.png 400w,
+/blog/static/ssl_drawing-daec267b6a9800ac655a7f79324ee5da-d256b.png 800w"
+        sizes="(max-width: 800px) 100vw, 800px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    </p>
+<p><strong>Entities involved:</strong></p>
+<ul>
+<li>CA (Certificate Authority): One who issues the SSL certificate for a domain</li>
+<li>Applicant: One who applies for SSL Certificate</li>
+<li>CSR (Certificate Signing Request): Request from Applicant to CA for issuing SSL certificate.</li>
+</ul>
+<p><strong>In short</strong> the applicant will generate a CSR and send it to CA. The CA will then generate a SSL certificate for the domain.
+Lets dive into the details as we setup local HTTPS development environment.</p>
+<h2>Setup local HTTPS development environemt</h2>
+<p><em>PS: Although this guide is for linux and Mac OS, Windows users can run equivalent commands and achieve the same result by downloading the openssl package for windows from <a href="http://gnuwin32.sourceforge.net/packages/openssl.htm">here</a>.</em>   </p>
+<h3>Step 1: Creating a Certificate Signing Request</h3>
+<p><strong>Certificate Signing Request (CSR)</strong> is a message or block of encoded text sent from an applicant to a Certificate Authority (CA) in order to apply for a SSL Certificate. CSR usually contains all the information that needs to be stored in the SSL Certificate such as the organization name, common name (domain name), locality, and country along with public key of the applicant.</p>
+<p>In short:  <strong>CSR</strong> = <strong>(Some Information for Certificate)</strong> + <strong>(Public Key of applicant)</strong> </p>
+<p>A certificate authority (CA) will use a CSR to create your SSL certificate.
+Hence, we need a public key to proceed with generation of CSR, so lets create that first.</p>
+<p><strong>Creating the private/public key pair</strong> </p>
+<div class="gatsby-highlight" data-language="bash">
+      <pre class="language-bash"><code class="language-bash">openssl genrsa -des3 -out localdomain.secure.key 2048</code></pre>
+      </div>
+<p>Enter a password when prompted. I will be using password as “password” for the sake of demo.
+This will generate a file <code class="language-text">localdomain.secure.key</code>. The generated <code class="language-text">localdomain.secure.key</code> is a password protected container which has both private and public keys (essentially a key pair).</p>
+<p>For the ease of learning we will remove the password protection in the next step.</p>
+<div class="gatsby-highlight" data-language="bash">
+      <pre class="language-bash"><code class="language-bash">openssl rsa -in  localdomain.secure.key -out localdomain.insecure.key</code></pre>
+      </div>
+<p>This will generate a file <code class="language-text">localdomain.insecure.key</code> which is essentially our key pair without password protection. <em>You can also continue using the password protected <code class="language-text">localdomain.secure.key</code> in place of the <code class="language-text">localdomain.insecure.key</code> only thing you will be asked to enter the password for each command.</em></p>
+<p><strong>Creating a Certificate Signing Request</strong></p>
+<p>We will be generating a CSR for <code class="language-text">localhost</code>. To do so we will first create a configuration file which will have all the information that needs to be sent to the CA.</p>
+<p>Create a configuration file for our localhost domain (<code class="language-text">localdomain.csr.cnf</code>):</p>
+<div class="gatsby-highlight" data-language="text">
+      <pre class="language-text"><code class="language-text">[req]
+default_bits = 2048
+prompt = no
+default_md = sha256
+distinguished_name = dn
+
+[dn]
+C=IN
+ST=SomeState
+L=SomeCity
+O=SomeOrganization
+OU=SomeUnit
+emailAddress=test@test.com
+CN = localhost</code></pre>
+      </div>
+<p>Now run the following command to generate a csr from our key and configuration file:</p>
+<div class="gatsby-highlight" data-language="bash">
+      <pre class="language-bash"><code class="language-bash">openssl req -new -sha256 -nodes -out localdomain.csr -key localdomain.insecure.key -config localdomain.csr.cnf</code></pre>
+      </div>
+<p>You should now get a <code class="language-text">localdomain.csr</code> file which can be sent to a CA for generating the SSL certificates for your domain.<br/>
+<strong>For production servers</strong> send your CSR file to one of the CAs mentioned <a href="https://en.wikipedia.org/wiki/Certificate_authority">here</a> <br/>
+<strong>For development purposes</strong> we will generate our own Root SSL Certificate (CA Certificate) and use that to generate SSL certificates from our CSR file.   </p>
+<h3>Step 2: Generating Root SSL Certificate (CA Certificate)</h3>
+<p><strong>Creating the public/private key pair</strong></p>
+<p>To generate a self-signed certificate we need a public key much like when we were generating a CSR. Hence, like before we generate a new key for our CA Certificate.</p>
+<div class="gatsby-highlight" data-language="bash">
+      <pre class="language-bash"><code class="language-bash">openssl genrsa -des3 -out rootca.secure.key 2048</code></pre>
+      </div>
+<p>Enter a password when prompted. I will be using password as “password” for the sake of demo.
+
+  <a
+    class="gatsby-resp-image-link"
+    href="/blog/static/1.rootkey-b0ab1e56046d0f6fa05008a5f66269cf-04515.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block; max-width:100% !important;; max-width: 800px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 13.35149863760218%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAADCAYAAACTWi8uAAAACXBIWXMAAAsSAAALEgHS3X78AAAAYElEQVQI15WOSQqAMBAEhyTkkg2XSQYUxJvL/9/XwngV0UPRpy6KpHRoMaBJhYiAmVFr1U0pIsabnDOstSCid1gaSj/AGAvvveKc+3Z+Yl9WbPOE49y1innUmhCCyv8KLw5JQPHjxCbrAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="root_key_generation"
+        title=""
+        src="/blog/static/1.rootkey-b0ab1e56046d0f6fa05008a5f66269cf-d256b.png"
+        srcset="/blog/static/1.rootkey-b0ab1e56046d0f6fa05008a5f66269cf-1aa72.png 200w,
+/blog/static/1.rootkey-b0ab1e56046d0f6fa05008a5f66269cf-76ac4.png 400w,
+/blog/static/1.rootkey-b0ab1e56046d0f6fa05008a5f66269cf-d256b.png 800w,
+/blog/static/1.rootkey-b0ab1e56046d0f6fa05008a5f66269cf-04515.png 1101w"
+        sizes="(max-width: 800px) 100vw, 800px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    
+This will generate a file <code class="language-text">rootca.secure.key</code>. The generated <code class="language-text">rootca.secure.key</code> is a password protected container which has both private and public keys (essentially a key pair).</p>
+<p>For the ease of learning we will remove the password protection in the next step.</p>
+<div class="gatsby-highlight" data-language="bash">
+      <pre class="language-bash"><code class="language-bash">openssl rsa -in rootca.secure.key -out rootca.insecure.key</code></pre>
+      </div>
+<p>
+  <a
+    class="gatsby-resp-image-link"
+    href="/blog/static/2.unsecure_rootkey-25074d2fad39fd6202065adf1a56dad4-4167e.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block; max-width:100% !important;; max-width: 800px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 10.869565217391305%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAACCAYAAABYBvyLAAAACXBIWXMAAAsSAAALEgHS3X78AAAAXElEQVQI143KOQ6AIBAFUCoMgjPDEjAWSLj/Hb+IJrYWr/iLspGhfQT7hH1ZQKtBzgkhRBDRJMzgl3UO23B3NIgI3MhKqUfrDUetOFtHHmMQRikZxph51Fp/5x8udwgtCRmTYoAAAAAASUVORK5CYII='); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="unsecure_rootkey"
+        title=""
+        src="/blog/static/2.unsecure_rootkey-25074d2fad39fd6202065adf1a56dad4-d256b.png"
+        srcset="/blog/static/2.unsecure_rootkey-25074d2fad39fd6202065adf1a56dad4-1aa72.png 200w,
+/blog/static/2.unsecure_rootkey-25074d2fad39fd6202065adf1a56dad4-76ac4.png 400w,
+/blog/static/2.unsecure_rootkey-25074d2fad39fd6202065adf1a56dad4-d256b.png 800w,
+/blog/static/2.unsecure_rootkey-25074d2fad39fd6202065adf1a56dad4-4167e.png 828w"
+        sizes="(max-width: 800px) 100vw, 800px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    
+This will generate a file <code class="language-text">rootca.insecure.key</code> which is essentially our key pair without password protection. <em>You can also continue using the password protected <code class="language-text">rootca.secure.key</code> in place of the <code class="language-text">rootca.insecure.key</code> only thing you will be asked to enter the password for each command.</em></p>
+<p><em>PS: Please do not use unsecure keys when generating certificates for production use. Issue with using unsecure key is that if you accidentally expose the key, all your certifiactes and services will also be vulnerable. But since we are using it for development purpose at this time. Lets go ahead and use unsecure keys.</em></p>
+<p><strong>Generating Root SSL Certificate (CA Certificate)</strong></p>
+<p>Run the following command:</p>
+<div class="gatsby-highlight" data-language="bash">
+      <pre class="language-bash"><code class="language-bash">openssl req -new -x509 -nodes -key rootca.insecure.key -sha256 -out cacert.pem -days 3650</code></pre>
+      </div>
+<p>
+  <a
+    class="gatsby-resp-image-link"
+    href="/blog/static/3.generate_root_ssl_cert-7040fce7b3330c8a12a1d8d40cc6da52-9f9f2.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block; max-width:100% !important;; max-width: 800px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 30.19047619047619%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAGCAYAAADDl76dAAAACXBIWXMAAAsSAAALEgHS3X78AAAA30lEQVQY042QW2+EIBCF0XiJF9aoKKICCu5usun//3unDGmavnTbh5MZIPPNOTAuenRyheQ3LH2HWUr0fR81juOPXkCGt67rUFUV2rb9rnVd48Y58jwH86eDNQanczD2gLU2DgohMM8zpmmKZx4GaLAoCjDGfte2bViDxmGIg8uygO6oJ2CWZXFzkqZIkgRpqG+BWmvsu8aqFFTQHmAmOKZoFIdUlmUEEfAtjPTxeuH5eMBdPsT2uLzH/bpAiwhMjgnaNE10+ydQnRrK3aEHgedhcJxHjEgfTs5I/3L2pU9HuImNNuKGMAAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="generate_root_ssl"
+        title=""
+        src="/blog/static/3.generate_root_ssl_cert-7040fce7b3330c8a12a1d8d40cc6da52-d256b.png"
+        srcset="/blog/static/3.generate_root_ssl_cert-7040fce7b3330c8a12a1d8d40cc6da52-1aa72.png 200w,
+/blog/static/3.generate_root_ssl_cert-7040fce7b3330c8a12a1d8d40cc6da52-76ac4.png 400w,
+/blog/static/3.generate_root_ssl_cert-7040fce7b3330c8a12a1d8d40cc6da52-d256b.png 800w,
+/blog/static/3.generate_root_ssl_cert-7040fce7b3330c8a12a1d8d40cc6da52-9f9f2.png 1050w"
+        sizes="(max-width: 800px) 100vw, 800px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    </p>
+<p>Enter all the information that is asked. I filled in all dummy values for now.<br/>
+This will generate <code class="language-text">cacert.pem</code> which is our Root SSL Certificate (CA). We will use <code class="language-text">cacert.pem</code> along with <code class="language-text">localdomain.csr</code>(our CSR file) to generate the required SSL Certificate for localhost.</p>
+<h3>Step 3: Generating SSL Certificate for localhost</h3>
+<p>To create our localhost SSL certificate we will now create another configuration file <code class="language-text">localdomain.v3.ext</code></p>
+<div class="gatsby-highlight" data-language="text">
+      <pre class="language-text"><code class="language-text">authorityKeyIdentifier=keyid,issuer
+basicConstraints=CA:FALSE
+keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = localhost</code></pre>
+      </div>
+<p>We need to specify subhectAltName with the domain <code class="language-text">localhost</code> as shown.</p>
+<p>Finally, we will now use our CSR(<code class="language-text">localdomain.csr</code>) + CA Certificate(<code class="language-text">cacert.pem</code>) + CA Key + (<code class="language-text">rootca.insecure.key</code>) + Configuration file(<code class="language-text">localdomain.v3.ext</code>) to generate our <code class="language-text">localdomain.crt</code></p>
+<p>Now run the command</p>
+<div class="gatsby-highlight" data-language="text">
+      <pre class="language-text"><code class="language-text">openssl x509 -req -in localdomain.csr -CA cacert.pem -CAkey rootca.insecure.key -CAcreateserial -out localdomain.crt -days 500 -sha256 -extfile localdomain.v3.ext</code></pre>
+      </div>
+<p>
+  <a
+    class="gatsby-resp-image-link"
+    href="/blog/static/5.generate_domain_certificate-1f062807c8724c9e3dd407438f5a391c-4750e.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block; max-width:100% !important;; max-width: 800px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 15.723270440251572%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAADCAYAAACTWi8uAAAACXBIWXMAAAsSAAALEgHS3X78AAAAlklEQVQI12WNzQrCMBCEkzZpmp9Gk9SE0h5ExIJ3+/5vNiYrguBhmN39Zlh2fdwRlhXFn1CCRy4ZOWeklEjbtiGmCO89rLVwrsnRPE0TjDG0N661BjteB+YYoGtQWwdXg1JKKiilqPANt3vzYRiICyGJj+NYZ0F5dnvuMPGCxZ+xzgGufmWMoes6cM7Jf9X3/Z83cf7hbw8pRADwUONgAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="generate_domain_cert"
+        title=""
+        src="/blog/static/5.generate_domain_certificate-1f062807c8724c9e3dd407438f5a391c-d256b.png"
+        srcset="/blog/static/5.generate_domain_certificate-1f062807c8724c9e3dd407438f5a391c-1aa72.png 200w,
+/blog/static/5.generate_domain_certificate-1f062807c8724c9e3dd407438f5a391c-76ac4.png 400w,
+/blog/static/5.generate_domain_certificate-1f062807c8724c9e3dd407438f5a391c-d256b.png 800w,
+/blog/static/5.generate_domain_certificate-1f062807c8724c9e3dd407438f5a391c-4750e.png 1113w"
+        sizes="(max-width: 800px) 100vw, 800px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    </p>
+<p>If you check your directory now you will see a lot of files. Important files now to keep for next step are:</p>
+<ul>
+<li>CA/Root SSL Certificate: <strong>cacert.pem</strong></li>
+<li>Domain Certificate: <strong>localdomain.crt</strong></li>
+<li>Domain Key: <strong>localdomain.insecure.key</strong></li>
+</ul>
+<h2>How to use the SSL Certificates?</h2>
+<h3>Using the certificates in a NodeJS backend locally</h3>
+<p><code class="language-text">index.js</code></p>
+<div class="gatsby-highlight" data-language="js">
+      <pre class="language-js"><code class="language-js"><span class="token keyword">const</span> https <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"https"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token keyword">const</span> fs <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'fs'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> port <span class="token operator">=</span> <span class="token number">3000</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> certOptions <span class="token operator">=</span> <span class="token punctuation">{</span>
+  key<span class="token punctuation">:</span> fs<span class="token punctuation">.</span><span class="token function">readFileSync</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'../localdomain.insecure.key'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  cert<span class="token punctuation">:</span> fs<span class="token punctuation">.</span><span class="token function">readFileSync</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'../localdomain.crt'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+  
+https<span class="token punctuation">.</span><span class="token function">createServer</span><span class="token punctuation">(</span>certOptions<span class="token punctuation">,</span> <span class="token punctuation">(</span>reqst<span class="token punctuation">,</span> resp<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span> 
+    resp<span class="token punctuation">.</span><span class="token function">writeHead</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">'Content-Type'</span><span class="token punctuation">:</span> <span class="token string">'text/plain'</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+    resp<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token string">'Hello World Node!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span>port<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Load https://localhost:'</span> <span class="token operator">+</span> port<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+      </div>
+<p>After this run <code class="language-text">node index.js</code> and server should be running at
+<a href="https://localhost:3000">https://localhost:3000</a></p>
+<p>
+  <a
+    class="gatsby-resp-image-link"
+    href="/blog/static/https_node_demo-2ffd8c9599a7bc4396b5db5e975233b5-ebba6.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block; max-width:100% !important;; max-width: 800px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 13.445378151260504%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAADCAYAAACTWi8uAAAACXBIWXMAAAsSAAALEgHS3X78AAAAT0lEQVQI163HwQqAIBBFUf//J6VAGS0aRHFWeougdQQ9ODyuSyIs3rOmQDwSojthE2KI5JyptWJmWO/Xv3OlFFSV2hpzztsY4/b0F46fdwI5mOrsc36cYAAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="https_node_demo"
+        title=""
+        src="/blog/static/https_node_demo-2ffd8c9599a7bc4396b5db5e975233b5-d256b.png"
+        srcset="/blog/static/https_node_demo-2ffd8c9599a7bc4396b5db5e975233b5-1aa72.png 200w,
+/blog/static/https_node_demo-2ffd8c9599a7bc4396b5db5e975233b5-76ac4.png 400w,
+/blog/static/https_node_demo-2ffd8c9599a7bc4396b5db5e975233b5-d256b.png 800w,
+/blog/static/https_node_demo-2ffd8c9599a7bc4396b5db5e975233b5-ebba6.png 833w"
+        sizes="(max-width: 800px) 100vw, 800px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    </p>
+<h3>Using the certificates for a frontend only application</h3>
+<p>When developing frontend application we often use a development server to run the application and then access it via <code class="language-text">localhost:xxxx</code>.
+One such development server is <code class="language-text">http-server</code> npm module.</p>
+<div class="gatsby-highlight" data-language="sh">
+      <pre class="language-sh"><code class="language-sh">mkdir project
+cd project
+npm install -g http-server
+echo &quot;Hello World&quot; &gt; index.html
+http-server -a localhost --ssl --cert &lt;path to&gt;/localdomain.crt --key &lt;path to&gt;/localdomain.insecure.key</code></pre>
+      </div>
+<p>
+  <a
+    class="gatsby-resp-image-link"
+    href="/blog/static/7.http_server_with_ssl-544f7238ed377329033f92ed93882d06-4750e.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block; max-width:100% !important;; max-width: 800px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 17.07097933513028%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAADCAYAAACTWi8uAAAACXBIWXMAAAsSAAALEgHS3X78AAAAcklEQVQI15WNQQ7CMAwEDYfEcWyniVuKBEj8/5NLFIkH9DCH0Wp3yQ+BnR2hGb3c0bvATbA1hsdAyhl5IiKotcLdl3Mpy80MqrryMQbo+w58nhte54EIRSkJRITbhC6S0uxaa5DWsSfGY76q6eWhP8yMHzLDQKkHm346AAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="chrome_http_server"
+        title=""
+        src="/blog/static/7.http_server_with_ssl-544f7238ed377329033f92ed93882d06-d256b.png"
+        srcset="/blog/static/7.http_server_with_ssl-544f7238ed377329033f92ed93882d06-1aa72.png 200w,
+/blog/static/7.http_server_with_ssl-544f7238ed377329033f92ed93882d06-76ac4.png 400w,
+/blog/static/7.http_server_with_ssl-544f7238ed377329033f92ed93882d06-d256b.png 800w,
+/blog/static/7.http_server_with_ssl-544f7238ed377329033f92ed93882d06-4750e.png 1113w"
+        sizes="(max-width: 800px) 100vw, 800px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    </p>
+<p>This runs the hello world index.html website in ssl mode in dev server.
+Now open up <a href="https://localhost:8080">https://localhost:8080</a>.</p>
+<h2>Importing  Root SSL Certificate (CA certificate) to the Browsers</h2>
+<p>Now if you open up the website at <code class="language-text">https://localhost:xxxx</code> on Google Chrome or Firefox you should see an error message like this:</p>
+<p>
+  <a
+    class="gatsby-resp-image-link"
+    href="/blog/static/browser_err_invalid_cert_authority-c40400e814c2d489f5b38eed7dda040f-8c33e.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block; max-width:100% !important;; max-width: 800px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 37.108559498956154%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAHCAYAAAAIy204AAAACXBIWXMAAAsSAAALEgHS3X78AAAAuklEQVQoz62QSwrCMBiEe/8TVVus2lVdeASx6qZISV8074xJqxCtWQj+YUhgJl+YRLfrBW1d43gokCYr5PkO+X77k7JkjTiNsclSRPjzRMYYuKW1tlJQSkFbQzQNWFlOZyXl05/lMr58bwZ+yI3kHHVVgVgwIQQjpeBcQEo1+d/uOS0qv4DutX4Y0HUdBrs7mGtgE2+5ReUQ0FggY2wSpcxWk+hHgfNdQKgwNAw087/601KD4iQw8jDwAcWbHKC3uxUpAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="err_invalid_cert_authority"
+        title=""
+        src="/blog/static/browser_err_invalid_cert_authority-c40400e814c2d489f5b38eed7dda040f-d256b.png"
+        srcset="/blog/static/browser_err_invalid_cert_authority-c40400e814c2d489f5b38eed7dda040f-1aa72.png 200w,
+/blog/static/browser_err_invalid_cert_authority-c40400e814c2d489f5b38eed7dda040f-76ac4.png 400w,
+/blog/static/browser_err_invalid_cert_authority-c40400e814c2d489f5b38eed7dda040f-d256b.png 800w,
+/blog/static/browser_err_invalid_cert_authority-c40400e814c2d489f5b38eed7dda040f-c8b46.png 1200w,
+/blog/static/browser_err_invalid_cert_authority-c40400e814c2d489f5b38eed7dda040f-3488d.png 1600w,
+/blog/static/browser_err_invalid_cert_authority-c40400e814c2d489f5b38eed7dda040f-8c33e.png 1916w"
+        sizes="(max-width: 800px) 100vw, 800px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    </p>
+<p>The error is <code class="language-text">NET::ERR_CERT_AUTHORITY_INVALID</code> in chrome and <code class="language-text">Error code: SEC_ERROR_UNKNOWN_ISSUER</code> in firefox. It means the browser is not able to trust the CA which issued this SSL certificate.
+Hence to make our browser trust our own self signed CA Certificate (<code class="language-text">cacert.pem</code>) we need to do the following:</p>
+<h3>Importing Root SSL Certificate to Chrome</h3>
+<ol>
+<li>
+<p>Type this in url bar of chrome and press enter. </p>
+<div class="gatsby-highlight" data-language="text">
+      <pre class="language-text"><code class="language-text">chrome://settings/certificates</code></pre>
+      </div>
+</li>
+<li>
+<p>Now go to the tab “Authorities”. This contains all the CAs that browser trusts. We will import our CA (cacert.pem) into this.</p>
+</li>
+<li>
+<p>Click on import. Choose the <code class="language-text">cacert.pem</code> file.</p>
+</li>
+<li>
+<p>Check the Trust this certificate for identifying websites checkbox and press OK.
+(If you scroll through the CA list you should see our CA at org-Testing or whatever you entered while generating it)</p>
+</li>
+</ol>
+<p>Now open up your development website again and it should show:
+
+  <a
+    class="gatsby-resp-image-link"
+    href="/blog/static/8.chrome_http_server_module_end_result-b55eccd5825aa5a61ee7a06c63a814ed-effa0.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block; max-width:100% !important;; max-width: 493px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 16.835699797160242%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAADCAYAAACTWi8uAAAACXBIWXMAAAsSAAALEgHS3X78AAAAjElEQVQI122NyQ6DMBQD+f8/LGtKw5KnJpCyBDgwhfZUFUsj+2DZURLfENPSNjVZlqCKnFjnJFVB0TzQpiY+8r0sSdMUpRRaa6y1vLxnniZCmAnzl0iMQcQcgw1VpXH2iR26D93oGcOEeEfve5w7vO8ZhoFlWdi2jXVdf4hEhPoYO1/P8p92LrXv+yVv2XblBG/nMxgAAAAASUVORK5CYII='); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="chrome_end_result"
+        title=""
+        src="/blog/static/8.chrome_http_server_module_end_result-b55eccd5825aa5a61ee7a06c63a814ed-effa0.png"
+        srcset="/blog/static/8.chrome_http_server_module_end_result-b55eccd5825aa5a61ee7a06c63a814ed-d6de3.png 200w,
+/blog/static/8.chrome_http_server_module_end_result-b55eccd5825aa5a61ee7a06c63a814ed-8f0ab.png 400w,
+/blog/static/8.chrome_http_server_module_end_result-b55eccd5825aa5a61ee7a06c63a814ed-effa0.png 493w"
+        sizes="(max-width: 493px) 100vw, 493px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    </p>
+<h3>Importing Root SSL Certificate to Firefox</h3>
+<ol>
+<li>
+<p>Type this in url bar of firefox and press enter. </p>
+<div class="gatsby-highlight" data-language="text">
+      <pre class="language-text"><code class="language-text">about:preferences#privacy</code></pre>
+      </div>
+</li>
+<li>
+<p>Now scroll down to Certifiactes(under security) and click on “View Certifiactes”.</p>
+</li>
+<li>
+<p>Now go to the tab “Authorities”. This contains all the CAs that browser trusts. We will import our CA (cacert.pem) into this.</p>
+</li>
+<li>
+<p>Click on import. Choose the <code class="language-text">cacert.pem</code> file.</p>
+</li>
+<li>
+<p>Check the “Trust this CA  to identifying websites” checkbox and press OK.
+(If you scroll through the CA list you should see our CA at org-Testing or whatever you entered while generating it)</p>
+</li>
+</ol>
+<p>Now open up your development website again and it should show:
+
+  <a
+    class="gatsby-resp-image-link"
+    href="/blog/static/9.firefox_final_result-b83402b7c5f07beb2f1e84aaa9aa980e-369b1.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+  
+  <span
+    class="gatsby-resp-image-wrapper"
+    style="position: relative; display: block; max-width:100% !important;; max-width: 614px; margin-left: auto; margin-right: auto;"
+  >
+    <span
+      class="gatsby-resp-image-background-image"
+      style="padding-bottom: 35.17915309446254%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAHCAYAAAAIy204AAAACXBIWXMAAAsSAAALEgHS3X78AAAAhElEQVQoz62PbQvDIAyE/f8/cYzpHHvpNkiqRaMyr27QL4WyD/bgIXAkx0V57zD5Ee/XE/Zs4HjEkQ8gR2Bi3G9XPIYBzIyUEkrJyHkbZfQJ1l6gjQYRtYOCKXqIREiMCCEgNkTkF5j/oL5LKWVIm59a0Su1NmoL7UGtjSV0t4a7v9yrGXz4J/Yq+jDlAAAAAElFTkSuQmCC'); background-size: cover; display: block;"
+    >
+      <img
+        class="gatsby-resp-image-image"
+        style="width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;"
+        alt="firefox_end_result"
+        title=""
+        src="/blog/static/9.firefox_final_result-b83402b7c5f07beb2f1e84aaa9aa980e-369b1.png"
+        srcset="/blog/static/9.firefox_final_result-b83402b7c5f07beb2f1e84aaa9aa980e-4177f.png 200w,
+/blog/static/9.firefox_final_result-b83402b7c5f07beb2f1e84aaa9aa980e-9aac3.png 400w,
+/blog/static/9.firefox_final_result-b83402b7c5f07beb2f1e84aaa9aa980e-369b1.png 614w"
+        sizes="(max-width: 614px) 100vw, 614px"
+      />
+    </span>
+  </span>
+  
+  </a>
+    </p>
+<p><em>PS: Use these certificates only for development.
+These wont work in production as the certificate authority will not be trusted in your users browsers.
+For production. generate a csr and then send it you CA and CA will generate a domain certificate for you.</em></p>
+<h2>References</h2>
+<ul>
+<li><a href="https://security.googleblog.com/2018/02/a-secure-web-is-here-to-stay.html">https://security.googleblog.com/2018/02/a-secure-web-is-here-to-stay.html</a></li>
+<li><a href="https://support.google.com/webmasters/answer/6073543?hl=en">https://support.google.com/webmasters/answer/6073543?hl=en</a></li>
+<li><a href="https://webmasters.googleblog.com/2014/08/https-as-ranking-signal.html">https://webmasters.googleblog.com/2014/08/https-as-ranking-signal.html</a></li>
+<li><a href="https://www.theregister.co.uk/2018/02/08/google_chrome_http_shame/">https://www.theregister.co.uk/2018/02/08/google<em>chrome</em>http_shame/</a></li>
+<li><a href="https://help.ubuntu.com/lts/serverguide/certificates-and-security.html.en-GB">https://help.ubuntu.com/lts/serverguide/certificates-and-security.html.en-GB</a></li>
+<li><a href="https://medium.freecodecamp.org/how-to-get-https-working-on-your-local-development-environment-in-5-minutes-7af615770eec">https://medium.freecodecamp.org/how-to-get-https-working-on-your-local-development-environment-in-5-minutes-7af615770eec</a></li>
+<li><a href="https://www.sslshopper.com/what-is-a-csr-certificate-signing-request.html">https://www.sslshopper.com/what-is-a-csr-certificate-signing-request.html</a></li>
+</ul></article><p style="text-align:center"><strong>Like what you read?</strong><br/><small>Please do let me know by commenting below. If you feel like treating, you can also buy me a coffee ;)</small></p><aside style="display:flex;align-items:center;justify-content:space-between;padding-bottom:1.625rem"><div style="display:inline-block;position:relative;text-align:center;margin-left:-0.5rem"><a class="resp-sharing-button__link" href="https://facebook.com/sharer/sharer.php?u=https://master-atul.github.io/blog/localhost-https/" target="_blank" rel="noopener noreferrer" aria-label=""><div class="resp-sharing-button resp-sharing-button--facebook resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.77 7.46H14.5v-1.9c0-.9.6-1.1 1-1.1h3V.5h-4.33C10.24.5 9.5 3.44 9.5 5.32v2.15h-3v4h3v12h5v-12h3.85l.42-4z"></path></svg></div></div></a><a class="resp-sharing-button__link" href="https://twitter.com/intent/tweet/?text=🔐 HTTPS certificate generation explained! Now setup HTTPS for local development environment (without sudo)&amp;amp;url=https://master-atul.github.io/blog/localhost-https/" target="_blank" rel="noopener noreferrer" aria-label=""><div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.44 4.83c-.8.37-1.5.38-2.22.02.93-.56.98-.96 1.32-2.02-.88.52-1.86.9-2.9 1.1-.82-.88-2-1.43-3.3-1.43-2.5 0-4.55 2.04-4.55 4.54 0 .36.03.7.1 1.04-3.77-.2-7.12-2-9.36-4.75-.4.67-.6 1.45-.6 2.3 0 1.56.8 2.95 2 3.77-.74-.03-1.44-.23-2.05-.57v.06c0 2.2 1.56 4.03 3.64 4.44-.67.2-1.37.2-2.06.08.58 1.8 2.26 3.12 4.25 3.16C5.78 18.1 3.37 18.74 1 18.46c2 1.3 4.4 2.04 6.97 2.04 8.35 0 12.92-6.92 12.92-12.93 0-.2 0-.4-.02-.6.9-.63 1.96-1.22 2.56-2.14z"></path></svg></div></div></a><a class="resp-sharing-button__link" href="https://news.ycombinator.com/submitlink?u=https://master-atul.github.io/blog/localhost-https/&amp;t=🔐 HTTPS certificate generation explained! Now setup HTTPS for local development environment (without sudo)" target="_blank" rel="noopener noreferrer" aria-label=""><div class="resp-sharing-button resp-sharing-button--hackernews resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 140"><path fill-rule="evenodd" d="M60.94 82.314L17 0h20.08l25.85 52.093c.397.927.86 1.888 1.39 2.883.53.994.995 2.02 1.393 3.08.265.4.463.764.596 1.095.13.334.262.63.395.898.662 1.325 1.26 2.618 1.79 3.877.53 1.26.993 2.42 1.39 3.48 1.06-2.254 2.22-4.673 3.48-7.258 1.26-2.585 2.552-5.27 3.877-8.052L103.49 0h18.69L77.84 83.308v53.087h-16.9v-54.08z"></path></svg></div></div></a><a class="resp-sharing-button__link" href="whatsapp://send?text=🔐 HTTPS certificate generation explained! Now setup HTTPS for local development environment (without sudo)%20https://master-atul.github.io/blog/localhost-https/" target="_blank" rel="noopener noreferrer" aria-label=""><div class="resp-sharing-button resp-sharing-button--whatsapp resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.1 3.9C17.9 1.7 15 .5 12 .5 5.8.5.7 5.6.7 11.9c0 2 .5 3.9 1.5 5.6L.6 23.4l6-1.6c1.6.9 3.5 1.3 5.4 1.3 6.3 0 11.4-5.1 11.4-11.4-.1-2.8-1.2-5.7-3.3-7.8zM12 21.4c-1.7 0-3.3-.5-4.8-1.3l-.4-.2-3.5 1 1-3.4L4 17c-1-1.5-1.4-3.2-1.4-5.1 0-5.2 4.2-9.4 9.4-9.4 2.5 0 4.9 1 6.7 2.8 1.8 1.8 2.8 4.2 2.8 6.7-.1 5.2-4.3 9.4-9.5 9.4zm5.1-7.1c-.3-.1-1.7-.9-1.9-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1s-1.2-.5-2.3-1.4c-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6s.3-.3.4-.5c.2-.1.3-.3.4-.5.1-.2 0-.4 0-.5C10 9 9.3 7.6 9 7c-.1-.4-.4-.3-.5-.3h-.6s-.4.1-.7.3c-.3.3-1 1-1 2.4s1 2.8 1.1 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.3-.3-.4-.6-.5z"></path></svg></div></div></a><div style="text-align:center;display:inline-box;font-size:small;font-weight:bold;color:#007acc">Share this post</div></div><a href="https://paypal.me/payatul" target="_blank" rel="noopener noreferrer" style="display:inline-block;text-align:center"><img style="margin-top:-1.625rem;margin-bottom:0" src="data:image/gif;base64,R0lGODlhTgBmAPZHAJGNkVBLT3FrcDAsL+nm6fbz9QUFBfn3+ff199nV2cnGyLm1ufn29/Pv8qqkqfr5+vPx82ZdZYZ8hdTO1PPx9UU9RLGpru3r7V9XXeDb3oB3fc3Kztza3ZmWm6yqriMeIry6vjo0OHh0eNbT0lhUWOTj5B0aHMTBweDg4qGipTo4O4CDhbWys4mEiPHx8NPS1V5dXb6/vWZjZfX19aShosLCxX5+fu7v77CvshUTFUdDRc7PzickJkNCRp2dnT49PfXx9PHt75+Wm/v6/NDKzfj1+f79/f36+8W9xLatteTe5AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh/wtYTVAgRGF0YVhNUDw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpGRDdGMTE3NDA3MjA2ODExOTJCMEM0RUZFOTYzQjE4RCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo2NkFGOTZBNTgyQ0ExMUUyODVCM0Y2MjVCRTQyMUI0QyIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo2NkFGOTZBNDgyQ0ExMUUyODVCM0Y2MjVCRTQyMUI0QyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6RkQ3RjExNzQwNzIwNjgxMTkyQjBDNEVGRTk2M0IxOEQiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6RkQ3RjExNzQwNzIwNjgxMTkyQjBDNEVGRTk2M0IxOEQiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4B//79/Pv6+fj39vX08/Lx8O/u7ezr6uno5+bl5OPi4eDf3t3c29rZ2NfW1dTT0tHQz87NzMvKycjHxsXEw8LBwL++vby7urm4t7a1tLOysbCvrq2sq6qpqKempaSjoqGgn56dnJuamZiXlpWUk5KRkI+OjYyLiomIh4aFhIOCgYB/fn18e3p5eHd2dXRzcnFwb25tbGtqaWhnZmVkY2JhYF9eXVxbWllYV1ZVVFNSUVBPTk1MS0pJSEdGRURDQkFAPz49PDs6OTg3NjU0MzIxMC8uLSwrKikoJyYlJCMiISAfHh0cGxoZGBcWFRQTEhEQDw4NDAsKCQgHBgUEAwIBAAAh/hlPcHRpbWl6ZWQgdXNpbmcgZXpnaWYuY29tACH5BAkIAEcALAAAAABOAGYAAAf/gEeCg4SFhoeIiYqLjI2Oj5CRkpOUlZaXmJmam5ydnp+goaKjpKWmp6ipqqusra6vsLGys7S1tp8Bt5YkiwOzCi2MH4s5vx3CxLMdQsiKBsogjDLJsiw4ixgsvSayKDaLLdHOPLEdCT+LHsGKFcWwKeKKLTrY3LAiAs2JOj7urwP2FA1jly/Ws231ZPnqhTAWOUwfBsKi95AdQ1r+KGXUNWjjoYgVOQoKmIhcSJEoU6pcybKly5cwY8qcSbOmIRk6AOrUGUBAz574bMDAmTNEDhNIQfJAhwokBgFBAfhQkICAiwNACjDQioDr1gZWX4AYu4MFAKE/dJLklDRcBqsU/752heC1bly7eOmWyLCBRYCjbI8ugyrjxIO5WYPUffG2cd+yVYtIRuzVwU8JMgBDNKGDRNC9iiH0PRvurGeAAXYeRerZARHQehO3rmFD8yUeAhbU2NEYrA8VPHL8SL006A8aABYg173bQYe0R3PfQLxj3gDPmQ9aGtCiuwYAfG38ELyiRgecVCWYuzBBgV7wYaXi8CEC9/rDLSLKwGxbI4mxzsVQmwEhQEXDCfJtcNYGBODw3QIaKGeWOvPRB8JeNOQkgnsu5FccUrcFQJoHRpGnXIKYcZDBgsiJsByCAb441VBprbCXeuL5tBAl18UAYXBLWegceDF4VoI6uZUGwv+GPgypJIBGEsYPTwsEt11SwuXkwYFjgfeclwtKAAxtCk5YmAYv2DAWbgkkaZ1+AgJkiQFnRdcZhC3sR5uepj3FQpLAWHYehIQC0FMNMBx3XXS77ZfdWo8IRxiQBmAZHIE6VLraoiL0kCgJKhD3oaXQuXWBmx+8GUIkORwolJ6PUXWii+G4RkSgRDnaYmlNxtrbe/+dd8EF5/UnTGs2mBobV7BRlhdWz+LV5DzwMaCAXx7tI4CKsk52V2LgRivXt+LS9dSKPMAHTARGPXJdstI5S6685dYrmng6qatALo4EgAK9AAe8bLgC83lQq0hm6ogJYjImsL0P05veX4PIANr/vgvXemvEBEMM8H6uCeBPCBNsiW8jBVpzoccDc4zXWC5OU3GDrkrUi8PDdqxVBDS4jAAOJM8A7bwIxEpiRy0IzRcOkCKSKocBQ+0yg0ZE/ZRU/EaEoaPZfgTruDqzHPbLuXDGIYcedH2IxVSD3bLENQxtL4LG9RhfUE07vd/b0bYNhAwpDCH2bsB8gMPQJxB1EjEr+1zAD29hVZjjB7ywjBAiR64VadotrAI+99UrFVYjBC22d7X9ixgNxqLMoNQPW3ajCGCdLlV9jok6SZYrVFuvjj347fF8hXNQ5WqWJP0rx2QpTTkOfYlqZYg8Gya32HzbRXdmnRiw7bVxuy0+8PZajTZP55qwphtclA8vRBLcf8LwCbuxT3655/WQd/r6aXDY/eObi2lIcZTh+A6A8npO6+QHkOTwBoHa00lT2jKBAOqsKowpS8JatQrX8G5LZJkQfRwlA3alhgSgMhCTurOqpvTkQJsSmQTaZTIuYdAHR1IhDOahDnSoDRczEkQABESC5xyBB+1Rk6tuoMSphEAH36HHlkaSigyNJEa+OE6FwAMo+ZDDRYJQ00RocKZhDNE8rLMAk2JwDOAcYYgwmMUHOvPGYgRrim9MAH0AQMUjnCcl3yjItlZQkWL8kCP+yo8hFrcShdnkkZCMJC0CAQAh+QQJCABAACwIAAkAQgBYAAAH/4BAgoOEhYaHiIQyiYyNjo+MMEAhkJWJADSMKpORlp6Ikp2dPJ+lgjqNOgOOlKafqI0fkQKupauRJpoBta+NMiSapLyWP40SEYw5ucOVwpfFicrMzampy9PW1drYmqze3Lqx3+CHt7Gt5OmTsOrt7u/w8fLz9PX29/j5+vv8/f7/AAMKHEiwoMGDCBMqXMjwYAVhPEJQarWpHokBKn48jPhB4i8BmFp0GAlghQAYFzFyDAEMm6qOJEIq2LEhAQcUBBoY2Xmg54OfQI8MuZCTwwIaLTCo5BVRRACUGXxKLUAVQdWrVhlk3co1Q4wOSz0NMBEgxgscCiAExTpV61q3Xf+z1iCBEiWPHMQ0ANABYCbRtzhrskALYvBMvzN4Ak6cs4VTEtIehTg2kojarQk8OF0pgIeGH3YDqIwpwsEJnHELIxWhoSOrpxd9lKh6IilGGArKOqBRu4aNHQJ81/bxuyRZDCJ33Jh61MMCVal0nExOtMNTD8RbvGjRXHgH4CD6ir8g20dhkzJum17umLXG6DFYY4rtfAFIAtp5K+D9Xbv/HQAQYFoKp+lHEwsaqSeDDXyBpQtaCexFwlGZ0SBDCf/Ft9t2HIhX33gAFkgDhtvNN4APoG0AwzWIkOVccNrVJEF/IWrYnUjcoZUfiYSN6J+BAeRg2knKGIBXOUHm4BT/dh4E8GOBpfmI1GEvdFjUV37BeFZlJjSVnAc8rNalIRqVRJJ7G3mUA111jVXBm0pl9BKcqmhElwp1OSCfDaUNcNNnGynSYAd/DXUlbYLV9Bdqh/qUk6FRRfqTDQOuOAIHJ9llzlgfKONAW2yBGteoizEQ04gvBHAThmIOYsJvVc4m6qy0XlaqXPutsNcCRB243S0S4SjrrUXUamxcpSmnQA4sSUAeSCtsqp+tpB4b6rXFFqAAjiIs8+oFREyQ2y5ArIkjsXBZm261XnV4JEb7mdUCRB2woOij+HKVbbXqWrUadrKcwsIN2UEE2n23ErpurRYUmi9mJWx7zQC81idM/w8/dJfAwgjY57C+bO2gw7CLJcWdDRNXuSDKrk5Yw73Y8ivzW9sil9IpNjAmLjrBIozuzOralFN66zQmH4smwAzyz/0ierSnkZrJsqvNPrx0VtpZlYAAVl+ttWE4TMboATT9SghZIXG8mAqyZuCnTjHvS4CKlD63AVx7ouPqd2PHfUAIA5OtatNki+nwfhg607IGMiistlRgnckY0A/oZRYIIbiwU3sjmVPIt5Mfa2FMXXtttHsRb2DvvEeWc1xZTMc+q2qdJajCmOd0wGCAQhHuN1Aim2hLmDcF7jvTc/GJ+yfMXkf58SgggRaLzLuotOkUNG35vEyZYKST0D9+AJwNSAU8zA93Ofnp879b1/o0DDJbw8fYm849N66V29Fvy4lvP/r441lpZNA86XwJMY6yyctWEywHCKIkzNiUvFCRHtGsZE6PsV0PunUczUziJNwYWdhOUYFTCIwDooEO+soSAeJ80D7r8Bz8LkbCE9KCEzjcRUUotgh4iKaGkwgPEEsoERyuQobtIJcAQ8EsIyLxH9JgRwkLckR3BAIAIfkEBQgAQwAsCQARAEEAUAAAB/+AQ4KDhIWGgzqHiouMjYo/jQOOk5STKpGVmZqEJDKYm6CTGgqQiyaioZoCDSKMH6KtqZQyBbGKr44yLbKzrK6WHbyWJZ6ms6XCiyHEv6KJyYskGc+3x9DRpM2OPJfXhzi72o05JN6GFSzI1ZOn5oUkPjnj7JLunBqR1K489oMmNuoOyfCwDVe/IQE01HsEwkfBg4JI6Du0LBijH/wgDjGREVuESO0gcozkYOE6jR2VmaSY8uCHECBjakQYIJ/NmQFg/FpZiJ+8ma9gPhIklCLCmRs/cTPW0p6JmqiGBuzXdNNLpNeKYt3KtatXezq4DRj7gWPYTjnDcsxBlizKlzD/ROBgEWMEigR4CzRAwLdvBg4jTiiI4aOFCBk5zSbjxvYfhxt79Ur2C2RyZMp+XzQEEKExKBUDJHig+9cyhMqoL5s+zVq1i8k7HAi4SolbBBs0TgTZvfqCb8il7xL47br3Bh+jRRgcZ2PC4NatE7BoEUBFddBsQ4w9m7ODgw15Z6zmnHipq1HPYRfGSA5Gbh2GWcAI4OO4BR9prwvwHv63CAkSIJaDAcsZ8oEuAiSIQgfXDZCWDS2c4AF93sWXwAoZyKaBaATk1oFCtuU2XAPhCUDgPjlpIFtccdGAGwAAELZfjADS5eF/MY72nXS3MQgaffY5AIBY+4zGEXIBTgfj/41L/iddhSouuYAQg7XoQYJQqlDYhwEswBMhofUw4Isd1NCCEDTU1+SSJXgo5JnIqZlkDAL8kIKLMwbQHg9C/vRIhCDAMMCePyTkog4SsajZlnDGOBCCF6bJmQ0YVJoYgejIkJ1bYOII6GYJ/thgW9qtdd2AjYnZg56omkojkB94SGBICH1K3GvGCfeXZoI59wJevD4nbHq1AErCBy8cQJha/sg1GnC9FQddatRWO21guCnwgQR6CXlCCz9xhGCZ0ZZrrbnQBakcC/6lxU93gSWA7rzTYpZrBuJ24Bt4ggqSg5Ti0VvvwOdSi6Vy1Tn24ZD+shuctPZCLPHANTxXFP8PEsqF6EahkUuwwAEzELFpGxwmICItFBDYsRzrIgRvAztwKwUfC0wYeX7Cx8GZs/kLKcEbBFBCyBPzJYO8ByRdHHgVp9ARnwlEIFE7POBYQ81FVyvNAyPrBSFnBg2g218t1BMiDkNjXfDaEjeNGFEYXoCfeYNa2XXWd9e7pXxkwZC2Bgk3u0DFeFe2gWQTbE100YF5MCSiHsA8mHkc56h20qTwBgIPI15+2mB1iQ1tySJUQGvlHqO7gegIeFm4elcKHV1sfvoTwn4K5C1ZDzQk/aHulo1g2Lp9OS7gl/l2PvGElqYN8rdn2kk4CbMqQ+ACbT7cNQjYs03x8Kn28KXSgU+tgLbn6F973Om1CdA9tCC/Tulh44N0IADOp/88DqCl0vf53oufZOinlc+QgzTAix+XDACNUk0ggfuriiw4AoL8CdA0ZaONN8ziMvBcEAgeEpM5tEOTGJCqO4NL4Wh6tQO8zGU2PCAHJxYjCahZBCZimRWhzJLDUsFDNhHZ4HcEEMSjHAUeKMARPzrGwKuEsFbu+AgGEEEThAyOiKUoC2c65ThB2EAjG4OK2HZQjmdgJCnvqo4RRVLFVSHEBAxqo7+OWMWvGOUpRyGhHcXRj0AAADs=" alt="coffee"/><div style="text-align:center;font-size:small;font-weight:bold;margin-top:-0.8125rem">Buy me coffee </div></a></aside><div id="disqus_thread"></div><section><p style="text-align:justify"><img src="https://avatars2.githubusercontent.com/u/4029423?s=200" alt="Atul R" style="margin-right:0.8125rem;margin-bottom:0;width:3.25rem;height:3.25rem"/>Written by<strong> <a href="https://www.atulr.com" target="_blank" rel="noopener noreferrer">Atul R</a></strong> <!-- -->a full-stack web developer 🖥,<!-- --> <a href="https://www.reactnative.guide" target="_blank" rel="noopener noreferrer">author</a> 📖 and trainer 👨🏽‍🎓. He primarily works on Javascript ecosystem and occasionally hacks around in C++, Rust and Python. He is an  <a href="https://github.com/master-atul" target="_blank" rel="noopener noreferrer">open source</a> enthusiast and <span style="color:red">❤</span> making useful tools for humans. <!-- --> <a href="https://twitter.com/masteratul94" target="_blank" rel="noopener noreferrer">You should follow him on Twitter  </a></p></section><ul style="display:flex;flex-wrap:wrap;justify-content:space-between;list-style:none;padding:0"></ul></div></div><script>
+            
+  
+  if(true) {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  }
+  if (typeof ga === "function") {
+    ga('create', 'UA-65870043-1', 'auto');
+      }
+      </script><script id="gatsby-script-loader">/*<![CDATA[*/window.page={"componentChunkName":"component---src-templates-blog-post-js","jsonName":"localhost-https-4e7","path":"/localhost-https/"};window.dataPath="791/path---localhost-https-4-e-7-875-bEQBsHeie2gQjucFuQyU9MJsJY";/*]]>*/</script><script src="/blog/webpack-runtime-e7fe710fec3f26056e63.js" async=""></script><script src="/blog/0-684e693bd516c363d1d2.js" async=""></script><script src="/blog/7-73aaed745ed626fb0d55.js" async=""></script><script src="/blog/app-1b82749045fa2f71b7af.js" async=""></script><script src="/blog/component---src-templates-blog-post-js-c8e62cf3a71d7e4721d9.js" async=""></script></body></html>

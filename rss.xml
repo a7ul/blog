@@ -1,119 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog]]></title><description><![CDATA[Build. Hack. Rebuild. Hack...]]></description><link>https://master-atul.github.io/blog</link><generator>RSS for Node</generator><lastBuildDate>Thu, 02 Aug 2018 14:50:45 GMT</lastBuildDate><item><title><![CDATA[New Beginnings]]></title><description><![CDATA[Far far away, behind the word mountains, far from the countries Vokalia and
-Consonantia, there live the blind texts. Separated they live in…]]></description><link>https://master-atul.github.io/blog/hi-folks/</link><guid isPermaLink="false">https://master-atul.github.io/blog/hi-folks/</guid><pubDate>Thu, 28 May 2015 22:40:32 GMT</pubDate><content:encoded>&lt;p&gt;Far far away, behind the word mountains, far from the countries Vokalia and
-Consonantia, there live the blind texts. Separated they live in Bookmarksgrove
-right at the coast of the Semantics, a large language ocean. A small river named
-Duden flows by their place and supplies it with the necessary regelialia.&lt;/p&gt;
-&lt;h2&gt;On deer horse aboard tritely yikes and much&lt;/h2&gt;
-&lt;p&gt;The Big Oxmox advised her not to do so, because there were thousands of bad
-Commas, wild Question Marks and devious Semikoli, but the Little Blind Text
-didn’t listen. She packed her seven versalia, put her initial into the belt and
-made herself on the way.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;This however showed weasel&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Well uncritical so misled&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;this is very interesting&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Goodness much until that fluid owl&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;When she reached the first hills of the &lt;strong&gt;Italic Mountains&lt;/strong&gt;, she had a last
-view back on the skyline of her hometown &lt;em&gt;Bookmarksgrove&lt;/em&gt;, the headline of
-&lt;a href=&quot;http://google.com&quot;&gt;Alphabet Village&lt;/a&gt; and the subline of her own road, the Line
-Lane. Pityful a rethoric question ran over her cheek, then she continued her
-way. On her way she met a copy.&lt;/p&gt;
-&lt;h3&gt;Overlaid the jeepers uselessly much excluding&lt;/h3&gt;
-&lt;p&gt;But nothing the copy said could convince her and so it didn’t take long until a
-few insidious Copy Writers ambushed her, made her drunk with
-&lt;a href=&quot;http://google.com&quot;&gt;Longe and Parole&lt;/a&gt; and dragged her into their agency, where
-they abused her for their projects again and again. And if she hasn’t been
-rewritten, then they are still using her.&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog]]></title><description><![CDATA[Build. Hack. Rebuild. Hack...]]></description><link>https://master-atul.github.io/blog</link><generator>RSS for Node</generator><lastBuildDate>Mon, 06 Aug 2018 18:41:11 GMT</lastBuildDate><item><title><![CDATA[🔐 HTTPS certificate generation explained! Now setup HTTPS for local development environment (without sudo)]]></title><description><![CDATA[Recently, Google security blog published an article  here  which states: Beginning in July 2018 with the release of Chrome 68, Chrome will…]]></description><link>https://master-atul.github.io/blog/localhost-https/</link><guid isPermaLink="false">https://master-atul.github.io/blog/localhost-https/</guid><pubDate>Mon, 06 Aug 2018 22:12:03 GMT</pubDate><content:encoded>&lt;p&gt;Recently, Google security blog published an article &lt;a href=&quot;https://security.googleblog.com/2018/02/a-secure-web-is-here-to-stay.html&quot;&gt;here&lt;/a&gt; which states:&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Far far away, behind the word mountains, far from the countries Vokalia and
-Consonantia, there live the blind texts. Separated they live in Bookmarksgrove
-right at the coast of the Semantics, a large language ocean.&lt;/p&gt;
+&lt;p&gt;Beginning in July 2018 with the release of Chrome 68, Chrome will mark all HTTP sites as “not secure”.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;It is a paradisematic country, in which roasted parts of sentences fly into your
-mouth. Even the all-powerful Pointing has no control about the blind texts it is
-an almost unorthographic life One day however a small line of blind text by the
-name of Lorem Ipsum decided to leave for the far World of Grammar.&lt;/p&gt;
-&lt;h3&gt;According a funnily until pre-set or arrogant well cheerful&lt;/h3&gt;
-&lt;p&gt;The Big Oxmox advised her not to do so, because there were thousands of bad
-Commas, wild Question Marks and devious Semikoli, but the Little Blind Text
-didn’t listen. She packed her seven versalia, put her initial into the belt and
-made herself on the way.&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;So baboon this&lt;/li&gt;
-&lt;li&gt;Mounted militant weasel gregariously admonishingly straightly hey&lt;/li&gt;
-&lt;li&gt;Dear foresaw hungry and much some overhung&lt;/li&gt;
-&lt;li&gt;Rash opossum less because less some amid besides yikes jeepers frenetic
-impassive fruitlessly shut&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;When she reached the first hills of the Italic Mountains, she had a last view
-back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet
-Village and the subline of her own road, the Line Lane. Pityful a rethoric
-question ran over her cheek, then she continued her way. On her way she met a
-copy.&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;The copy warned the Little Blind Text, that where it came from it would have
-been rewritten a thousand times and everything that was left from its origin
-would be the word “and” and the Little Blind Text should turn around and
-return to its own, safe country.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;But nothing the copy said could convince her and so it didn’t take long until a
-few insidious Copy Writers ambushed her, made her drunk with Longe and Parole
-and dragged her into their agency, where they abused her for their projects
-again and again. And if she hasn’t been rewritten, then they are still using
-her. Far far away, behind the word mountains, far from the countries Vokalia and
-Consonantia, there live the blind texts.&lt;/p&gt;
-&lt;h4&gt;Silent delightfully including because before one up barring chameleon&lt;/h4&gt;
-&lt;p&gt;Separated they live in Bookmarksgrove right at the coast of the Semantics, a
-large language ocean. A small river named Duden flows by their place and
-supplies it with the necessary regelialia. It is a paradisematic country, in
-which roasted parts of sentences fly into your mouth.&lt;/p&gt;
-&lt;p&gt;Even the all-powerful Pointing has no control about the blind texts it is an
-almost unorthographic life One day however a small line of blind text by the
-name of Lorem Ipsum decided to leave for the far World of Grammar. The Big Oxmox
-advised her not to do so, because there were thousands of bad Commas, wild
-Question Marks and devious Semikoli, but the Little Blind Text didn’t listen.&lt;/p&gt;
-&lt;h5&gt;Wherever far wow thus a squirrel raccoon jeez jaguar this from along&lt;/h5&gt;
-&lt;p&gt;She packed her seven versalia, put her initial into the belt and made herself on
-the way. When she reached the first hills of the Italic Mountains, she had a
-last view back on the skyline of her hometown Bookmarksgrove, the headline of
-Alphabet Village and the subline of her own road, the Line Lane. Pityful a
-rethoric question ran over her cheek, then she continued her way. On her way she
-met a copy.&lt;/p&gt;
-&lt;h6&gt;Slapped cozy a that lightheartedly and far&lt;/h6&gt;
-&lt;p&gt;The copy warned the Little Blind Text, that where it came from it would have
-been rewritten a thousand times and everything that was left from its origin
-would be the word “and” and the Little Blind Text should turn around and return
-to its own, safe country. But nothing the copy said could convince her and so it
-didn’t take long until a few insidious Copy Writers ambushed her, made her drunk
-with Longe and Parole and dragged her into their agency, where they abused her
-for their projects again and again.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[My Second Post!]]></title><description><![CDATA[Wow! I love blogging so much already. Did you know that “despite its name, salted duck eggs can also be made from
-chicken eggs, though the…]]></description><link>https://master-atul.github.io/blog/my-second-post/</link><guid isPermaLink="false">https://master-atul.github.io/blog/my-second-post/</guid><pubDate>Wed, 06 May 2015 23:46:37 GMT</pubDate><content:encoded>&lt;p&gt;Wow! I love blogging so much already.&lt;/p&gt;
-&lt;p&gt;Did you know that “despite its name, salted duck eggs can also be made from
-chicken eggs, though the taste and texture will be somewhat different, and the
-egg yolk will be less rich.”?
-(&lt;a href=&quot;http://en.wikipedia.org/wiki/Salted_duck_egg&quot;&gt;Wikipedia Link&lt;/a&gt;)&lt;/p&gt;
-&lt;p&gt;Yeah, I didn’t either.&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World]]></title><description><![CDATA[This is my first post on my new fake blog! How exciting! I’m sure I’ll write a lot more interesting things in the future. Oh, and here’s a…]]></description><link>https://master-atul.github.io/blog/hello-world/</link><guid isPermaLink="false">https://master-atul.github.io/blog/hello-world/</guid><pubDate>Fri, 01 May 2015 22:12:03 GMT</pubDate><content:encoded>&lt;p&gt;This is my first post on my new fake blog! How exciting!&lt;/p&gt;
-&lt;p&gt;I’m sure I’ll write a lot more interesting things in the future.&lt;/p&gt;
-&lt;p&gt;Oh, and here’s a great quote from this Wikipedia on
-&lt;a href=&quot;http://en.wikipedia.org/wiki/Salted_duck_egg&quot;&gt;salted duck eggs&lt;/a&gt;.&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;A salted duck egg is a Chinese preserved food product made by soaking duck
-eggs in brine, or packing each egg in damp, salted charcoal. In Asian
-supermarkets, these eggs are sometimes sold covered in a thick layer of salted
-charcoal paste. The eggs may also be sold with the salted paste removed,
-wrapped in plastic, and vacuum packed. From the salt curing process, the
-salted duck eggs have a briny aroma, a gelatin-like egg white and a
-firm-textured, round yolk that is bright orange-red in color.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;
+&lt;p&gt;Google has been pushing for HTTPS for sometime now. A blog post in 2014 &lt;a href=&quot;https://webmasters.googleblog.com/2014/08/https-as-ranking-signal.html&quot;&gt;here&lt;/a&gt; tells us that Google’s search engine ranks HTTPS websites over unsecure HTTP websites.&lt;/p&gt;
+&lt;p&gt;While more and more websites and apps are becoming HTTPS enabled, we still develop these web apps on our local development environment over HTTP.
+Since web browsers behave slighlty differently when serving HTTPS and HTTP website, this can lead to few issues when we deploy to production.&lt;/p&gt;
+&lt;p&gt;One such issue is mixed content because some of the resource might be loaded using HTTP on a HTTPS site.  &lt;a href=&quot;https://developers.google.com/web/fundamentals/security/prevent-mixed-content/what-is-mixed-content&quot;&gt;More on mixed content here&lt;/a&gt;
+
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/blog/static/salty_egg-8058f3f26913fea3b6a89a73344fe94a-3f5a1.jpg&quot;
+    href=&quot;/blog/static/active-mixed-content-errors-c8517488bc3abb7f78a5f5108757ac11-2188b.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -121,29 +17,559 @@ firm-textured, round yolk that is bright orange-red in color.&lt;/p&gt;
   
   &lt;span
     class=&quot;gatsby-resp-image-wrapper&quot;
-    style=&quot;position: relative; display: block; ; max-width: 590px; margin-left: auto; margin-right: auto;&quot;
+    style=&quot;position: relative; display: block; max-width:100% !important;; max-width: 586px; margin-left: auto; margin-right: auto;&quot;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 75%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAPABQDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAMB/8QAFwEAAwEAAAAAAAAAAAAAAAAAAAEEBf/aAAwDAQACEAMQAAABgik0dXC//8QAGRABAAMBAQAAAAAAAAAAAAAAAQACEhEy/9oACAEBAAEFAkqW2DlnRj73yf/EABcRAQADAAAAAAAAAAAAAAAAAAAREkH/2gAIAQMBAT8B1WX/xAAWEQEBAQAAAAAAAAAAAAAAAAAAEQL/2gAIAQIBAT8Bi6f/xAAbEAABBAMAAAAAAAAAAAAAAAAAAQIRISIxMv/aAAgBAQAGPwK9GNocyS8hCj//xAAbEAADAQADAQAAAAAAAAAAAAABESEAMUGBof/aAAgBAQABPyGxNMfrLHmCDZmAzzvJJDjEQCHv/9oADAMBAAIAAwAAABDIL//EABYRAQEBAAAAAAAAAAAAAAAAAAERAP/aAAgBAwEBPxARhylZv//EABgRAAIDAAAAAAAAAAAAAAAAAAABESFR/9oACAECAQE/EFoktI//xAAdEAEBAAICAwEAAAAAAAAAAAABEQAxIWFBcYHh/9oACAEBAAE/EEbMLQ0fMHDVaPIXyI4pk4JUnWacNCtO8ojDE9TGIYES7/Jn/9k=&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 75.25597269624573%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAIAAABr+ngCAAAACXBIWXMAAAsSAAALEgHS3X78AAACyklEQVQozyVSaW+jOADl//+f0WpnJ206ScDgA8xhMMQYCBCuJE3TNkC6ZT1a6enpyR/sd1ibg6A1zcYyS2BUlnnU9ca2m/2+iWOFI+ddkiiRe15iWYlhCAA6xrogeMsLbWyOB4yL3U4aRmpZuQK0Cl3nCIUYO7pODYMCwG2787zGNK+u+10Ui0Lfa1Oa1gidKZ1ZMDn2bJozdb6UZmzy/Ttj9zAcGXtzaGfbrU0Un9U552NZahPnpQlK08oNvQCg3G1LhMqQlYFf+v7B82rGlBAYSwAyXc8N45Wxi+/fskwbj8cK49LQS9MsICwhrDCqfv+udjvhOAxCDwCFxLaHIDgh1EE0S7mUh+V81r7jeMRo0vUHISOED4xnBB9JPHP+iMI55lMUzXF8dZwawSOEDeetlJfD4aOutWm/Ly3rAIBQTwEgdT1DKPM86bpSNew4igWlnJAMwsIwVMaPJPmIos9CtV3Xymq53dbAqAFQs7WW1W63FYQpIdw0Q8MIgZHapHfdBqGe4M8kuYv9v12nzXl+MsFViKkslyxbYv7NoyWTixB/sN8vebGk4kvs7zG/CzHG/BYE71U19Z2mSj8jdCGkV7d67oDgiTonmQ1FMeR5J+Upz4c0zXw/wVggJAkZkmSIotdMamquzLLkZiMUVGBgyO0mW6/l05MaJl2vs+1OuvTA2Dvn75736bpLni+qcGX7UR1f1QwYdQiptBeHDv+7sMzOJs12M/h+K8S9KFS1d9V8Kv58r6pa3t60sbP7cHcS1rC3zgnoY/2akanl45FNfTK20XRJp1tx7eImc9vUaSQdDn6Xu+8nod0uLPCeKfmbwL9s8pOSfzy68uiT46yp84zgL4xXBP2y8RNzVzb8kYTrS+9eejp+CO39NQndNQ9eZLwR4Ytgz4KtFSfhJg5emLMKnBWjq8h7PmQkF1ZbufebWL7q77n6D53dADQxLy9IAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
-        alt=&quot;Chinese Salty Egg&quot;
+        alt=&quot;mixed-content&quot;
         title=&quot;&quot;
-        src=&quot;/blog/static/salty_egg-8058f3f26913fea3b6a89a73344fe94a-f8fb9.jpg&quot;
-        srcset=&quot;/blog/static/salty_egg-8058f3f26913fea3b6a89a73344fe94a-e8976.jpg 148w,
-/blog/static/salty_egg-8058f3f26913fea3b6a89a73344fe94a-63df2.jpg 295w,
-/blog/static/salty_egg-8058f3f26913fea3b6a89a73344fe94a-f8fb9.jpg 590w,
-/blog/static/salty_egg-8058f3f26913fea3b6a89a73344fe94a-85e3d.jpg 885w,
-/blog/static/salty_egg-8058f3f26913fea3b6a89a73344fe94a-d1924.jpg 1180w,
-/blog/static/salty_egg-8058f3f26913fea3b6a89a73344fe94a-9452e.jpg 1770w,
-/blog/static/salty_egg-8058f3f26913fea3b6a89a73344fe94a-3f5a1.jpg 2048w&quot;
-        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        src=&quot;/blog/static/active-mixed-content-errors-c8517488bc3abb7f78a5f5108757ac11-2188b.png&quot;
+        srcset=&quot;/blog/static/active-mixed-content-errors-c8517488bc3abb7f78a5f5108757ac11-98951.png 200w,
+/blog/static/active-mixed-content-errors-c8517488bc3abb7f78a5f5108757ac11-0927d.png 400w,
+/blog/static/active-mixed-content-errors-c8517488bc3abb7f78a5f5108757ac11-2188b.png 586w&quot;
+        sizes=&quot;(max-width: 586px) 100vw, 586px&quot;
       /&gt;
     &lt;/span&gt;
   &lt;/span&gt;
   
   &lt;/a&gt;
-    &lt;/p&gt;</content:encoded></item></channel></rss>
+    &lt;/p&gt;
+&lt;p&gt;Issues like these can be prevented by using HTTPS on development machine (localhost).
+Also, enabling HTTPS on the development version would allow it to be much more closer to the production version of the web app and hence would allow you to catch those bugs which would only show up after you deploy. &lt;/p&gt;
+&lt;h2&gt;Overview of SSL Certificate generation process&lt;/h2&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/blog/static/ssl_drawing-daec267b6a9800ac655a7f79324ee5da-d256b.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; max-width:100% !important;; max-width: 800px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 50%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAAAsTAAALEwEAmpwYAAABjElEQVQoz3VSyWoCQRT0Z8V/8O4X+Ace4iEHiQiK4sHEBa8uEZkZd6fdlyhu40zFeqHHBVLQdPfbut6rDuAGz/NkEYvFAt1uF5vNRu62bfu+/3bmqMkE8/kcAW3UmE6nyGQyaDQaME0T4XAYp9MJrw9fLhf0ej10Oh0oW0ENbFiGhYDruhIQiUQQCoVgWRaKxaIUU0ohmUzier0+FdRF6/U6Bv0BxvYYn/0KvgYVBOjY7XYolUqIRqOo1WpYLpfY7/eS5DiOz/6xGO3BYBDxtzjshcL79weMoXlnmM/nUa1W5Xw8HjEajdBut/3kV3bcyd4wjL/Xzh5cx73PMBaLoVAoyLnZbCKRSCCXy8lD2Wz2SYTZbCbjSKfT0hFF2fxsxecXZJHD4eAnUBwGksHkpqAGVeedI1mv11itVthutxgOh2LzWy6Xyz59yk9R2DYDWVyDXXDeVJg/gTEUMpVKSayIQmatVktmxu+gQXX5oF4EvwmZa78G8zl7KXg+n6UVMmPi4/Af8Wh7/dwavwmv7KcGYr65AAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;ssl_drawing&quot;
+        title=&quot;&quot;
+        src=&quot;/blog/static/ssl_drawing-daec267b6a9800ac655a7f79324ee5da-d256b.png&quot;
+        srcset=&quot;/blog/static/ssl_drawing-daec267b6a9800ac655a7f79324ee5da-1aa72.png 200w,
+/blog/static/ssl_drawing-daec267b6a9800ac655a7f79324ee5da-76ac4.png 400w,
+/blog/static/ssl_drawing-daec267b6a9800ac655a7f79324ee5da-d256b.png 800w&quot;
+        sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Entities involved:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CA (Certificate Authority): One who issues the SSL certificate for a domain&lt;/li&gt;
+&lt;li&gt;Applicant: One who applies for SSL Certificate&lt;/li&gt;
+&lt;li&gt;CSR (Certificate Signing Request): Request from Applicant to CA for issuing SSL certificate.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;In short&lt;/strong&gt; the applicant will generate a CSR and send it to CA. The CA will then generate a SSL certificate for the domain.
+Lets dive into the details as we setup local HTTPS development environment.&lt;/p&gt;
+&lt;h2&gt;Setup local HTTPS development environemt&lt;/h2&gt;
+&lt;p&gt;&lt;em&gt;PS: Although this guide is for linux and Mac OS, Windows users can run equivalent commands and achieve the same result by downloading the openssl package for windows from &lt;a href=&quot;http://gnuwin32.sourceforge.net/packages/openssl.htm&quot;&gt;here&lt;/a&gt;.&lt;/em&gt;   &lt;/p&gt;
+&lt;h3&gt;Step 1: Creating a Certificate Signing Request&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Certificate Signing Request (CSR)&lt;/strong&gt; is a message or block of encoded text sent from an applicant to a Certificate Authority (CA) in order to apply for a SSL Certificate. CSR usually contains all the information that needs to be stored in the SSL Certificate such as the organization name, common name (domain name), locality, and country along with public key of the applicant.&lt;/p&gt;
+&lt;p&gt;In short:  &lt;strong&gt;CSR&lt;/strong&gt; = &lt;strong&gt;(Some Information for Certificate)&lt;/strong&gt; + &lt;strong&gt;(Public Key of applicant)&lt;/strong&gt; &lt;/p&gt;
+&lt;p&gt;A certificate authority (CA) will use a CSR to create your SSL certificate.
+Hence, we need a public key to proceed with generation of CSR, so lets create that first.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Creating the private/public key pair&lt;/strong&gt; &lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;openssl genrsa -des3 -out localdomain.secure.key 2048&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Enter a password when prompted. I will be using password as “password” for the sake of demo.
+This will generate a file &lt;code class=&quot;language-text&quot;&gt;localdomain.secure.key&lt;/code&gt;. The generated &lt;code class=&quot;language-text&quot;&gt;localdomain.secure.key&lt;/code&gt; is a password protected container which has both private and public keys (essentially a key pair).&lt;/p&gt;
+&lt;p&gt;For the ease of learning we will remove the password protection in the next step.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;openssl rsa -in  localdomain.secure.key -out localdomain.insecure.key&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;This will generate a file &lt;code class=&quot;language-text&quot;&gt;localdomain.insecure.key&lt;/code&gt; which is essentially our key pair without password protection. &lt;em&gt;You can also continue using the password protected &lt;code class=&quot;language-text&quot;&gt;localdomain.secure.key&lt;/code&gt; in place of the &lt;code class=&quot;language-text&quot;&gt;localdomain.insecure.key&lt;/code&gt; only thing you will be asked to enter the password for each command.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Creating a Certificate Signing Request&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;We will be generating a CSR for &lt;code class=&quot;language-text&quot;&gt;localhost&lt;/code&gt;. To do so we will first create a configuration file which will have all the information that needs to be sent to the CA.&lt;/p&gt;
+&lt;p&gt;Create a configuration file for our localhost domain (&lt;code class=&quot;language-text&quot;&gt;localdomain.csr.cnf&lt;/code&gt;):&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;[req]
+default_bits = 2048
+prompt = no
+default_md = sha256
+distinguished_name = dn
+
+[dn]
+C=IN
+ST=SomeState
+L=SomeCity
+O=SomeOrganization
+OU=SomeUnit
+emailAddress=test@test.com
+CN = localhost&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Now run the following command to generate a csr from our key and configuration file:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;openssl req -new -sha256 -nodes -out localdomain.csr -key localdomain.insecure.key -config localdomain.csr.cnf&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;You should now get a &lt;code class=&quot;language-text&quot;&gt;localdomain.csr&lt;/code&gt; file which can be sent to a CA for generating the SSL certificates for your domain.&lt;br/&gt;
+&lt;strong&gt;For production servers&lt;/strong&gt; send your CSR file to one of the CAs mentioned &lt;a href=&quot;https://en.wikipedia.org/wiki/Certificate_authority&quot;&gt;here&lt;/a&gt; &lt;br/&gt;
+&lt;strong&gt;For development purposes&lt;/strong&gt; we will generate our own Root SSL Certificate (CA Certificate) and use that to generate SSL certificates from our CSR file.   &lt;/p&gt;
+&lt;h3&gt;Step 2: Generating Root SSL Certificate (CA Certificate)&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Creating the public/private key pair&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;To generate a self-signed certificate we need a public key much like when we were generating a CSR. Hence, like before we generate a new key for our CA Certificate.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;openssl genrsa -des3 -out rootca.secure.key 2048&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Enter a password when prompted. I will be using password as “password” for the sake of demo.
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/blog/static/1.rootkey-b0ab1e56046d0f6fa05008a5f66269cf-04515.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; max-width:100% !important;; max-width: 800px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 13.35149863760218%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAADCAYAAACTWi8uAAAACXBIWXMAAAsSAAALEgHS3X78AAAAYElEQVQI15WOSQqAMBAEhyTkkg2XSQYUxJvL/9/XwngV0UPRpy6KpHRoMaBJhYiAmVFr1U0pIsabnDOstSCid1gaSj/AGAvvveKc+3Z+Yl9WbPOE49y1innUmhCCyv8KLw5JQPHjxCbrAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;root_key_generation&quot;
+        title=&quot;&quot;
+        src=&quot;/blog/static/1.rootkey-b0ab1e56046d0f6fa05008a5f66269cf-d256b.png&quot;
+        srcset=&quot;/blog/static/1.rootkey-b0ab1e56046d0f6fa05008a5f66269cf-1aa72.png 200w,
+/blog/static/1.rootkey-b0ab1e56046d0f6fa05008a5f66269cf-76ac4.png 400w,
+/blog/static/1.rootkey-b0ab1e56046d0f6fa05008a5f66269cf-d256b.png 800w,
+/blog/static/1.rootkey-b0ab1e56046d0f6fa05008a5f66269cf-04515.png 1101w&quot;
+        sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+This will generate a file &lt;code class=&quot;language-text&quot;&gt;rootca.secure.key&lt;/code&gt;. The generated &lt;code class=&quot;language-text&quot;&gt;rootca.secure.key&lt;/code&gt; is a password protected container which has both private and public keys (essentially a key pair).&lt;/p&gt;
+&lt;p&gt;For the ease of learning we will remove the password protection in the next step.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;openssl rsa -in rootca.secure.key -out rootca.insecure.key&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/blog/static/2.unsecure_rootkey-25074d2fad39fd6202065adf1a56dad4-4167e.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; max-width:100% !important;; max-width: 800px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 10.869565217391305%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAACCAYAAABYBvyLAAAACXBIWXMAAAsSAAALEgHS3X78AAAAXElEQVQI143KOQ6AIBAFUCoMgjPDEjAWSLj/Hb+IJrYWr/iLspGhfQT7hH1ZQKtBzgkhRBDRJMzgl3UO23B3NIgI3MhKqUfrDUetOFtHHmMQRikZxph51Fp/5x8udwgtCRmTYoAAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;unsecure_rootkey&quot;
+        title=&quot;&quot;
+        src=&quot;/blog/static/2.unsecure_rootkey-25074d2fad39fd6202065adf1a56dad4-d256b.png&quot;
+        srcset=&quot;/blog/static/2.unsecure_rootkey-25074d2fad39fd6202065adf1a56dad4-1aa72.png 200w,
+/blog/static/2.unsecure_rootkey-25074d2fad39fd6202065adf1a56dad4-76ac4.png 400w,
+/blog/static/2.unsecure_rootkey-25074d2fad39fd6202065adf1a56dad4-d256b.png 800w,
+/blog/static/2.unsecure_rootkey-25074d2fad39fd6202065adf1a56dad4-4167e.png 828w&quot;
+        sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+This will generate a file &lt;code class=&quot;language-text&quot;&gt;rootca.insecure.key&lt;/code&gt; which is essentially our key pair without password protection. &lt;em&gt;You can also continue using the password protected &lt;code class=&quot;language-text&quot;&gt;rootca.secure.key&lt;/code&gt; in place of the &lt;code class=&quot;language-text&quot;&gt;rootca.insecure.key&lt;/code&gt; only thing you will be asked to enter the password for each command.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;PS: Please do not use unsecure keys when generating certificates for production use. Issue with using unsecure key is that if you accidentally expose the key, all your certifiactes and services will also be vulnerable. But since we are using it for development purpose at this time. Lets go ahead and use unsecure keys.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Generating Root SSL Certificate (CA Certificate)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Run the following command:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;bash&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;openssl req -new -x509 -nodes -key rootca.insecure.key -sha256 -out cacert.pem -days 3650&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/blog/static/3.generate_root_ssl_cert-7040fce7b3330c8a12a1d8d40cc6da52-9f9f2.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; max-width:100% !important;; max-width: 800px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 30.19047619047619%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAGCAYAAADDl76dAAAACXBIWXMAAAsSAAALEgHS3X78AAAA30lEQVQY042QW2+EIBCF0XiJF9aoKKICCu5usun//3unDGmavnTbh5MZIPPNOTAuenRyheQ3LH2HWUr0fR81juOPXkCGt67rUFUV2rb9rnVd48Y58jwH86eDNQanczD2gLU2DgohMM8zpmmKZx4GaLAoCjDGfte2bViDxmGIg8uygO6oJ2CWZXFzkqZIkgRpqG+BWmvsu8aqFFTQHmAmOKZoFIdUlmUEEfAtjPTxeuH5eMBdPsT2uLzH/bpAiwhMjgnaNE10+ydQnRrK3aEHgedhcJxHjEgfTs5I/3L2pU9HuImNNuKGMAAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;generate_root_ssl&quot;
+        title=&quot;&quot;
+        src=&quot;/blog/static/3.generate_root_ssl_cert-7040fce7b3330c8a12a1d8d40cc6da52-d256b.png&quot;
+        srcset=&quot;/blog/static/3.generate_root_ssl_cert-7040fce7b3330c8a12a1d8d40cc6da52-1aa72.png 200w,
+/blog/static/3.generate_root_ssl_cert-7040fce7b3330c8a12a1d8d40cc6da52-76ac4.png 400w,
+/blog/static/3.generate_root_ssl_cert-7040fce7b3330c8a12a1d8d40cc6da52-d256b.png 800w,
+/blog/static/3.generate_root_ssl_cert-7040fce7b3330c8a12a1d8d40cc6da52-9f9f2.png 1050w&quot;
+        sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;Enter all the information that is asked. I filled in all dummy values for now.&lt;br/&gt;
+This will generate &lt;code class=&quot;language-text&quot;&gt;cacert.pem&lt;/code&gt; which is our Root SSL Certificate (CA). We will use &lt;code class=&quot;language-text&quot;&gt;cacert.pem&lt;/code&gt; along with &lt;code class=&quot;language-text&quot;&gt;localdomain.csr&lt;/code&gt;(our CSR file) to generate the required SSL Certificate for localhost.&lt;/p&gt;
+&lt;h3&gt;Step 3: Generating SSL Certificate for localhost&lt;/h3&gt;
+&lt;p&gt;To create our localhost SSL certificate we will now create another configuration file &lt;code class=&quot;language-text&quot;&gt;localdomain.v3.ext&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;authorityKeyIdentifier=keyid,issuer
+basicConstraints=CA:FALSE
+keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = localhost&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;We need to specify subhectAltName with the domain &lt;code class=&quot;language-text&quot;&gt;localhost&lt;/code&gt; as shown.&lt;/p&gt;
+&lt;p&gt;Finally, we will now use our CSR(&lt;code class=&quot;language-text&quot;&gt;localdomain.csr&lt;/code&gt;) + CA Certificate(&lt;code class=&quot;language-text&quot;&gt;cacert.pem&lt;/code&gt;) + CA Key + (&lt;code class=&quot;language-text&quot;&gt;rootca.insecure.key&lt;/code&gt;) + Configuration file(&lt;code class=&quot;language-text&quot;&gt;localdomain.v3.ext&lt;/code&gt;) to generate our &lt;code class=&quot;language-text&quot;&gt;localdomain.crt&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Now run the command&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;openssl x509 -req -in localdomain.csr -CA cacert.pem -CAkey rootca.insecure.key -CAcreateserial -out localdomain.crt -days 500 -sha256 -extfile localdomain.v3.ext&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/blog/static/5.generate_domain_certificate-1f062807c8724c9e3dd407438f5a391c-4750e.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; max-width:100% !important;; max-width: 800px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 15.723270440251572%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAADCAYAAACTWi8uAAAACXBIWXMAAAsSAAALEgHS3X78AAAAlklEQVQI12WNzQrCMBCEkzZpmp9Gk9SE0h5ExIJ3+/5vNiYrguBhmN39Zlh2fdwRlhXFn1CCRy4ZOWeklEjbtiGmCO89rLVwrsnRPE0TjDG0N661BjteB+YYoGtQWwdXg1JKKiilqPANt3vzYRiICyGJj+NYZ0F5dnvuMPGCxZ+xzgGufmWMoes6cM7Jf9X3/Z83cf7hbw8pRADwUONgAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;generate_domain_cert&quot;
+        title=&quot;&quot;
+        src=&quot;/blog/static/5.generate_domain_certificate-1f062807c8724c9e3dd407438f5a391c-d256b.png&quot;
+        srcset=&quot;/blog/static/5.generate_domain_certificate-1f062807c8724c9e3dd407438f5a391c-1aa72.png 200w,
+/blog/static/5.generate_domain_certificate-1f062807c8724c9e3dd407438f5a391c-76ac4.png 400w,
+/blog/static/5.generate_domain_certificate-1f062807c8724c9e3dd407438f5a391c-d256b.png 800w,
+/blog/static/5.generate_domain_certificate-1f062807c8724c9e3dd407438f5a391c-4750e.png 1113w&quot;
+        sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;If you check your directory now you will see a lot of files. Important files now to keep for next step are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CA/Root SSL Certificate: &lt;strong&gt;cacert.pem&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Domain Certificate: &lt;strong&gt;localdomain.crt&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Domain Key: &lt;strong&gt;localdomain.insecure.key&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;How to use the SSL Certificates?&lt;/h2&gt;
+&lt;h3&gt;Using the certificates in a NodeJS backend locally&lt;/h3&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;index.js&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;
+      &lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; https &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;https&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; 
+&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; fs &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;fs&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; path &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;path&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; port &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;3000&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; certOptions &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  key&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; fs&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;readFileSync&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;path&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;resolve&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;../localdomain.insecure.key&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  cert&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; fs&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;readFileSync&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;path&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;resolve&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;../localdomain.crt&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  
+https&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;createServer&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;certOptions&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;reqst&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; resp&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; 
+    resp&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;writeHead&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;Content-Type&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;text/plain&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; 
+    resp&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;Hello World Node!&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; 
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;listen&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;port&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; 
+
+console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;Load https://localhost:&apos;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; port&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;After this run &lt;code class=&quot;language-text&quot;&gt;node index.js&lt;/code&gt; and server should be running at
+&lt;a href=&quot;https://localhost:3000&quot;&gt;https://localhost:3000&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/blog/static/https_node_demo-2ffd8c9599a7bc4396b5db5e975233b5-ebba6.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; max-width:100% !important;; max-width: 800px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 13.445378151260504%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAADCAYAAACTWi8uAAAACXBIWXMAAAsSAAALEgHS3X78AAAAT0lEQVQI163HwQqAIBBFUf//J6VAGS0aRHFWeougdQQ9ODyuSyIs3rOmQDwSojthE2KI5JyptWJmWO/Xv3OlFFSV2hpzztsY4/b0F46fdwI5mOrsc36cYAAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;https_node_demo&quot;
+        title=&quot;&quot;
+        src=&quot;/blog/static/https_node_demo-2ffd8c9599a7bc4396b5db5e975233b5-d256b.png&quot;
+        srcset=&quot;/blog/static/https_node_demo-2ffd8c9599a7bc4396b5db5e975233b5-1aa72.png 200w,
+/blog/static/https_node_demo-2ffd8c9599a7bc4396b5db5e975233b5-76ac4.png 400w,
+/blog/static/https_node_demo-2ffd8c9599a7bc4396b5db5e975233b5-d256b.png 800w,
+/blog/static/https_node_demo-2ffd8c9599a7bc4396b5db5e975233b5-ebba6.png 833w&quot;
+        sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;h3&gt;Using the certificates for a frontend only application&lt;/h3&gt;
+&lt;p&gt;When developing frontend application we often use a development server to run the application and then access it via &lt;code class=&quot;language-text&quot;&gt;localhost:xxxx&lt;/code&gt;.
+One such development server is &lt;code class=&quot;language-text&quot;&gt;http-server&lt;/code&gt; npm module.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;sh&quot;&gt;
+      &lt;pre class=&quot;language-sh&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;mkdir project
+cd project
+npm install -g http-server
+echo &amp;quot;Hello World&amp;quot; &amp;gt; index.html
+http-server -a localhost --ssl --cert &amp;lt;path to&amp;gt;/localdomain.crt --key &amp;lt;path to&amp;gt;/localdomain.insecure.key&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/blog/static/7.http_server_with_ssl-544f7238ed377329033f92ed93882d06-4750e.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; max-width:100% !important;; max-width: 800px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 17.07097933513028%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAADCAYAAACTWi8uAAAACXBIWXMAAAsSAAALEgHS3X78AAAAcklEQVQI15WNQQ7CMAwEDYfEcWyniVuKBEj8/5NLFIkH9DCH0Wp3yQ+BnR2hGb3c0bvATbA1hsdAyhl5IiKotcLdl3Mpy80MqrryMQbo+w58nhte54EIRSkJRITbhC6S0uxaa5DWsSfGY76q6eWhP8yMHzLDQKkHm346AAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;chrome_http_server&quot;
+        title=&quot;&quot;
+        src=&quot;/blog/static/7.http_server_with_ssl-544f7238ed377329033f92ed93882d06-d256b.png&quot;
+        srcset=&quot;/blog/static/7.http_server_with_ssl-544f7238ed377329033f92ed93882d06-1aa72.png 200w,
+/blog/static/7.http_server_with_ssl-544f7238ed377329033f92ed93882d06-76ac4.png 400w,
+/blog/static/7.http_server_with_ssl-544f7238ed377329033f92ed93882d06-d256b.png 800w,
+/blog/static/7.http_server_with_ssl-544f7238ed377329033f92ed93882d06-4750e.png 1113w&quot;
+        sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;This runs the hello world index.html website in ssl mode in dev server.
+Now open up &lt;a href=&quot;https://localhost:8080&quot;&gt;https://localhost:8080&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;Importing  Root SSL Certificate (CA certificate) to the Browsers&lt;/h2&gt;
+&lt;p&gt;Now if you open up the website at &lt;code class=&quot;language-text&quot;&gt;https://localhost:xxxx&lt;/code&gt; on Google Chrome or Firefox you should see an error message like this:&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/blog/static/browser_err_invalid_cert_authority-c40400e814c2d489f5b38eed7dda040f-8c33e.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; max-width:100% !important;; max-width: 800px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 37.108559498956154%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAHCAYAAAAIy204AAAACXBIWXMAAAsSAAALEgHS3X78AAAAuklEQVQoz62QSwrCMBiEe/8TVVus2lVdeASx6qZISV8074xJqxCtWQj+YUhgJl+YRLfrBW1d43gokCYr5PkO+X77k7JkjTiNsclSRPjzRMYYuKW1tlJQSkFbQzQNWFlOZyXl05/lMr58bwZ+yI3kHHVVgVgwIQQjpeBcQEo1+d/uOS0qv4DutX4Y0HUdBrs7mGtgE2+5ReUQ0FggY2wSpcxWk+hHgfNdQKgwNAw087/601KD4iQw8jDwAcWbHKC3uxUpAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;err_invalid_cert_authority&quot;
+        title=&quot;&quot;
+        src=&quot;/blog/static/browser_err_invalid_cert_authority-c40400e814c2d489f5b38eed7dda040f-d256b.png&quot;
+        srcset=&quot;/blog/static/browser_err_invalid_cert_authority-c40400e814c2d489f5b38eed7dda040f-1aa72.png 200w,
+/blog/static/browser_err_invalid_cert_authority-c40400e814c2d489f5b38eed7dda040f-76ac4.png 400w,
+/blog/static/browser_err_invalid_cert_authority-c40400e814c2d489f5b38eed7dda040f-d256b.png 800w,
+/blog/static/browser_err_invalid_cert_authority-c40400e814c2d489f5b38eed7dda040f-c8b46.png 1200w,
+/blog/static/browser_err_invalid_cert_authority-c40400e814c2d489f5b38eed7dda040f-3488d.png 1600w,
+/blog/static/browser_err_invalid_cert_authority-c40400e814c2d489f5b38eed7dda040f-8c33e.png 1916w&quot;
+        sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;The error is &lt;code class=&quot;language-text&quot;&gt;NET::ERR_CERT_AUTHORITY_INVALID&lt;/code&gt; in chrome and &lt;code class=&quot;language-text&quot;&gt;Error code: SEC_ERROR_UNKNOWN_ISSUER&lt;/code&gt; in firefox. It means the browser is not able to trust the CA which issued this SSL certificate.
+Hence to make our browser trust our own self signed CA Certificate (&lt;code class=&quot;language-text&quot;&gt;cacert.pem&lt;/code&gt;) we need to do the following:&lt;/p&gt;
+&lt;h3&gt;Importing Root SSL Certificate to Chrome&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Type this in url bar of chrome and press enter. &lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;chrome://settings/certificates&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Now go to the tab “Authorities”. This contains all the CAs that browser trusts. We will import our CA (cacert.pem) into this.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Click on import. Choose the &lt;code class=&quot;language-text&quot;&gt;cacert.pem&lt;/code&gt; file.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Check the Trust this certificate for identifying websites checkbox and press OK.
+(If you scroll through the CA list you should see our CA at org-Testing or whatever you entered while generating it)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Now open up your development website again and it should show:
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/blog/static/8.chrome_http_server_module_end_result-b55eccd5825aa5a61ee7a06c63a814ed-effa0.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; max-width:100% !important;; max-width: 493px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 16.835699797160242%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAADCAYAAACTWi8uAAAACXBIWXMAAAsSAAALEgHS3X78AAAAjElEQVQI122NyQ6DMBQD+f8/LGtKw5KnJpCyBDgwhfZUFUsj+2DZURLfENPSNjVZlqCKnFjnJFVB0TzQpiY+8r0sSdMUpRRaa6y1vLxnniZCmAnzl0iMQcQcgw1VpXH2iR26D93oGcOEeEfve5w7vO8ZhoFlWdi2jXVdf4hEhPoYO1/P8p92LrXv+yVv2XblBG/nMxgAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;chrome_end_result&quot;
+        title=&quot;&quot;
+        src=&quot;/blog/static/8.chrome_http_server_module_end_result-b55eccd5825aa5a61ee7a06c63a814ed-effa0.png&quot;
+        srcset=&quot;/blog/static/8.chrome_http_server_module_end_result-b55eccd5825aa5a61ee7a06c63a814ed-d6de3.png 200w,
+/blog/static/8.chrome_http_server_module_end_result-b55eccd5825aa5a61ee7a06c63a814ed-8f0ab.png 400w,
+/blog/static/8.chrome_http_server_module_end_result-b55eccd5825aa5a61ee7a06c63a814ed-effa0.png 493w&quot;
+        sizes=&quot;(max-width: 493px) 100vw, 493px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;h3&gt;Importing Root SSL Certificate to Firefox&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Type this in url bar of firefox and press enter. &lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;about:preferences#privacy&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Now scroll down to Certifiactes(under security) and click on “View Certifiactes”.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Now go to the tab “Authorities”. This contains all the CAs that browser trusts. We will import our CA (cacert.pem) into this.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Click on import. Choose the &lt;code class=&quot;language-text&quot;&gt;cacert.pem&lt;/code&gt; file.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Check the “Trust this CA  to identifying websites” checkbox and press OK.
+(If you scroll through the CA list you should see our CA at org-Testing or whatever you entered while generating it)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Now open up your development website again and it should show:
+
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/blog/static/9.firefox_final_result-b83402b7c5f07beb2f1e84aaa9aa980e-369b1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; max-width:100% !important;; max-width: 614px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 35.17915309446254%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAHCAYAAAAIy204AAAACXBIWXMAAAsSAAALEgHS3X78AAAAhElEQVQoz62PbQvDIAyE/f8/cYzpHHvpNkiqRaMyr27QL4WyD/bgIXAkx0V57zD5Ee/XE/Zs4HjEkQ8gR2Bi3G9XPIYBzIyUEkrJyHkbZfQJ1l6gjQYRtYOCKXqIREiMCCEgNkTkF5j/oL5LKWVIm59a0Su1NmoL7UGtjSV0t4a7v9yrGXz4J/Yq+jDlAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;firefox_end_result&quot;
+        title=&quot;&quot;
+        src=&quot;/blog/static/9.firefox_final_result-b83402b7c5f07beb2f1e84aaa9aa980e-369b1.png&quot;
+        srcset=&quot;/blog/static/9.firefox_final_result-b83402b7c5f07beb2f1e84aaa9aa980e-4177f.png 200w,
+/blog/static/9.firefox_final_result-b83402b7c5f07beb2f1e84aaa9aa980e-9aac3.png 400w,
+/blog/static/9.firefox_final_result-b83402b7c5f07beb2f1e84aaa9aa980e-369b1.png 614w&quot;
+        sizes=&quot;(max-width: 614px) 100vw, 614px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;&lt;em&gt;PS: Use these certificates only for development.
+These wont work in production as the certificate authority will not be trusted in your users browsers.
+For production. generate a csr and then send it you CA and CA will generate a domain certificate for you.&lt;/em&gt;&lt;/p&gt;
+&lt;h2&gt;References&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://security.googleblog.com/2018/02/a-secure-web-is-here-to-stay.html&quot;&gt;https://security.googleblog.com/2018/02/a-secure-web-is-here-to-stay.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://support.google.com/webmasters/answer/6073543?hl=en&quot;&gt;https://support.google.com/webmasters/answer/6073543?hl=en&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://webmasters.googleblog.com/2014/08/https-as-ranking-signal.html&quot;&gt;https://webmasters.googleblog.com/2014/08/https-as-ranking-signal.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.theregister.co.uk/2018/02/08/google_chrome_http_shame/&quot;&gt;https://www.theregister.co.uk/2018/02/08/google&lt;em&gt;chrome&lt;/em&gt;http_shame/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://help.ubuntu.com/lts/serverguide/certificates-and-security.html.en-GB&quot;&gt;https://help.ubuntu.com/lts/serverguide/certificates-and-security.html.en-GB&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://medium.freecodecamp.org/how-to-get-https-working-on-your-local-development-environment-in-5-minutes-7af615770eec&quot;&gt;https://medium.freecodecamp.org/how-to-get-https-working-on-your-local-development-environment-in-5-minutes-7af615770eec&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.sslshopper.com/what-is-a-csr-certificate-signing-request.html&quot;&gt;https://www.sslshopper.com/what-is-a-csr-certificate-signing-request.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content:encoded></item></channel></rss>
