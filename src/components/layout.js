@@ -2,6 +2,8 @@ import React from 'react';
 import { rhythm } from '../utils/typography';
 import Header from './Header';
 
+require('prismjs/themes/prism-okaidia.css');
+
 const styles = {
   container: {
     marginLeft: 'auto',

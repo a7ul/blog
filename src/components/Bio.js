@@ -28,7 +28,7 @@ const Bio = () => (
       occasionally hacks around in C++, Rust and Python.
       He is an  <a href="https://github.com/master-atul" target="_blank" rel="noopener noreferrer">open source</a> enthusiast
       and <span style={{ color: 'red' }}>❤</span> making useful tools for humans. {' '}
-      <a href="https://twitter.com/masteratul94">You should follow him on Twitter  </a>
+      <a href="https://twitter.com/masteratul94" target="_blank" rel="noopener noreferrer">You should follow him on Twitter  </a>
     </p>
   </section>
 );
