@@ -1,6 +1,6 @@
 import React from 'react';
 import Helmet from 'react-helmet';
-import { Link } from 'gatsby';
+import { Link, graphql } from 'gatsby';
 import get from 'lodash/get';
 import { DiscussionEmbed } from 'disqus-react';
 import Bio from '../components/Bio';
