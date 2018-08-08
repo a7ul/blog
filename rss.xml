@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog]]></title><description><![CDATA[Build. Hack. Rebuild. Hack...]]></description><link>https://www.atulr.com/blog</link><generator>RSS for Node</generator><lastBuildDate>Wed, 08 Aug 2018 07:49:58 GMT</lastBuildDate><item><title><![CDATA[🔐 HTTPS certificate generation explained! Now setup HTTPS for local development environment (without sudo)]]></title><description><![CDATA[Recently, Google security blog published an article  here  which states: Beginning in July 2018 with the release of Chrome 68, Chrome will…]]></description><link>https://www.atulr.com/blog/localhost-https/</link><guid isPermaLink="false">https://www.atulr.com/blog/localhost-https/</guid><pubDate>Mon, 06 Aug 2018 22:12:03 GMT</pubDate><content:encoded>&lt;p&gt;Recently, Google security blog published an article &lt;a href=&quot;https://security.googleblog.com/2018/02/a-secure-web-is-here-to-stay.html&quot;&gt;here&lt;/a&gt; which states:&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog]]></title><description><![CDATA[Build. Hack. Rebuild. Hack...]]></description><link>https://blog.atulr.com</link><generator>RSS for Node</generator><lastBuildDate>Wed, 08 Aug 2018 16:58:38 GMT</lastBuildDate><item><title><![CDATA[🔐 HTTPS certificate generation explained! Now setup HTTPS for local development environment (without sudo)]]></title><description><![CDATA[Recently, Google security blog published an article  here  which states: Beginning in July 2018 with the release of Chrome 68, Chrome will…]]></description><link>https://blog.atulr.com/localhost-https/</link><guid isPermaLink="false">https://blog.atulr.com/localhost-https/</guid><pubDate>Mon, 06 Aug 2018 22:12:03 GMT</pubDate><content:encoded>&lt;p&gt;Recently, Google security blog published an article &lt;a href=&quot;https://security.googleblog.com/2018/02/a-secure-web-is-here-to-stay.html&quot;&gt;here&lt;/a&gt; which states:&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Beginning in July 2018 with the release of Chrome 68, Chrome will mark all HTTP sites as “not secure”.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -9,7 +9,7 @@ Since web browsers behave slighlty differently when serving HTTPS and HTTP websi
 
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/blog/static/active-mixed-content-errors-c8517488bc3abb7f78a5f5108757ac11-2188b.png&quot;
+    href=&quot;/static/active-mixed-content-errors-c8517488bc3abb7f78a5f5108757ac11-2188b.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -28,10 +28,10 @@ Since web browsers behave slighlty differently when serving HTTPS and HTTP websi
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;mixed-content&quot;
         title=&quot;&quot;
-        src=&quot;/blog/static/active-mixed-content-errors-c8517488bc3abb7f78a5f5108757ac11-2188b.png&quot;
-        srcset=&quot;/blog/static/active-mixed-content-errors-c8517488bc3abb7f78a5f5108757ac11-98951.png 200w,
-/blog/static/active-mixed-content-errors-c8517488bc3abb7f78a5f5108757ac11-0927d.png 400w,
-/blog/static/active-mixed-content-errors-c8517488bc3abb7f78a5f5108757ac11-2188b.png 586w&quot;
+        src=&quot;/static/active-mixed-content-errors-c8517488bc3abb7f78a5f5108757ac11-2188b.png&quot;
+        srcset=&quot;/static/active-mixed-content-errors-c8517488bc3abb7f78a5f5108757ac11-98951.png 200w,
+/static/active-mixed-content-errors-c8517488bc3abb7f78a5f5108757ac11-0927d.png 400w,
+/static/active-mixed-content-errors-c8517488bc3abb7f78a5f5108757ac11-2188b.png 586w&quot;
         sizes=&quot;(max-width: 586px) 100vw, 586px&quot;
       /&gt;
     &lt;/span&gt;
@@ -45,7 +45,7 @@ Also, enabling HTTPS on the development version would allow it to be much more c
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/blog/static/ssl_drawing-daec267b6a9800ac655a7f79324ee5da-d256b.png&quot;
+    href=&quot;/static/ssl_drawing-daec267b6a9800ac655a7f79324ee5da-d256b.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -64,10 +64,10 @@ Also, enabling HTTPS on the development version would allow it to be much more c
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;ssl_drawing&quot;
         title=&quot;&quot;
-        src=&quot;/blog/static/ssl_drawing-daec267b6a9800ac655a7f79324ee5da-d256b.png&quot;
-        srcset=&quot;/blog/static/ssl_drawing-daec267b6a9800ac655a7f79324ee5da-1aa72.png 200w,
-/blog/static/ssl_drawing-daec267b6a9800ac655a7f79324ee5da-76ac4.png 400w,
-/blog/static/ssl_drawing-daec267b6a9800ac655a7f79324ee5da-d256b.png 800w&quot;
+        src=&quot;/static/ssl_drawing-daec267b6a9800ac655a7f79324ee5da-d256b.png&quot;
+        srcset=&quot;/static/ssl_drawing-daec267b6a9800ac655a7f79324ee5da-1aa72.png 200w,
+/static/ssl_drawing-daec267b6a9800ac655a7f79324ee5da-76ac4.png 400w,
+/static/ssl_drawing-daec267b6a9800ac655a7f79324ee5da-d256b.png 800w&quot;
         sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
       /&gt;
     &lt;/span&gt;
@@ -137,7 +137,7 @@ CN = localhost&lt;/code&gt;&lt;/pre&gt;
 
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/blog/static/1.rootkey-b0ab1e56046d0f6fa05008a5f66269cf-04515.png&quot;
+    href=&quot;/static/1.rootkey-b0ab1e56046d0f6fa05008a5f66269cf-04515.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -156,11 +156,11 @@ CN = localhost&lt;/code&gt;&lt;/pre&gt;
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;root_key_generation&quot;
         title=&quot;&quot;
-        src=&quot;/blog/static/1.rootkey-b0ab1e56046d0f6fa05008a5f66269cf-d256b.png&quot;
-        srcset=&quot;/blog/static/1.rootkey-b0ab1e56046d0f6fa05008a5f66269cf-1aa72.png 200w,
-/blog/static/1.rootkey-b0ab1e56046d0f6fa05008a5f66269cf-76ac4.png 400w,
-/blog/static/1.rootkey-b0ab1e56046d0f6fa05008a5f66269cf-d256b.png 800w,
-/blog/static/1.rootkey-b0ab1e56046d0f6fa05008a5f66269cf-04515.png 1101w&quot;
+        src=&quot;/static/1.rootkey-b0ab1e56046d0f6fa05008a5f66269cf-d256b.png&quot;
+        srcset=&quot;/static/1.rootkey-b0ab1e56046d0f6fa05008a5f66269cf-1aa72.png 200w,
+/static/1.rootkey-b0ab1e56046d0f6fa05008a5f66269cf-76ac4.png 400w,
+/static/1.rootkey-b0ab1e56046d0f6fa05008a5f66269cf-d256b.png 800w,
+/static/1.rootkey-b0ab1e56046d0f6fa05008a5f66269cf-04515.png 1101w&quot;
         sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
       /&gt;
     &lt;/span&gt;
@@ -176,7 +176,7 @@ This will generate a file &lt;code class=&quot;language-text&quot;&gt;rootca.sec
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/blog/static/2.unsecure_rootkey-25074d2fad39fd6202065adf1a56dad4-4167e.png&quot;
+    href=&quot;/static/2.unsecure_rootkey-25074d2fad39fd6202065adf1a56dad4-4167e.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -195,11 +195,11 @@ This will generate a file &lt;code class=&quot;language-text&quot;&gt;rootca.sec
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;unsecure_rootkey&quot;
         title=&quot;&quot;
-        src=&quot;/blog/static/2.unsecure_rootkey-25074d2fad39fd6202065adf1a56dad4-d256b.png&quot;
-        srcset=&quot;/blog/static/2.unsecure_rootkey-25074d2fad39fd6202065adf1a56dad4-1aa72.png 200w,
-/blog/static/2.unsecure_rootkey-25074d2fad39fd6202065adf1a56dad4-76ac4.png 400w,
-/blog/static/2.unsecure_rootkey-25074d2fad39fd6202065adf1a56dad4-d256b.png 800w,
-/blog/static/2.unsecure_rootkey-25074d2fad39fd6202065adf1a56dad4-4167e.png 828w&quot;
+        src=&quot;/static/2.unsecure_rootkey-25074d2fad39fd6202065adf1a56dad4-d256b.png&quot;
+        srcset=&quot;/static/2.unsecure_rootkey-25074d2fad39fd6202065adf1a56dad4-1aa72.png 200w,
+/static/2.unsecure_rootkey-25074d2fad39fd6202065adf1a56dad4-76ac4.png 400w,
+/static/2.unsecure_rootkey-25074d2fad39fd6202065adf1a56dad4-d256b.png 800w,
+/static/2.unsecure_rootkey-25074d2fad39fd6202065adf1a56dad4-4167e.png 828w&quot;
         sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
       /&gt;
     &lt;/span&gt;
@@ -217,7 +217,7 @@ This will generate a file &lt;code class=&quot;language-text&quot;&gt;rootca.ins
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/blog/static/3.generate_root_ssl_cert-7040fce7b3330c8a12a1d8d40cc6da52-9f9f2.png&quot;
+    href=&quot;/static/3.generate_root_ssl_cert-7040fce7b3330c8a12a1d8d40cc6da52-9f9f2.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -236,11 +236,11 @@ This will generate a file &lt;code class=&quot;language-text&quot;&gt;rootca.ins
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;generate_root_ssl&quot;
         title=&quot;&quot;
-        src=&quot;/blog/static/3.generate_root_ssl_cert-7040fce7b3330c8a12a1d8d40cc6da52-d256b.png&quot;
-        srcset=&quot;/blog/static/3.generate_root_ssl_cert-7040fce7b3330c8a12a1d8d40cc6da52-1aa72.png 200w,
-/blog/static/3.generate_root_ssl_cert-7040fce7b3330c8a12a1d8d40cc6da52-76ac4.png 400w,
-/blog/static/3.generate_root_ssl_cert-7040fce7b3330c8a12a1d8d40cc6da52-d256b.png 800w,
-/blog/static/3.generate_root_ssl_cert-7040fce7b3330c8a12a1d8d40cc6da52-9f9f2.png 1050w&quot;
+        src=&quot;/static/3.generate_root_ssl_cert-7040fce7b3330c8a12a1d8d40cc6da52-d256b.png&quot;
+        srcset=&quot;/static/3.generate_root_ssl_cert-7040fce7b3330c8a12a1d8d40cc6da52-1aa72.png 200w,
+/static/3.generate_root_ssl_cert-7040fce7b3330c8a12a1d8d40cc6da52-76ac4.png 400w,
+/static/3.generate_root_ssl_cert-7040fce7b3330c8a12a1d8d40cc6da52-d256b.png 800w,
+/static/3.generate_root_ssl_cert-7040fce7b3330c8a12a1d8d40cc6da52-9f9f2.png 1050w&quot;
         sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
       /&gt;
     &lt;/span&gt;
@@ -270,7 +270,7 @@ DNS.1 = localhost&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/blog/static/5.generate_domain_certificate-1f062807c8724c9e3dd407438f5a391c-4750e.png&quot;
+    href=&quot;/static/5.generate_domain_certificate-1f062807c8724c9e3dd407438f5a391c-4750e.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -289,11 +289,11 @@ DNS.1 = localhost&lt;/code&gt;&lt;/pre&gt;
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;generate_domain_cert&quot;
         title=&quot;&quot;
-        src=&quot;/blog/static/5.generate_domain_certificate-1f062807c8724c9e3dd407438f5a391c-d256b.png&quot;
-        srcset=&quot;/blog/static/5.generate_domain_certificate-1f062807c8724c9e3dd407438f5a391c-1aa72.png 200w,
-/blog/static/5.generate_domain_certificate-1f062807c8724c9e3dd407438f5a391c-76ac4.png 400w,
-/blog/static/5.generate_domain_certificate-1f062807c8724c9e3dd407438f5a391c-d256b.png 800w,
-/blog/static/5.generate_domain_certificate-1f062807c8724c9e3dd407438f5a391c-4750e.png 1113w&quot;
+        src=&quot;/static/5.generate_domain_certificate-1f062807c8724c9e3dd407438f5a391c-d256b.png&quot;
+        srcset=&quot;/static/5.generate_domain_certificate-1f062807c8724c9e3dd407438f5a391c-1aa72.png 200w,
+/static/5.generate_domain_certificate-1f062807c8724c9e3dd407438f5a391c-76ac4.png 400w,
+/static/5.generate_domain_certificate-1f062807c8724c9e3dd407438f5a391c-d256b.png 800w,
+/static/5.generate_domain_certificate-1f062807c8724c9e3dd407438f5a391c-4750e.png 1113w&quot;
         sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
       /&gt;
     &lt;/span&gt;
@@ -334,7 +334,7 @@ console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span cl
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/blog/static/https_node_demo-2ffd8c9599a7bc4396b5db5e975233b5-ebba6.png&quot;
+    href=&quot;/static/https_node_demo-2ffd8c9599a7bc4396b5db5e975233b5-ebba6.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -353,11 +353,11 @@ console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span cl
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;https_node_demo&quot;
         title=&quot;&quot;
-        src=&quot;/blog/static/https_node_demo-2ffd8c9599a7bc4396b5db5e975233b5-d256b.png&quot;
-        srcset=&quot;/blog/static/https_node_demo-2ffd8c9599a7bc4396b5db5e975233b5-1aa72.png 200w,
-/blog/static/https_node_demo-2ffd8c9599a7bc4396b5db5e975233b5-76ac4.png 400w,
-/blog/static/https_node_demo-2ffd8c9599a7bc4396b5db5e975233b5-d256b.png 800w,
-/blog/static/https_node_demo-2ffd8c9599a7bc4396b5db5e975233b5-ebba6.png 833w&quot;
+        src=&quot;/static/https_node_demo-2ffd8c9599a7bc4396b5db5e975233b5-d256b.png&quot;
+        srcset=&quot;/static/https_node_demo-2ffd8c9599a7bc4396b5db5e975233b5-1aa72.png 200w,
+/static/https_node_demo-2ffd8c9599a7bc4396b5db5e975233b5-76ac4.png 400w,
+/static/https_node_demo-2ffd8c9599a7bc4396b5db5e975233b5-d256b.png 800w,
+/static/https_node_demo-2ffd8c9599a7bc4396b5db5e975233b5-ebba6.png 833w&quot;
         sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
       /&gt;
     &lt;/span&gt;
@@ -378,7 +378,7 @@ http-server -a localhost --ssl --cert &amp;lt;path to&amp;gt;/localdomain.crt --
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/blog/static/7.http_server_with_ssl-544f7238ed377329033f92ed93882d06-4750e.png&quot;
+    href=&quot;/static/7.http_server_with_ssl-544f7238ed377329033f92ed93882d06-4750e.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -397,11 +397,11 @@ http-server -a localhost --ssl --cert &amp;lt;path to&amp;gt;/localdomain.crt --
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;chrome_http_server&quot;
         title=&quot;&quot;
-        src=&quot;/blog/static/7.http_server_with_ssl-544f7238ed377329033f92ed93882d06-d256b.png&quot;
-        srcset=&quot;/blog/static/7.http_server_with_ssl-544f7238ed377329033f92ed93882d06-1aa72.png 200w,
-/blog/static/7.http_server_with_ssl-544f7238ed377329033f92ed93882d06-76ac4.png 400w,
-/blog/static/7.http_server_with_ssl-544f7238ed377329033f92ed93882d06-d256b.png 800w,
-/blog/static/7.http_server_with_ssl-544f7238ed377329033f92ed93882d06-4750e.png 1113w&quot;
+        src=&quot;/static/7.http_server_with_ssl-544f7238ed377329033f92ed93882d06-d256b.png&quot;
+        srcset=&quot;/static/7.http_server_with_ssl-544f7238ed377329033f92ed93882d06-1aa72.png 200w,
+/static/7.http_server_with_ssl-544f7238ed377329033f92ed93882d06-76ac4.png 400w,
+/static/7.http_server_with_ssl-544f7238ed377329033f92ed93882d06-d256b.png 800w,
+/static/7.http_server_with_ssl-544f7238ed377329033f92ed93882d06-4750e.png 1113w&quot;
         sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
       /&gt;
     &lt;/span&gt;
@@ -416,7 +416,7 @@ Now open up &lt;a href=&quot;https://localhost:8080&quot;&gt;https://localhost:8
 &lt;p&gt;
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/blog/static/browser_err_invalid_cert_authority-c40400e814c2d489f5b38eed7dda040f-8c33e.png&quot;
+    href=&quot;/static/browser_err_invalid_cert_authority-c40400e814c2d489f5b38eed7dda040f-8c33e.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -435,13 +435,13 @@ Now open up &lt;a href=&quot;https://localhost:8080&quot;&gt;https://localhost:8
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;err_invalid_cert_authority&quot;
         title=&quot;&quot;
-        src=&quot;/blog/static/browser_err_invalid_cert_authority-c40400e814c2d489f5b38eed7dda040f-d256b.png&quot;
-        srcset=&quot;/blog/static/browser_err_invalid_cert_authority-c40400e814c2d489f5b38eed7dda040f-1aa72.png 200w,
-/blog/static/browser_err_invalid_cert_authority-c40400e814c2d489f5b38eed7dda040f-76ac4.png 400w,
-/blog/static/browser_err_invalid_cert_authority-c40400e814c2d489f5b38eed7dda040f-d256b.png 800w,
-/blog/static/browser_err_invalid_cert_authority-c40400e814c2d489f5b38eed7dda040f-c8b46.png 1200w,
-/blog/static/browser_err_invalid_cert_authority-c40400e814c2d489f5b38eed7dda040f-3488d.png 1600w,
-/blog/static/browser_err_invalid_cert_authority-c40400e814c2d489f5b38eed7dda040f-8c33e.png 1916w&quot;
+        src=&quot;/static/browser_err_invalid_cert_authority-c40400e814c2d489f5b38eed7dda040f-d256b.png&quot;
+        srcset=&quot;/static/browser_err_invalid_cert_authority-c40400e814c2d489f5b38eed7dda040f-1aa72.png 200w,
+/static/browser_err_invalid_cert_authority-c40400e814c2d489f5b38eed7dda040f-76ac4.png 400w,
+/static/browser_err_invalid_cert_authority-c40400e814c2d489f5b38eed7dda040f-d256b.png 800w,
+/static/browser_err_invalid_cert_authority-c40400e814c2d489f5b38eed7dda040f-c8b46.png 1200w,
+/static/browser_err_invalid_cert_authority-c40400e814c2d489f5b38eed7dda040f-3488d.png 1600w,
+/static/browser_err_invalid_cert_authority-c40400e814c2d489f5b38eed7dda040f-8c33e.png 1916w&quot;
         sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
       /&gt;
     &lt;/span&gt;
@@ -474,7 +474,7 @@ Hence to make our browser trust our own self signed CA Certificate (&lt;code cla
 
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/blog/static/8.chrome_http_server_module_end_result-b55eccd5825aa5a61ee7a06c63a814ed-effa0.png&quot;
+    href=&quot;/static/8.chrome_http_server_module_end_result-b55eccd5825aa5a61ee7a06c63a814ed-effa0.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -493,10 +493,10 @@ Hence to make our browser trust our own self signed CA Certificate (&lt;code cla
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;chrome_end_result&quot;
         title=&quot;&quot;
-        src=&quot;/blog/static/8.chrome_http_server_module_end_result-b55eccd5825aa5a61ee7a06c63a814ed-effa0.png&quot;
-        srcset=&quot;/blog/static/8.chrome_http_server_module_end_result-b55eccd5825aa5a61ee7a06c63a814ed-d6de3.png 200w,
-/blog/static/8.chrome_http_server_module_end_result-b55eccd5825aa5a61ee7a06c63a814ed-8f0ab.png 400w,
-/blog/static/8.chrome_http_server_module_end_result-b55eccd5825aa5a61ee7a06c63a814ed-effa0.png 493w&quot;
+        src=&quot;/static/8.chrome_http_server_module_end_result-b55eccd5825aa5a61ee7a06c63a814ed-effa0.png&quot;
+        srcset=&quot;/static/8.chrome_http_server_module_end_result-b55eccd5825aa5a61ee7a06c63a814ed-d6de3.png 200w,
+/static/8.chrome_http_server_module_end_result-b55eccd5825aa5a61ee7a06c63a814ed-8f0ab.png 400w,
+/static/8.chrome_http_server_module_end_result-b55eccd5825aa5a61ee7a06c63a814ed-effa0.png 493w&quot;
         sizes=&quot;(max-width: 493px) 100vw, 493px&quot;
       /&gt;
     &lt;/span&gt;
@@ -530,7 +530,7 @@ Hence to make our browser trust our own self signed CA Certificate (&lt;code cla
 
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/blog/static/9.firefox_final_result-b83402b7c5f07beb2f1e84aaa9aa980e-369b1.png&quot;
+    href=&quot;/static/9.firefox_final_result-b83402b7c5f07beb2f1e84aaa9aa980e-369b1.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -549,10 +549,10 @@ Hence to make our browser trust our own self signed CA Certificate (&lt;code cla
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
         alt=&quot;firefox_end_result&quot;
         title=&quot;&quot;
-        src=&quot;/blog/static/9.firefox_final_result-b83402b7c5f07beb2f1e84aaa9aa980e-369b1.png&quot;
-        srcset=&quot;/blog/static/9.firefox_final_result-b83402b7c5f07beb2f1e84aaa9aa980e-4177f.png 200w,
-/blog/static/9.firefox_final_result-b83402b7c5f07beb2f1e84aaa9aa980e-9aac3.png 400w,
-/blog/static/9.firefox_final_result-b83402b7c5f07beb2f1e84aaa9aa980e-369b1.png 614w&quot;
+        src=&quot;/static/9.firefox_final_result-b83402b7c5f07beb2f1e84aaa9aa980e-369b1.png&quot;
+        srcset=&quot;/static/9.firefox_final_result-b83402b7c5f07beb2f1e84aaa9aa980e-4177f.png 200w,
+/static/9.firefox_final_result-b83402b7c5f07beb2f1e84aaa9aa980e-9aac3.png 400w,
+/static/9.firefox_final_result-b83402b7c5f07beb2f1e84aaa9aa980e-369b1.png 614w&quot;
         sizes=&quot;(max-width: 614px) 100vw, 614px&quot;
       /&gt;
     &lt;/span&gt;
