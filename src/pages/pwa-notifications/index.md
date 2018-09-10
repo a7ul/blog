@@ -1,6 +1,6 @@
 ---
 title: 🚀🔔Beginners guide to Web Push Notifications using Service Workers 
-date: "2018-08-15T20:12:03.284Z"
+date: "2018-09-10T20:12:03.284Z"
 ---
 
 Push notifications are very common in the native mobile application platforms like Android & iOS.
@@ -272,6 +272,23 @@ Hence, In practical usecase we will call **showNotification** from the **service
 
 ## Step 3: Remote Notification
 
+### TLDR
+- We subscribe our service worker to push events from the Push Service of browser.
+- We will send a message to the push service from our backend.
+- Push event from push service containing the message from our backend will arrive at the browser.
+- We use message from the push service to show the notification.
+
+![overview push service](./overview_push_service.png)
+
+### So What is a Push Service ?
+
+>A push service receives a network request, validates it and delivers a push message to the appropriate browser. If the browser is offline, the message is queued until the the browser comes online.
+>
+>Each browser can use any push service they want, it's something developers have no control over. This isn't a problem because every push service expects the same API call. Meaning you don't have to care who the push service is. You just need to make sure that your API call is valid.
+
+
+To know more: Read up <a href="https://developers.google.com/web/fundamentals/push-notifications/how-push-works#who_and_what_is_the_push_service" target="_blank">here</a>
+
 ### Listen to Remote Notification
 
 
@@ -289,3 +306,4 @@ Hence, In practical usecase we will call **showNotification** from the **service
 - https://developers.google.com/web/fundamentals/primers/service-workers/
 - https://developers.google.com/web/fundamentals/codelabs/debugging-service-workers/
 - https://developers.google.com/web/fundamentals/push-notifications/permission-ux
+- https://developers.google.com/web/fundamentals/push-notifications/how-push-works
