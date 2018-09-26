@@ -34,6 +34,10 @@ The steps involved in making a local push notification: <br/>
    - On arrival of a push event, service worker awakens and uses the information from the push message to show a notification using notification API.
 3. If permission denied : There is nothing much you can do here. So make sure you handle this case in code as well.
 
+## Code
+
+The entire code for this blog is available at <a href="https://github.com/master-atul/web-push-demo" target="_blank">https://github.com/master-atul/web-push-demo</a>
+
 ## Step 0: Boilerplate
 
 Lets create a basic web app (no frameworks).
@@ -921,3 +925,5 @@ Wohoo !! 🚀 Now you can create web apps that can spam people too 🤣
 - https://developers.google.com/web/fundamentals/push-notifications/permission-ux
 - https://developers.google.com/web/fundamentals/push-notifications/how-push-works
 - https://gist.github.com/Rich-Harris/fd6c3c73e6e707e312d7c5d7d0f3b2f9
+
+The entire code for this blog is available at <a href="https://github.com/master-atul/web-push-demo" target="_blank">https://github.com/master-atul/web-push-demo</a>
