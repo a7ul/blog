@@ -1,5 +1,5 @@
 ---
-title: 🚀🔔Beginners guide to Web Push Notifications using Service Workers
+title: 🚀🔔 Beginners guide to Web Push Notifications using Service Workers
 date: '2018-09-25T20:12:03.284Z'
 ---
 

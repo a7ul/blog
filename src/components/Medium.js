@@ -21,27 +21,30 @@ const styles = {
 };
 
 const Medium = ({ posts }) => posts.map(({ node }) => {
-  const title = get(node, 'title');
-  const subtitle = get(node, 'virtuals.subtitle');
-  const username = get(node, 'author.username');
-  const link = `https://medium.com/@${username}/${node.uniqueSlug}`;
-  return (
-    <div key={node.id}>
-      <h3 style={styles.title}>
-        <a style={{ boxShadow: 'none' }} target="_blank" rel="noreferrer noopener" href={link}>
-          {title}<img style={styles.mediumIcon} src={mediumIcon} alt="medium.com" />
-        </a>
-      </h3>
-      <small>
-        {node.firstPublishedAt} on
-        <span style={styles.mediumTag}>
-          {' '}medium.com
-        </span>
-      </small>
-      <p>{subtitle }</p>
-    </div>
-  );
-});
-
+    const title = get(node, 'title');
+    const subtitle = get(node, 'virtuals.subtitle');
+    const username = get(node, 'author.username');
+    const link = `https://medium.com/@${username}/${node.uniqueSlug}`;
+    return (
+      <div key={node.id}>
+        <h3 style={styles.title}>
+          <a
+            style={{ boxShadow: 'none' }}
+            target="_blank"
+            rel="noreferrer noopener"
+            href={link}
+          >
+            {title}
+            <img style={styles.mediumIcon} src={mediumIcon} alt="medium.com" />
+          </a>
+        </h3>
+        <small>
+          {node.firstPublishedAt} on
+          <span style={styles.mediumTag}> medium.com</span>
+        </small>
+        <p>{subtitle}</p>
+      </div>
+    );
+  });
 
 export default Medium;

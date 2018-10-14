@@ -6,6 +6,7 @@ import Bio from '../components/Bio';
 import Medium from '../components/Medium';
 import Layout from '../components/layout';
 import { rhythm } from '../utils/typography';
+import { blackListMediumPost } from '../utils/extras';
 
 const styles = {
   title: {
@@ -16,7 +17,9 @@ const styles = {
 const BlogIndex = (props) => {
   const siteTitle = get(props, 'data.site.siteMetadata.title');
   const posts = get(props, 'data.allMarkdownRemark.edges');
-  const mediumPosts = get(props, 'data.allMediumPost.edges');
+  const mediumPosts = blackListMediumPost(
+    get(props, 'data.allMediumPost.edges'),
+  );
   const { location } = props;
   return (
     <Layout location={location}>
@@ -30,9 +33,7 @@ const BlogIndex = (props) => {
                 {title}
               </Link>
             </h3>
-            <small>
-              {node.frontmatter.date}
-            </small>
+            <small>{node.frontmatter.date}</small>
             <p dangerouslySetInnerHTML={{ __html: node.excerpt }} />
           </div>
         );
