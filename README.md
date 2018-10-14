@@ -1,9 +1,11 @@
 # Blog site of Atul
-Gatsby starter for creating a blog
 
-Install this starter (assuming Gatsby is installed) by running from your CLI:
-
-`gatsby new gatsby-blog https://github.com/gatsbyjs/gatsby-starter-blog`
+Hi! This is my blog site. It is hosted at https://blog.atulr.com
 
 ## Running in development
-`gatsby develop`
+
+`yarn gatsby develop`
+
+## Deploying
+
+`yarn deploy`
