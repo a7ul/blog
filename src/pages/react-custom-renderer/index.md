@@ -23,7 +23,7 @@ I always wanted to learn how these renderers worked and in this post, I will exp
 
 **_Most of the content on this post is a result of my experimentation with React and reading through multiple react renderer codebases and blog posts. If you find any corrections in this post or any other extra details, please let me know in the comments._**
 
-# Before we dive in
+# 📖 Before we dive in
 
 Before we go ahead and implement custom renderers that will drive cars and power nuclear power plants (Let your imagination go crazy 🌈), its a good idea to revisit some basics. You can safely skip them and dive straight to next section, if you consider yourself a react ninja 🤺 who can build react apps blindfolded 😎.
 
@@ -31,21 +31,51 @@ Before we go ahead and implement custom renderers that will drive cars and power
 
 **Understanding JSX in depth.** <a href="https://reactjs.org/docs/jsx-in-depth.html" target="_blank">https://reactjs.org/docs/jsx-in-depth.html</a>
 
-**React Stack Renderer Implementation Notes (Optional)** <a href="https://reactjs.org/docs/implementation-notes.html" target="_blank">https://reactjs.org/docs/implementation-notes.html</a>
+# ⚛️ React Core, Reconciler and Renderer
 
-/// TODO - Move these two when we need them
+<a href="https://reactjs.org/docs/codebase-overview.html" target="_blank">React codebase</a> can be divided into three major parts:
 
-**Basic understanding of What Fiber is (Optional)**:<a href=" https://www.youtube.com/watch?v=ZCuYPiUIONs" target="_blank"> https://www.youtube.com/watch?v=ZCuYPiUIONs</a>
+### React Core
 
-**React Async Rendering (Time Slicing + Suspense)**:
-<a href="https://www.youtube.com/watch?v=nLF0n9SACd4" target="_blank"> https://www.youtube.com/watch?v=nLF0n9SACd4</a>
-<a href="https://www.youtube.com/watch?v=6g3g0Q_XVb4?t=1588" target="_blank"> https://www.youtube.com/watch?v=6g3g0Q_XVb4?t=1588</a>
-https://www.youtube.com/watch?v=7LmrS2sdMlo
-https://github.com/sw-yx/fresh-async-react
+React core only includes the APIs necessary to define components. It contains all the top level React APIs like:
 
-# React Reconciler and Renderer
+- React.createElement()
+- React.createClass()
+- React.Component
+- React.Children
+- React.PropTypes
 
-# Components, Instances, Elements and Fiber
+It doesnt include the diffing algorithm or any platform specific code.
+
+### Renderer
+
+React was originally created for the DOM but it was later adapted to also support native platforms with React Native. This introduced the concept of "renderers" to React internals. Renderers manage how a React tree turns into the underlying platform calls. For example:
+
+- React-Dom renders the component tree into respective dom elements.
+- React Native renders the component tree into respective native platform views.
+
+### Reconciler
+
+Reconciler is the diffing algorithm that helps react figure out which dom elements to update on a state change. It is the part of React code that is shared between multiple platform renderers like React Dom, React Native, React ART etc.
+There are two types of reconcilers:
+
+- **Stack reconciler**: The “stack” reconciler is the implementation powering React 15 and earlier. It is written in an object-oriented way and maintains a separate tree of "internal instances" for all React components. The internal instances exist both for user-defined ("composite") and platform-specific ("host") components. The internal instances are inaccessible directly to the user, and their tree is never exposed. It is important to understand that the stack reconciler always processes the component tree synchronously in a single pass. The stack reconciler can't pause, and so it is suboptimal when the updates are deep and the available CPU time is limited. You can read more about it here: <a href="https://reactjs.org/docs/implementation-notes.html" target="_blank">https://reactjs.org/docs/implementation-notes.html</a>
+
+- **Fiber reconciler**: The Fiber reconciler is a complete rewrite of the stack reconciler. It is the default reconciler since React 16. Fiber reconciler can perform the reconciliation of the tree by splitting work into minor chunks and hence can prioritize, pause and resume work thus freeing up the main thread to perform work efficiently. Hence, it appears more responsive and fluid as compared to stack reconciler. It mainly has:
+
+  - Ability to split interruptible work in chunks.
+  - Ability to prioritize, rebase and reuse work in progress.
+  - Ability to yield back and forth between parents and children to support layout in React.
+  - Ability to return multiple elements from render().
+  - Better support for error boundaries.
+
+  To know more about fiber <a href=" https://www.youtube.com/watch?v=ZCuYPiUIONs" target="_blank">you can watch the Cartoon intro to Fiber by Lin Clark</a>
+
+  To know more about **Async rendering**:
+
+  - **Time slicing & Suspense**: <a href="https://www.youtube.com/watch?v=nLF0n9SACd4" target="_blank"> https://www.youtube.com/watch?v=nLF0n9SACd4</a> and <a href="https://youtu.be/6g3g0Q_XVb4?t=1659" target="_blank"> https://youtu.be/6g3g0Q_XVb4?t=1659</a> talks by Dan Abramov.
+
+#🕵🏻‍ Components, Instances, Elements and Fiber
 
 Lets say we have a react app that looks like this:
 
@@ -83,6 +113,12 @@ Few fundamental units in the react-reconciler.
 ### Component
 
 In the above example: **MyButton**, **Content** and **App** are essentially components that you define. A Component can be defined as a class (MyButton) or as a function (Content and App). It is basically a declaration of how the UI elements should look and behave.
+
+With respect to renderers there are two types of react components:
+
+- **Host Components**: Host components are platform-specific components, such as `<div>` or a `<View>` and they run platform-specific code such as mounting, updates, and unmounting of DOM/Native view. They typically begin with lower-case in the case of ReactDom.
+
+- **Composite Components**: Composite components are user-defined components such as `<MyButton>` or `<Content>` and they behave the same way with all renderers. React will calls methods, such as render() and componentDidMount(), on the user-supplied composite components.
 
 ### Instances
 
@@ -173,7 +209,7 @@ I recommend reading the more detailed version by Dan Abramov here: <a href="http
 
 ### fiber
 
-This was introduced in the new React Fiber Reconciler. A fiber is a JavaScript object that contains information about a component, its input and output. It has a one to one relation with the instance. It manages the work for the instance. The fiber keeps track of the instance using the property stateNode. And it also has information about its relationship with other instances. At any time, a component instance has at most two fibers that correspond to it: the current (flushed fiber or rendered fiber) and the work-in-progress fiber. A fiber node looks like this
+This was introduced in the new React Fiber Reconciler. A fiber (lowecase f) is a JavaScript object that contains information about a component, its input and output. It has a one to one relation with the instance. It manages the work for the instance. The fiber keeps track of the instance using the property stateNode. And it also has information about its relationship with other instances. At any time, a component instance has at most two fibers that correspond to it: the current (flushed fiber or rendered fiber) and the work-in-progress fiber. A fiber node looks like this
 
 ```js
 {
@@ -186,7 +222,129 @@ This was introduced in the new React Fiber Reconciler. A fiber is a JavaScript o
 
 Now that we are done with crash course on React Internal elements, lets do what we came here for.
 
-# Lets build a custom renderer
+![brace yourselves](./brace-yourself-meme.png)
+
+# 👷🏻‍ Lets build a custom renderer
+
+## Boilerplate setup
+
+Lets create a basic create-react-app project.
+
+```sh
+npx create-react-app renderer
+cd renderer
+```
+
+Now delete all the files inside the **src/** directory except **index.js**.
+And create a directory structure like this.
+
+```sh
+.
+├── README.md
+├── package.json
+├── node_modules
+├── public
+├── src
+│   ├── index.js #remove everything except index.js
+│   └── renderer
+│       └── index.js  #This is a new file
+└── yarn.lock
+```
+
+Now modify **src/index.js** to look like this:
+
+```js
+import React from 'react'
+import ReactDOM from 'react-dom'
+
+const Text = props => {
+  return <p className={props.className}>{props.content}</p>
+}
+
+const App = () => {
+  return (
+    <div>
+      <Text className="hello-class" content="Hello" />
+      <span style={{ color: 'blue' }}>World</span>
+    </div>
+  )
+}
+
+ReactDOM.render(<App />, document.getElementById('root'))
+```
+
+Run it
+
+```sh
+npm start
+```
+
+<br/>
+
+You should see our basic app loaded up on http://localhost:3000/ and it should look like this.
+<br/>
+<br/>
+![boilerplate demo](./boilerplate_start_demo.png)
+
+<hr/>
+The basic premise is that our renderer should be able to render the same result for the App component.
+
+Modify our **src/index.js** to use our renderer(Lets call it Custom Renderer) instead of **react-dom**
+
+```js
+import React from 'react'
+// import ReactDOM from "react-dom";
+import CustomRenderer from './renderer'
+
+const Text = props => {
+  return <p className={props.className}>{props.content}</p>
+}
+
+const App = () => {
+  return (
+    <div>
+      <Text className="hello-class" content="Hello" />
+      <span style={{ color: 'blue' }}>World</span>
+    </div>
+  )
+}
+
+// ReactDOM.render(<App />, document.getElementById("root"));
+CustomRenderer.render(<App />, document.getElementById('root'))
+```
+
+Lets add some code to **src/renderer/index.js**
+
+```js
+const CustomRenderer = {
+  render(element, renderDom, callback) {
+    // element: This is the react element for App component
+    // renderDom: This is the host root element to which the rendered app will be attached.
+    // callback: if specified will be called after render is done.
+    console.log('render called', element, renderDom, callback)
+  },
+}
+
+module.exports = CustomRenderer
+```
+
+Now if we check http://localhost:3000 we should see a blank white screen but checking our browser console we should see:
+
+```js
+render called {$$typeof: Symbol(react.element), type: ƒ, key: null, ref: null, props: {…}, …} div#root undefined
+```
+
+<a href='https://github.com/master-atul/blog-custom-renderer/tree/d12fa95c3fc05886facc14f6168a12cb842aa2fd' target='_blank'>Link to source code till here</a>
+
+Cool😎!! This is how far my JS skills took me. Now to figure out what goes into render function, I had to read through multiple renderer codebases and documentations. This is what I understood.
+
+The React team exported an experimental version of react-reconciler as an npm package.
+Renderers will implement all the platform specfic functions and the <a href='https://github.com/facebook/react/tree/master/packages/react-reconciler' target='_blank'>
+react-reconciler</a> package will call those platform specific functions to perform dom changes or view updates. We will define these platform specific functions in a configuration known as **hostConfig**. Every platform be it dom, react native, etc has its own **hostConfig**.
+
+<<<<<< DRAW IMAGE HERE SHOWING FLOW RECONCILER(SITE ENGINEER) ----> RENDERER(WORKER)----> DOM[BUILDING] >>>>>>
+
+INSTALL REACT-RECONCILER PAGKAGE
 
 # References
 
@@ -201,3 +359,11 @@ Now that we are done with crash course on React Internal elements, lets do what 
 - https://goshakkk.name/react-custom-renderers/
 - https://hackernoon.com/learn-you-some-custom-react-renderers-aed7164a4199
 - https://giamir.com/what-is-react-fiber
+- React Suspense implementation by Kent C. Dodds : <a href='https://www.youtube.com/watch?v=7LmrS2sdMlo' target='_blank'>https://www.youtube.com/watch?v=7LmrS2sdMlo</a>
+- https://github.com/sw-yx/fresh-async-react
+- https://github.com/acdlite/react-fiber-architecture
+- https://reactjs.org/docs/codebase-overview.html
+
+```
+
+```
