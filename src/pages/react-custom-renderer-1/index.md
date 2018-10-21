@@ -1,6 +1,6 @@
 ---
 title: ⚛️👆 Part 1/3 - Beginners guide to React Renderers. How to build your own renderer from scratch?
-date: '2018-10-15T20:12:03.284Z'
+date: '2018-10-21T20:12:03.284Z'
 ---
 
 React helps you write your UI declaratively.
@@ -345,7 +345,7 @@ render called {$$typeof: Symbol(react.element), type: ƒ, key: null, ref: null, 
 Cool😎!! . Now to figure out what goes into render function, I had to read through multiple renderer codebases and documentations. This is what I understood.👨🏻‍🎓
 
 - The React team exported an experimental version of **react-reconciler** as a npm package.
-- Every platform renderer, be it dom, react native, etc has to have its own configuration called **hostConfig** along with the **react-reconciler**. Renderers are required implement all the necessary platform specfic functions inside the **hostConfig**. The <a href='https://github.com/facebook/react/tree/master/packages/react-reconciler' target='_blank'>
+- Every platform renderer, be it dom, react native, etc has to have its own configuration called **hostConfig** along with the **react-reconciler**. Renderers are required to implement all the necessary platform specfic functions inside the **hostConfig**. The <a href='https://github.com/facebook/react/tree/master/packages/react-reconciler' target='_blank'>
   react-reconciler</a> module inside the renderer will call the platform specific functions via the supplied hostConfig to perform dom changes or view updates.
 
 ![renderer in short](./renderer_in_short.png)
@@ -416,7 +416,7 @@ Lets try and run our react app now.
 yarn start
 ```
 
-You should get an awesome error screen as follows:
+You should get an awesome error screen that looks like this:
 ![first error now not found](./first_error_now.png)
 
 This is because we havent implemented the required methods in the HostConfig yet 💩.
