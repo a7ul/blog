@@ -1,5 +1,5 @@
 ---
-title: 🚀⚛️ Beginners guide to React Renderers. How to build your own renderer from scratch?
+title: ⚛️👆 Part 1/3 - Beginners guide to React Renderers. How to build your own renderer from scratch?
 date: '2018-10-15T20:12:03.284Z'
 ---
 
@@ -336,7 +336,11 @@ Now if we check http://localhost:3000 we should see a blank white screen but che
 render called {$$typeof: Symbol(react.element), type: ƒ, key: null, ref: null, props: {…}, …} div#root undefined
 ```
 
-<a href='https://github.com/master-atul/blog-custom-renderer/tree/5306e949bba475f80cab5a042535af5755c0aa43' target='_blank'>Link to source code till here</a>
+<br>
+
+**<a href='https://github.com/master-atul/blog-custom-renderer/tree/5306e949bba475f80cab5a042535af5755c0aa43' target='_blank'>Link to source code till here</a>**
+
+<br>
 
 Cool😎!! . Now to figure out what goes into render function, I had to read through multiple renderer codebases and documentations. This is what I understood.👨🏻‍🎓
 
@@ -404,9 +408,30 @@ At the time of writing this blog, React 16.5.2, React Native 0.57 and all curren
 > parent. Additional flags can be set at creation time, but after that the
 > value should remain unchanged throughout the fiber's lifetime.
 
-Hence when we set the mode of container (root fiber) as not async. All remaining child fibers will be non async too. More about <a href='https://github.com/facebook/react/blob/b5c0852fddda9abdab25b101a040e607877f4663/packages/react-reconciler/src/ReactFiber.js#L85' target='_blank'>**fiber node here**.</a>
+Hence, if we set the mode of container (root fiber) as "not async". All remaining child fibers will be "non async" too. More about <a href='https://github.com/facebook/react/blob/b5c0852fddda9abdab25b101a040e607877f4663/packages/react-reconciler/src/ReactFiber.js#L85' target='_blank'>**fiber node here**.</a>
 
-<a href='https://github.com/master-atul/blog-custom-renderer/tree/b0f74ffc14eecceb259c5b302cf170cce843d3b1' target='_blank'>Link to source code till here</a>
+Lets try and run our react app now.
+
+```sh
+yarn start
+```
+
+You should get an awesome error screen as follows:
+![first error now not found](./first_error_now.png)
+
+This is because we havent implemented the required methods in the HostConfig yet 💩.
+
+<br>
+
+**<a href='https://github.com/master-atul/blog-custom-renderer/tree/b0f74ffc14eecceb259c5b302cf170cce843d3b1' target='_blank'>Link to source code till here</a>**
+
+<br>
+
+---
+
+We will continue with rest of the post here: <a href='/react-custom-renderer-2/' target='_blank'>⚛️✌️ Part 2/3 - Beginners guide to React Renderers. How to build your own renderer from scratch?</a>.
+
+---
 
 # References
 
@@ -415,11 +440,6 @@ Hence when we set the mode of container (root fiber) as not async. All remaining
 - https://reactjs.org/blog/2015/12/18/react-components-elements-and-instances.html
 - https://reactjs.org/docs/jsx-in-depth.html
 - https://reactjs.org/docs/implementation-notes.html
-- https://medium.com/@agent_hunt/react-is-also-the-llvm-for-creating-declarative-ui-frameworks-767e75ce1d6a
-- https://medium.com/@agent_hunt/hello-world-custom-react-renderer-9a95b7cd04bc
-- https://github.com/nitin42/Making-a-custom-React-renderer
-- https://goshakkk.name/react-custom-renderers/
-- https://hackernoon.com/learn-you-some-custom-react-renderers-aed7164a4199
 - https://giamir.com/what-is-react-fiber
 - React Suspense implementation by Kent C. Dodds : <a href='https://www.youtube.com/watch?v=7LmrS2sdMlo' target='_blank'>https://www.youtube.com/watch?v=7LmrS2sdMlo</a>
 - https://github.com/sw-yx/fresh-async-react
