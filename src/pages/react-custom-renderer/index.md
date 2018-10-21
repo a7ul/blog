@@ -54,6 +54,8 @@ React was originally created for the DOM but it was later adapted to also suppor
 - React-Dom renders the component tree into respective dom elements.
 - React Native renders the component tree into respective native platform views.
 
+![common reconciler](./common-reconciler.png)
+
 ### Reconciler
 
 Reconciler is the diffing algorithm that helps react figure out which dom elements to update on a state change. It is the part of React code that is shared between multiple platform renderers like React Dom, React Native, React ART etc.
@@ -334,17 +336,77 @@ Now if we check http://localhost:3000 we should see a blank white screen but che
 render called {$$typeof: Symbol(react.element), type: ƒ, key: null, ref: null, props: {…}, …} div#root undefined
 ```
 
-<a href='https://github.com/master-atul/blog-custom-renderer/tree/d12fa95c3fc05886facc14f6168a12cb842aa2fd' target='_blank'>Link to source code till here</a>
+<a href='https://github.com/master-atul/blog-custom-renderer/tree/5306e949bba475f80cab5a042535af5755c0aa43' target='_blank'>Link to source code till here</a>
 
-Cool😎!! This is how far my JS skills took me. Now to figure out what goes into render function, I had to read through multiple renderer codebases and documentations. This is what I understood.
+Cool😎!! . Now to figure out what goes into render function, I had to read through multiple renderer codebases and documentations. This is what I understood.👨🏻‍🎓
 
-The React team exported an experimental version of react-reconciler as an npm package.
-Renderers will implement all the platform specfic functions and the <a href='https://github.com/facebook/react/tree/master/packages/react-reconciler' target='_blank'>
-react-reconciler</a> package will call those platform specific functions to perform dom changes or view updates. We will define these platform specific functions in a configuration known as **hostConfig**. Every platform be it dom, react native, etc has its own **hostConfig**.
+- The React team exported an experimental version of **react-reconciler** as a npm package.
+- Every platform renderer, be it dom, react native, etc has to have its own configuration called **hostConfig** along with the **react-reconciler**. Renderers are required implement all the necessary platform specfic functions inside the **hostConfig**. The <a href='https://github.com/facebook/react/tree/master/packages/react-reconciler' target='_blank'>
+  react-reconciler</a> module inside the renderer will call the platform specific functions via the supplied hostConfig to perform dom changes or view updates.
 
-<<<<<< DRAW IMAGE HERE SHOWING FLOW RECONCILER(SITE ENGINEER) ----> RENDERER(WORKER)----> DOM[BUILDING] >>>>>>
+![renderer in short](./renderer_in_short.png)
 
-INSTALL REACT-RECONCILER PAGKAGE
+Now lets install **react-reconciler** package from npm.
+
+```sh
+yarn add react-reconciler
+```
+
+Now modify **src/renderer/index.js**
+
+```js
+const Reconciler = require('react-reconciler')
+
+const HostConfig = {
+  //TODO We will specify all required methods here
+}
+const reconcilerInstance = Reconciler(HostConfig)
+
+const CustomRenderer = {
+  render(element, renderDom, callback) {
+    // element: This is the react element for App component
+    // renderDom: This is the host root element to which the rendered app will be attached.
+    // callback: if specified will be called after render is done.
+
+    const isAsync = false // Disables async rendering
+    const container = reconcilerInstance.createContainer(renderDom, isAsync) // Creates root fiber node.
+
+    const parentComponent = null // Since there is no parent (since this is the root fiber). We set parentComponent to null.
+    reconcilerInstance.updateContainer(
+      element,
+      container,
+      parentComponent,
+      callback
+    ) // Start reconcilation and render the result
+  },
+}
+
+module.exports = CustomRenderer
+```
+
+**Whats happening?**
+
+- First we create an instance of the reconciler. We pass the hostConfig as its parameter. We will define the methods inside hostConfig in a bit.
+- Now inside the render method, our first step is to create a root fiber node (container) corresponding to the renderDom element. We do this by calling **reconcilerInstance.createContainer**. The root fiber node will be used by the reconciler to manage all the updates to the renderDom.
+- After we create the root fiber node (container), we will call **reconcilerInstance.updateContainer**. This will initiate reconcilation and the subsequent rendering.
+
+Now you might have noticed we set **isAsync** to false. This parameter is used to set the mode of working for the fiber node. When set to false it disables AsyncMode.<br/>
+A fiber can run on a mixture of modes. Few of them are:<br/>
+
+- **AsyncMode** - Enables Async rendering. But since it is not stable yet, it is disabled on all renderers by default. Check status <a href='https://github.com/facebook/react/issues/13206#issuecomment-407535077' target='_blank'>of async rendering here.</a> <br/>
+- **StrictMode** - Enables <a href='https://reactjs.org/docs/strict-mode.html' target='_blank'>React Strict mode.</a> <br/>
+- **ProfileMode** - Helps in performance profiling I guess. 🤷🏻‍ <br/>
+- **NoContext** - When no mode is not specified.
+
+At the time of writing this blog, React 16.5.2, React Native 0.57 and all currently available release versions of renderers have async mode disabled. So they all are running on sync mode at the moment. Also,
+
+> When a fiber is created, it inherits the mode of its
+> parent. Additional flags can be set at creation time, but after that the
+> value should remain unchanged throughout the fiber's lifetime.
+
+Hence when we set the mode of container (root fiber) as not async. All remaining child fibers will be non async too. More about <a href='https://github.com/facebook/react/blob/b5c0852fddda9abdab25b101a040e607877f4663/packages/react-reconciler/src/ReactFiber.js#L85' target='_blank'>**fiber node here**.</a>
+
+<a href='https://github.com/master-atul/blog-custom-renderer/tree/b0f74ffc14eecceb259c5b302cf170cce843d3b1' target='_blank'>Link to source code till here</a>
 
 # References
 
@@ -363,7 +425,3 @@ INSTALL REACT-RECONCILER PAGKAGE
 - https://github.com/sw-yx/fresh-async-react
 - https://github.com/acdlite/react-fiber-architecture
 - https://reactjs.org/docs/codebase-overview.html
-
-```
-
-```
