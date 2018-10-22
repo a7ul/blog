@@ -3,6 +3,12 @@ title: ⚛️👆 Part 1/3 - Beginners guide to React Renderers. How to build yo
 date: '2018-10-21T20:12:03.284Z'
 ---
 
+---
+
+This part will cover **the basics** needed to understand the renderer along with setup of boilerplate and initial configuration. We will cover inital render phase in <a href='/react-custom-renderer-2/' target='_blank'>⚛️✌️ Part 2/3 - Beginners guide to React Renderers...</a> and update phase the of renderer in <a href='/react-custom-renderer-2/' target='_blank'>⚛️🤟 Part 3/3 - Beginners guide to React Renderers...</a>
+
+---
+
 React helps you write your UI declaratively.
 <a href="https://codeburst.io/declarative-vs-imperative-programming-a8a7c93d9ad2" target="_blank">More on declarative vs imperative here</a>. It was initially developed for Web, but since then it has been extended as
 <a href="https://facebook.github.io/react-native/" target="_blank">React Native</a>,
