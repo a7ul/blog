@@ -5,8 +5,12 @@ date: '2018-10-23T01:10:03.284Z'
 
 ---
 
-This is the third post of 3 post series on Custom React Renderers. I strongly recommend you to read
-<a href='/react-custom-renderer-1/' target='_blank'>⚛️👆 Part 1/3 - Beginners guide to React Renderers...</a> and <a href='/react-custom-renderer-2/' target='_blank'>⚛️✌️ Part 2/3 - Beginners guide to React Renderers...</a>. This part will cover **the update phase of the renderer**.
+This is the third post of 3 post series on Custom React Renderers.This post will cover **the update phase of the renderer**.
+
+I strongly recommend you to read earlier posts before reading this post.
+
+- <a href='/react-custom-renderer-1/' target='_blank'>⚛️👆 Part 1/3 - Beginners guide to React Renderers...</a> and
+- <a href='/react-custom-renderer-2/' target='_blank'>⚛️✌️ Part 2/3 - Beginners guide to React Renderers...</a>.
 
 ---
 
