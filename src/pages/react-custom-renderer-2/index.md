@@ -1,11 +1,13 @@
 ---
 title: ⚛️✌️ Part 2/3 - Beginners guide to React Renderers. How to build your own renderer from scratch?
-date: '2018-10-21T22:12:03.284Z'
+date: '2018-10-22T22:12:03.284Z'
 ---
 
 ---
 
-This is the continuation of the post here: <a href='/react-custom-renderer-1/' target='_blank'>⚛️👆 Part 1/3 - Beginners guide to React Renderers. How to build your own renderer from scratch?</a>. I would strongly recommend reading Part 1 before. This part will cover **the initial render phase of the renderer**. The update phase would be covered in <a href='/react-custom-renderer-3/' target='_blank'>⚛️🤟 Part 3/3 - Beginners guide to React Renderers. How to build your own renderer from scratch?</a>.
+This is the continuation of the post here: <a href='/react-custom-renderer-1/' target='_blank'>⚛️👆 Part 1/3 - Beginners guide to React Renderers. How to build your own renderer from scratch?</a>. I would strongly recommend reading Part 1 before. This part will cover **the initial render phase of the renderer**.
+
+- The update phase would be covered in <a href='/react-custom-renderer-3/' target='_blank'>⚛️🤟 Part 3/3 - Beginners guide to React Renderers. How to build your own renderer from scratch?</a>.
 
 ---
 
@@ -681,6 +683,77 @@ We will go ahead and call focus on the dom element.
 commitMount: (domElement, type, newProps, fiberNode) => {
    domElement.focus();
 },
+```
+
+<br>
+
+**<a href='https://github.com/master-atul/blog-custom-renderer/tree/31d5ff827565ef8f4f8e5061b97c16ec3b6a279f' target='_blank'>Link to source code till here</a>**
+
+<br>
+
+Our HostConfig looks like this now:
+
+```js
+const HostConfig = {
+  now: Date.now,
+  getRootHostContext: function(nextRootInstance) {
+    let rootContext = {}
+    return rootContext
+  },
+  getChildHostContext: function(parentContext, fiberType, rootInstance) {
+    let context = { type: fiberType }
+    return context
+  },
+  shouldSetTextContent: function(type, nextProps) {
+    return false
+  },
+  createTextInstance: function(
+    newText,
+    rootContainerInstance,
+    currentHostContext,
+    workInProgress
+  ) {
+    return document.createTextNode(newText)
+  },
+  createInstance: function(
+    type,
+    newProps,
+    rootContainerInstance,
+    currentHostContext,
+    workInProgress
+  ) {
+    const element = document.createElement(type)
+    element.className = newProps.className || ''
+    element.style = newProps.style
+    // ....
+    // ....
+    // if (newProps.onClick) {
+    //   element.addEventListener('click', newProps.onClick)
+    // }
+    return element
+  },
+  appendInitialChild: (parent, child) => {
+    parent.appendChild(child)
+  },
+  finalizeInitialChildren: (
+    instance,
+    type,
+    newProps,
+    rootContainerInstance,
+    currentHostContext
+  ) => {
+    return newProps.autofocus //simply return true for experimenting
+  },
+  prepareForCommit: function(rootContainerInstance) {},
+  resetAfterCommit: function(rootContainerInstance) {},
+  commitMount: (domElement, type, newProps, fiberNode) => {
+    domElement.focus()
+  },
+  appendChildToContainer: (parent, child) => {
+    parent.appendChild(child)
+  },
+  supportsMutation: true,
+}
 ```
 
 Cool! We have built a tiny renderer that can render JSX to the dom. Next part of the blog post series will focus solely on the update (which is why we use react in the first place 😉).

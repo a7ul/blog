@@ -1,11 +1,14 @@
 ---
 title: ⚛️👆 Part 1/3 - Beginners guide to React Renderers. How to build your own renderer from scratch?
-date: '2018-10-21T20:12:03.284Z'
+date: '2018-10-21T20:11:03.284Z'
 ---
 
 ---
 
-This part will cover **the basics** needed to understand the renderer along with setup of boilerplate and initial configuration. We will cover inital render phase in <a href='/react-custom-renderer-2/' target='_blank'>⚛️✌️ Part 2/3 - Beginners guide to React Renderers...</a> and update phase the of renderer in <a href='/react-custom-renderer-2/' target='_blank'>⚛️🤟 Part 3/3 - Beginners guide to React Renderers...</a>
+This part will cover **the basics** needed to understand the renderer along with setup of boilerplate and initial configuration.
+
+- We will cover inital render phase in <a href='/react-custom-renderer-2/' target='_blank'>⚛️✌️ Part 2/3 - Beginners guide to React Renderers...</a> and
+- Update phase the of renderer during setState <a href='/react-custom-renderer-3/' target='_blank'>⚛️🤟 Part 3/3 - Beginners guide to React Renderers...</a>
 
 ---
 
