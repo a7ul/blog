@@ -155,16 +155,13 @@ Lets say we use it as
 <Content style="background:blue;" text="hello world" />
 ```
 
-This will tell React to call
+This will tell React to call render on this component and return a React Element.
+
+To see how it looks, we **console.log** it and we get
 
 ```js
-Content({ text: 'hello world', style: 'background:blue;' })
-```
-
-If we **console.log** it, we get
-
-```js
-console.log(Content({ text: 'hello world', style: 'background:blue;' }))
+const props = { text: 'hello world', style: 'background:blue;' };
+console.log(Content(props))
 // This logs
 {
   "type":"p",
