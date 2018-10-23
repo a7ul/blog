@@ -766,7 +766,7 @@ Cool! We have built a tiny renderer that can render JSX to the dom. Next part of
 
 ---
 
-Next part of the blog series will cover the update phase of the renderer after setState is invoked. <a href='/react-custom-renderer-3/' target='_blank'>⚛️🤟 Part 3/3 - Beginners guide to React Renderers. How to build your own renderer from scratch?</a>.
+Next part of the blog series will cover the update phase of the renderer after setState is invoked. [⚛️🤟 Part 3/3 - Beginners guide to React Renderers. How to build your own renderer from scratch?](/react-custom-renderer-3/)
 
 ---
 
