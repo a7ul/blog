@@ -157,7 +157,7 @@ Lets say we use it as
 
 This will tell React to call render on this component and return a React Element.
 
-To see how it looks, we **console.log** it and we get
+To see how it looks, we can **console.log** it.
 
 ```js
 const props = { text: 'hello world', style: 'background:blue;' };
