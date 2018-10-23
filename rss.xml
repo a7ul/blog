@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog]]></title><description><![CDATA[Build. Hack. Rebuild. Hack...]]></description><link>https://blog.atulr.com</link><generator>RSS for Node</generator><lastBuildDate>Tue, 23 Oct 2018 09:43:00 GMT</lastBuildDate><item><title><![CDATA[⚛️🤟 Part 3/3 - Beginners guide to React Renderers. How to build your own renderer from scratch?]]></title><description><![CDATA[This is the third post of 3 post series on Custom React Renderers.This post will cover  the update phase of the renderer . I strongly…]]></description><link>https://blog.atulr.com/react-custom-renderer-3/</link><guid isPermaLink="false">https://blog.atulr.com/react-custom-renderer-3/</guid><pubDate>Tue, 23 Oct 2018 01:10:03 GMT</pubDate><content:encoded>&lt;hr&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog]]></title><description><![CDATA[Build. Hack. Rebuild. Hack...]]></description><link>https://blog.atulr.com</link><generator>RSS for Node</generator><lastBuildDate>Tue, 23 Oct 2018 11:53:17 GMT</lastBuildDate><item><title><![CDATA[⚛️🤟 Part 3/3 - Beginners guide to React Renderers. How to build your own renderer from scratch?]]></title><description><![CDATA[This is the third post of 3 post series on Custom React Renderers.This post will cover  the update phase of the renderer . I strongly…]]></description><link>https://blog.atulr.com/react-custom-renderer-3/</link><guid isPermaLink="false">https://blog.atulr.com/react-custom-renderer-3/</guid><pubDate>Tue, 23 Oct 2018 01:10:03 GMT</pubDate><content:encoded>&lt;hr&gt;
 &lt;p&gt;This is the third post of 3 post series on Custom React Renderers.This post will cover &lt;strong&gt;the update phase of the renderer&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;I strongly recommend you to read earlier posts before reading this post.&lt;/p&gt;
 &lt;ul&gt;
@@ -709,7 +709,7 @@ up text content during hydration mismatch).&lt;/p&gt;
 &lt;/div&gt;
 &lt;hr&gt;
 &lt;hr&gt;
-&lt;p&gt;Next part of the blog series will cover the update phase of the renderer after setState is invoked. &lt;a href=&apos;/react-custom-renderer-3/&apos; target=&apos;_blank&apos;&gt;⚛️🤟 Part 3/3 - Beginners guide to React Renderers. How to build your own renderer from scratch?&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Next part of the blog series will cover the update phase of the renderer after setState is invoked. &lt;a href=&quot;/react-custom-renderer-3/&quot;&gt;⚛️🤟 Part 3/3 - Beginners guide to React Renderers. How to build your own renderer from scratch?&lt;/a&gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;hr&gt;
 &lt;h1&gt;References&lt;/h1&gt;
