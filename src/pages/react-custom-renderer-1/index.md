@@ -1,5 +1,5 @@
 ---
-title: ⚛️👆 Part 1/3 - Beginners guide to React Renderers. How to build your own renderer from scratch?
+title: ⚛️👆 Part 1/3 - Beginners guide to Custom React Renderers. How to build your own renderer from scratch?
 date: '2018-10-21T20:11:03.284Z'
 ---
 
@@ -7,8 +7,8 @@ date: '2018-10-21T20:11:03.284Z'
 
 This part will cover **the basics** needed to understand the renderer along with setup of boilerplate and initial configuration.
 
-- We will cover inital render phase in <a href='/react-custom-renderer-2/' target='_blank'>⚛️✌️ Part 2/3 - Beginners guide to React Renderers...</a> and
-- Update phase the of renderer during setState <a href='/react-custom-renderer-3/' target='_blank'>⚛️🤟 Part 3/3 - Beginners guide to React Renderers...</a>
+- We will cover inital render phase in <a href='/react-custom-renderer-2/' target='_blank'>⚛️✌️ Part 2/3 - Beginners guide to Custom React Renderers...</a> and
+- Update phase the of renderer during setState <a href='/react-custom-renderer-3/' target='_blank'>⚛️🤟 Part 3/3 - Beginners guide to Custom React Renderers...</a>
 
 ---
 
@@ -435,7 +435,7 @@ This is because we havent implemented the required methods in the HostConfig yet
 
 ---
 
-We will continue with rest of the post here: <a href='/react-custom-renderer-2/' target='_blank'>⚛️✌️ Part 2/3 - Beginners guide to React Renderers. How to build your own renderer from scratch?</a>.
+We will continue with rest of the post here: <a href='/react-custom-renderer-2/' target='_blank'>⚛️✌️ Part 2/3 - Beginners guide to Custom React Renderers. How to build your own renderer from scratch?</a>.
 
 ---
 
