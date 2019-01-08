@@ -1,6 +1,6 @@
 ---
 title: ⚛️🤟 Part 3/3 - Beginners guide to Custom React Renderers. How to build your own renderer from scratch?
-date: '2018-10-23T01:10:03.284Z'
+date: '2019-01-08T01:10:03.284Z'
 ---
 
 ---
@@ -347,3 +347,477 @@ Now, lets run our app and see what happens. Click that "Get current time" button
 ### Order of Execution for Update
 
 If you see the list of all functions in the hostConfig from React Dom source code, you should see a lot of functions that are not yet covered but seem like somewhat related to update functionality. After playing around a lot with the renderer this is the order of execution that I came up with.
+
+![update flow](./update_flow_draw_io.png)
+_(Right Click on the image and select **Open Image in New Tab** to get a better resolution version)._
+
+This covers all the basic methods of the renderer during first time render and subsequent updates.
+
+### Methods used for edge cases (during Commit Phase)
+
+Now if you take a look a the hostConfig, you will find that there are still few methods that are not covered yet. If you play around with renderer a bit more you will find thats some of those methods will be triggered during certain edge cases.
+
+---
+
+### ▸ appendChild
+
+---
+
+The function signature is:
+
+```js
+function appendChild(parentInstance, child) {}
+```
+
+**_Parameters_**
+
+- **parentInstance**: the parent dom node into which a new child node needs to be appended at the end.
+- **child**: the new dom node that needs to be inserted.
+
+**_Purpose_**
+This function is called whenever a new element needs to be inserted into a parent element at the end. For example:
+
+```html
+<div>
+  <p> test </p>
+  {this.state.test === "yolo" && <button> Hello </button>}
+</div>
+```
+
+So here when state.test becomes yolo. This function will be called with parentInstance = div and child = button in the commit Phase.
+
+**_For our custom renderer_**
+
+```js
+appendChild: function(parentInstance, child) {
+    parentInstance.appendChild(child);
+}
+```
+
+---
+
+### ▸ insertBefore
+
+---
+
+The function signature is:
+
+```js
+function insertBefore(parentInstance, child, beforeChild) {}
+```
+
+**_Parameters_**
+
+- **parentInstance**: the parent dom node into which a new child node needs to be inserted.
+- **child**: the new dom node that needs to be inserted.
+- **beforeChild**: the child node before which the new child node needs to be inserted.
+
+**_Purpose_**
+
+This function is called whenever a new element needs to be inserted before a child element inside the parent element.
+For Example:
+
+```html
+<div>
+  <p> test </p>
+  {this.state.test === "yolo" && <button>Hello</button>}
+  <p> test2 </p>
+</div>
+```
+
+So here when state.test becomes yolo. This function will be called with parentInstance = div, beforeChild = p(test2) , child = button in the commit Phase.
+
+**_For our custom renderer_**
+
+```js
+insertBefore: (parentInstance, child, beforeChild) => {
+  parentInstance.insertBefore(child, beforeChild)
+}
+```
+
+---
+
+### ▸ removeChild
+
+---
+
+The function signature is:
+
+```js
+function removeChild(parentInstance, child) {}
+```
+
+**_Parameters_**
+
+- **parentInstance**: the parent dom node from which a the child node needs to be removed.
+- **child**: the dom node that needs to be removed.
+
+**_Purpose_**
+
+This function is called whenever an element needs to be removed from the parent element.
+For Example:
+
+```html
+<div>
+  {this.state.test === "yolo" && <button>Hello</button>}
+</div>
+```
+
+So here when state.test becomes something other than yolo.
+This function will be called with parentInstance = div and child = button in the commit Phase.
+
+**_For our custom renderer_**
+
+```js
+removeChild: function(parentInstance, child) {
+ parentInstance.removeChild(child);
+}
+```
+
+---
+
+### ▸ insertInContainerBefore
+
+---
+
+The function signature is:
+
+```js
+function insertInContainerBefore(container, child, beforeChild) {}
+```
+
+**_Parameters_**
+
+- **container**: the root container node to which a the child node needs to be inserted.
+- **child**: the dom node that needs to be inserted.
+- **beforeChild**: the child node before which the new child node needs to be inserted.
+
+**_Purpose_**
+
+This function is called whenever an element needs to insertedBefore the top most level component(Root component) itself.
+For Example:
+
+```js
+const App = () => (
+  <>
+    {this.state.test === 'yolo' && <button>Hello</button>}
+    <div> World</div>
+  </>
+)
+```
+
+So here when state.test becomes yolo.
+This function will be called with container = root#div and child = div(World) and beforeChild = button in the commit Phase.
+
+**_For our custom renderer_**
+
+```js
+insertInContainerBefore: function(container, child, beforeChild) {
+  container.insertBefore(child, beforeChild);
+}
+```
+
+---
+
+### ▸ removeChildFromContainer
+
+---
+
+The function signature is:
+
+```js
+function removeChildFromContainer(container, child) {}
+```
+
+**_Parameters_**
+
+- **container**: the root container node from which a the child node needs to be removed.
+- **child**: the dom node that needs to be removed.
+
+**_Purpose_**
+
+This function is called whenever an element is present at the top level as this `<button>` and needs to be removed.
+For Example:
+
+```js
+const App = () => (
+  <>
+    {this.state.test === 'yolo' && <button>Hello</button>}
+    <div> World</div>
+  </>
+)
+```
+
+So here when state.test becomes NOT yolo.
+This function will be called with container = root#div and child=button in the commit Phase.
+
+**_For our custom renderer_**
+
+```js
+removeChildFromContainer: function(container, child) {
+  container.removeChild(child);
+}
+```
+
+---
+
+### ▸ resetTextContent
+
+---
+
+The function signature is:
+
+```js
+function resetTextContent(domElement) {}
+```
+
+**_Parameters_**
+
+- **domElement**: the dom element for which the text content needs to be reset.
+
+**_Purpose_**
+
+Its used in react-dom to reset the text content of the dom element. But I couldnt find a way to initiate this function. Need to dig more. Hence, I am gonna leave it as a no operation function.
+
+**_For our custom renderer_**
+
+```js
+resetTextContent: function(domElement) {
+
+}
+```
+
+## Extra Methods
+
+These contain the remaining methods from the hostConfig that I was able to figure out. I would appreciate if people reading this blog helps me figure out what rest of the methods from the hostConfig do in the comment section below. I would then add them here.
+
+---
+
+### ▸ shouldDeprioritizeSubtree
+
+---
+
+The function signature is:
+
+```js
+function shouldDeprioritizeSubtree(type, nextProps) {}
+```
+
+**_Parameters_**
+
+- **type**: the dom type of the element (p, span, div, etc).
+- **nextProps**: the props passed to the element.
+
+**_Purpose_**
+
+This function is used to deprioritize rendering of some subtrees. Mostly used in cases where the subtree is hidden or offscreen.
+In react-dom code base this function contains:
+
+```js
+function shouldDeprioritizeSubtree(type, nextProps) {
+  return !!nextProps.hidden
+}
+```
+
+This can help improve rendering performance.
+
+**_For our custom renderer_**
+
+```js
+shouldDeprioritizeSubtree: function(type, nextProps) {
+  return !!nextProps.hidden
+}
+```
+
+---
+
+## Final hostConfig
+
+This is the hostConfig that I ended up with. I will paste it here for reference.
+
+```js
+const HostConfig = {
+  now: Date.now,
+  getRootHostContext: function(nextRootInstance) {
+    let rootContext = {}
+    return rootContext
+  },
+  getChildHostContext: function(parentContext, fiberType, rootInstance) {
+    let context = { type: fiberType }
+    return context
+  },
+  shouldSetTextContent: function(type, nextProps) {
+    return false
+  },
+  createTextInstance: function(
+    newText,
+    rootContainerInstance,
+    currentHostContext,
+    workInProgress
+  ) {
+    return document.createTextNode(newText)
+  },
+  createInstance: function(
+    type,
+    newProps,
+    rootContainerInstance,
+    currentHostContext,
+    workInProgress
+  ) {
+    const element = document.createElement(type)
+    element.className = newProps.className || ''
+    element.style = newProps.style
+    // ....
+    // ....
+    if (newProps.onClick) {
+      element.addEventListener('click', newProps.onClick)
+    }
+    return element
+  },
+  appendInitialChild: (parent, child) => {
+    parent.appendChild(child)
+  },
+  finalizeInitialChildren: (
+    instance,
+    type,
+    newProps,
+    rootContainerInstance,
+    currentHostContext
+  ) => {
+    return newProps.autofocus //simply return true for experimenting
+  },
+  prepareForCommit: function(rootContainerInstance) {},
+  resetAfterCommit: function(rootContainerInstance) {},
+  commitMount: (domElement, type, newProps, fiberNode) => {
+    domElement.focus()
+  },
+  appendChildToContainer: (parent, child) => {
+    parent.appendChild(child)
+  },
+  supportsMutation: true,
+  prepareUpdate: function(
+    instance,
+    type,
+    oldProps,
+    newProps,
+    rootContainerInstance,
+    currentHostContext
+  ) {
+    return //return nothing.
+  },
+  commitUpdate: function(
+    instance,
+    updatePayload,
+    type,
+    oldProps,
+    newProps,
+    finishedWork
+  ) {
+    return //return nothing.
+  },
+  commitTextUpdate: function(textInstance, oldText, newText) {
+    textInstance.nodeValue = newText
+  },
+  appendChild: function(parentInstance, child) {
+    parentInstance.appendChild(child)
+  },
+  insertBefore: (parentInstance, child, beforeChild) => {
+    parentInstance.insertBefore(child, beforeChild)
+  },
+  removeChild: function(parentInstance, child) {
+    parentInstance.removeChild(child)
+  },
+  insertInContainerBefore: function(container, child, beforeChild) {
+    container.insertBefore(child, beforeChild)
+  },
+  removeChildFromContainer: function(container, child) {
+    container.removeChild(child)
+  },
+  resetTextContent: function(domElement) {},
+  shouldDeprioritizeSubtree: function(type, nextProps) {
+    return !!nextProps.hidden
+  },
+}
+```
+
+## Status of methods from hostConfig I was not able to figure out!
+
+Now there are a lot more methods I am still not sure what they are for. And I would really appreciate help here. Please let me know in the comment section so that I can document them here aswell. I have made a status tracker below that tracks the info that I know till date. I will keep updating it as and when I find some more details.
+
+```js
+------
+LEGEND
+------
+✅ - Means I figured what these methods do.
+🔔 - Have some idea but not completely sure. Need help with these.
+❌ - No freakin idea what these do. Need help with these.
+
+
+$$$hostConfig.getPublicInstance; - ✅
+$$$hostConfig.getRootHostContext; - ✅
+$$$hostConfig.getChildHostContext; - ✅
+$$$hostConfig.prepareForCommit; - ✅
+$$$hostConfig.resetAfterCommit; - ✅
+$$$hostConfig.createInstance; - ✅
+$$$hostConfig.appendInitialChild; - ✅
+$$$hostConfig.finalizeInitialChildren; - ✅
+$$$hostConfig.prepareUpdate; - ✅
+$$$hostConfig.shouldSetTextContent; - ✅
+$$$hostConfig.shouldDeprioritizeSubtree; - ✅
+$$$hostConfig.createTextInstance; - ✅
+$$$hostConfig.scheduleDeferredCallback; - ❌
+$$$hostConfig.cancelDeferredCallback; - ❌
+$$$hostConfig.setTimeout; - 🔔 React Suspense stuff: Provide an implementation of setTimeout here to help in pause execution
+$$$hostConfig.clearTimeout; - 🔔 React Suspense stuff: Provide an implementation of clearTimeout
+$$$hostConfig.noTimeout; - 🔔 React Suspense stuff: Usually set it to -1. But can be any ID that setTimeout doesnt provide. So that it can be used to check if timeout handler is present or not
+$$$hostConfig.now; - ✅
+$$$hostConfig.isPrimaryRenderer; - 🔔 Set this to true. This is primarily used in codebase to manage context if there are more than one renderers I think. This is the hunch I got after reading the codebase.
+$$$hostConfig.supportsMutation; - ✅
+$$$hostConfig.supportsPersistence; - 🔔❌ set this to false. Current react-dom doesnt support it yet aswell.
+$$$hostConfig.supportsHydration; - 🔔❌ set this to false. Enable if you can support hydration. More on hydration here: https://reactjs.org/docs/react-dom.html#hydrate
+-------------------
+     Mutation
+    (optional)
+-------------------
+$$$hostConfig.appendChild; - ✅
+$$$hostConfig.appendChildToContainer; - ✅
+$$$hostConfig.commitTextUpdate; - ✅
+$$$hostConfig.commitMount; - ✅
+$$$hostConfig.commitUpdate; - ✅
+$$$hostConfig.insertBefore; - ✅
+$$$hostConfig.insertInContainerBefore; - ✅
+$$$hostConfig.removeChild; - ✅
+$$$hostConfig.removeChildFromContainer; - ✅
+$$$hostConfig.resetTextContent; - 🔔
+$$$hostConfig.cloneInstance; - 🔔❌ This will be used for persistence
+$$$hostConfig.createContainerChildSet; - 🔔❌ This will be used for persistence
+$$$hostConfig.appendChildToContainerChildSet; - 🔔❌ This will be used for persistence
+$$$hostConfig.finalizeContainerChildren; - 🔔❌ This will be used for persistence
+$$$hostConfig.replaceContainerChildren; - 🔔❌ This will be used for persistence
+-------------------
+    Hydration
+    (optional)
+-------------------
+$$$hostConfig.canHydrateInstance; - 🔔❌ This will be used for hydration
+$$$hostConfig.canHydrateTextInstance; - 🔔❌ This will be used for hydration
+$$$hostConfig.getNextHydratableSibling; - 🔔❌ This will be used for hydration
+$$$hostConfig.getFirstHydratableChild; - 🔔❌ This will be used for hydration
+$$$hostConfig.hydrateInstance; - 🔔❌ This will be used for hydration
+$$$hostConfig.hydrateTextInstance; - 🔔❌ This will be used for hydration
+$$$hostConfig.didNotMatchHydratedContainerTextInstance; - 🔔❌ This will be used for hydration
+$$$hostConfig.didNotMatchHydratedTextInstance; - 🔔❌ This will be used for hydration
+$$$hostConfig.didNotHydrateContainerInstance; - 🔔❌ This will be used for hydration
+$$$hostConfig.didNotHydrateInstance; - 🔔❌ This will be used for hydration
+$$$hostConfig.didNotFindHydratableContainerInstance; - 🔔❌ This will be used for hydration
+$$$hostConfig.didNotFindHydratableContainerTextInstance; - 🔔❌ This will be used for hydration
+$$$hostConfig.didNotFindHydratableInstance; - 🔔❌ This will be used for hydration
+$$$hostConfig.didNotFindHydratableTextInstance; - 🔔❌ This will be used for hydration
+```
+
+---
+
+Wow!! I learnt a lot with this blog 🤯 . Hope you did too 😬.
+
+<div style="display:flex;flex-direction:row;align-items:center;">
+<img src="./high5.gif" alt="high5 meme" style="height:200px;margin:0 auto;"/>
+</div>
