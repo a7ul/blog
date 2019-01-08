@@ -821,3 +821,5 @@ Wow!! I learnt a lot with this blog 🤯 . Hope you did too 😬.
 <div style="display:flex;flex-direction:row;align-items:center;">
 <img src="./high5.gif" alt="high5 meme" style="height:200px;margin:0 auto;"/>
 </div>
+
+The complete source code of the renderer from this blog post is available at https://github.com/master-atul/blog-custom-renderer
