@@ -1,20 +1,131 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog]]></title><description><![CDATA[Build. Hack. Rebuild. Hack...]]></description><link>https://blog.atulr.com</link><generator>RSS for Node</generator><lastBuildDate>Tue, 23 Oct 2018 11:53:17 GMT</lastBuildDate><item><title><![CDATA[⚛️🤟 Part 3/3 - Beginners guide to React Renderers. How to build your own renderer from scratch?]]></title><description><![CDATA[This is the third post of 3 post series on Custom React Renderers.This post will cover  the update phase of the renderer . I strongly…]]></description><link>https://blog.atulr.com/react-custom-renderer-3/</link><guid isPermaLink="false">https://blog.atulr.com/react-custom-renderer-3/</guid><pubDate>Tue, 23 Oct 2018 01:10:03 GMT</pubDate><content:encoded>&lt;hr&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog]]></title><description><![CDATA[Build. Hack. Rebuild. Hack...]]></description><link>https://blog.atulr.com</link><generator>RSS for Node</generator><lastBuildDate>Tue, 08 Jan 2019 21:33:10 GMT</lastBuildDate><item><title><![CDATA[⚛️🤟 Part 3/3 - Beginners guide to Custom React Renderers. How to build your own renderer from scratch?]]></title><description><![CDATA[This is the third post of 3 post series on Custom React Renderers.This post will cover  the update phase of the renderer . I strongly…]]></description><link>https://blog.atulr.com/react-custom-renderer-3/</link><guid isPermaLink="false">https://blog.atulr.com/react-custom-renderer-3/</guid><pubDate>Tue, 08 Jan 2019 01:10:03 GMT</pubDate><content:encoded>&lt;hr&gt;
 &lt;p&gt;This is the third post of 3 post series on Custom React Renderers.This post will cover &lt;strong&gt;the update phase of the renderer&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;I strongly recommend you to read earlier posts before reading this post.&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&apos;/react-custom-renderer-1/&apos; target=&apos;_blank&apos;&gt;⚛️👆 Part 1/3 - Beginners guide to React Renderers…&lt;/a&gt; and&lt;/li&gt;
-&lt;li&gt;&lt;a href=&apos;/react-custom-renderer-2/&apos; target=&apos;_blank&apos;&gt;⚛️✌️ Part 2/3 - Beginners guide to React Renderers…&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&apos;/react-custom-renderer-1/&apos; target=&apos;_blank&apos;&gt;⚛️👆 Part 1/3 - Beginners guide to Custom React Renderers…&lt;/a&gt; and&lt;/li&gt;
+&lt;li&gt;&lt;a href=&apos;/react-custom-renderer-2/&apos; target=&apos;_blank&apos;&gt;⚛️✌️ Part 2/3 - Beginners guide to Custom React Renderers…&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
-&lt;br/&gt;
-&lt;br/&gt;
-&lt;p&gt;&lt;span style=&quot;color:blue; font-weight:bold; text-align:center; display:block;&quot;&gt;I am working on this post at the moment. Come back and check it out in 2-3 days! 😬&lt;/span&gt;&lt;/p&gt;
-&lt;br/&gt;
-&lt;br/&gt;
-&lt;p&gt;
+&lt;p&gt;At this point we have a custom react renderer that can render our react app into the DOM tree.&lt;/p&gt;
+&lt;p&gt;Our HostConfig looks like this now:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; HostConfig &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  now&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Date&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;now&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  getRootHostContext&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;nextRootInstance&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; rootContext &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; rootContext
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  getChildHostContext&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;parentContext&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; fiberType&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; rootInstance&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; context &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; type&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; fiberType &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; context
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  shouldSetTextContent&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;type&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; nextProps&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  createTextInstance&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+    newText&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    rootContainerInstance&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    currentHostContext&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    workInProgress
+  &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; document&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;createTextNode&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;newText&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  createInstance&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+    type&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    newProps&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    rootContainerInstance&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    currentHostContext&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    workInProgress
+  &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; element &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; document&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;createElement&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;type&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    element&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;className &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; newProps&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;className &lt;span class=&quot;token operator&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;&apos;&lt;/span&gt;
+    element&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;style &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; newProps&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;style
+    &lt;span class=&quot;token comment&quot;&gt;// ....&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// ....&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// if (newProps.onClick) {&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;//   element.addEventListener(&apos;click&apos;, newProps.onClick)&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// }&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; element
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  appendInitialChild&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;parent&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; child&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    parent&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;appendChild&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;child&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  finalizeInitialChildren&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+    instance&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    type&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    newProps&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    rootContainerInstance&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    currentHostContext
+  &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; newProps&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;autofocus &lt;span class=&quot;token comment&quot;&gt;//simply return true for experimenting&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  prepareForCommit&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;rootContainerInstance&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  resetAfterCommit&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;rootContainerInstance&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  commitMount&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;domElement&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; type&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; newProps&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; fiberNode&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    domElement&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;focus&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  appendChildToContainer&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;parent&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; child&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    parent&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;appendChild&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;child&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  supportsMutation&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;and this is our App code.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; React &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;react&apos;&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// import ReactDOM from &quot;react-dom&quot;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; CustomRenderer &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;./renderer&apos;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;token function-variable function&quot;&gt;Text&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; props &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;p className&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;props&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;className&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;props&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;content&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;p&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;token function-variable function&quot;&gt;App&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;div&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+      &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Text className&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;hello-class&quot;&lt;/span&gt; content&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;Hello&quot;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+      &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;span style&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;color:blue;&quot;&lt;/span&gt; autofocus&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+        World
+      &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;span&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+    &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;div&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;// ReactDOM.render(&amp;lt;App /&gt;, document.getElementById(&quot;root&quot;));&lt;/span&gt;
+CustomRenderer&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;render&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;App &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; document&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;getElementById&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;root&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Now lets add state to our app and use a button to change the state on click and see what happens.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; React &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;react&apos;&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// import ReactDOM from &quot;react-dom&quot;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; CustomRenderer &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;./renderer&apos;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;token function-variable function&quot;&gt;Text&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; props &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;p className&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;props&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;className&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;props&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;content&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;p&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;App&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;React&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Component&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  state &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    text&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Date&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token function-variable function&quot;&gt;onButtonClick&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;setState&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; text&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Date&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;render&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+      &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;div&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+        &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;Text className&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;hello-class&quot;&lt;/span&gt; content&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;state&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;text&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+        &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;span style&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;color:blue;&quot;&lt;/span&gt; autofocus&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+          World
+        &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;span&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+        &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;button onClick&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;onButtonClick&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;Get current time&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;button&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+      &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;div&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;// ReactDOM.render(&amp;lt;App /&gt;, document.getElementById(&quot;root&quot;));&lt;/span&gt;
+CustomRenderer&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;render&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;App &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; document&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;getElementById&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;root&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Now, you should see a button like this:
+
   &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/static/under_construction-0dbb4817630ef634e3244a36c7180a25-ef677.png&quot;
+    href=&quot;/static/added_btn-f2df0b7e492592a3cb4aa9700e372623-2858f.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -22,31 +133,584 @@
   
   &lt;span
     class=&quot;gatsby-resp-image-wrapper&quot;
-    style=&quot;position: relative; display: block; max-width:100% !important;; max-width: 496px; margin-left: auto; margin-right: auto;&quot;
+    style=&quot;position: relative; display: block; max-width:100% !important;; max-width: 800px; margin-left: auto; margin-right: auto;&quot;
   &gt;
     &lt;span
       class=&quot;gatsby-resp-image-background-image&quot;
-      style=&quot;padding-bottom: 73.18548387096774%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAIAAABr+ngCAAAACXBIWXMAAAsSAAALEgHS3X78AAADnklEQVQozwGTA2z8AJWUkHl2boSBeZOQiYSAdnx5b2tqZHJuYH54aHVwYnRvY2tnYGNgWWRhXISCfIF9dE9NTxMSGBITEyopHwCzsa+Yl5WkpKK2tbOfnp+HhHmZmI2mpJ+pqKicmpeOjIekoZ6enpuNjIilpaKtq6qTkpIjIiYQEREwLiUAXllOZmBVbWhcb2lglYhdxrRduKpRmIo8a143XFNBW083ST8tSEU5cm1fZWBRYlxPGBYYCwwPGRkXNzInAFxYS2dhVGljWouAZOnXkODQdMu+X7iuSJeKNW5gP2RYQVZMNklDNXNtXXZvX2dgURQSEwsMEB4dGjo2JwBfW05mYFRiXlidjl7/8Krz5I7i0Wy5rlCJgDRsYjddTTpFOCw9NStfVEZrYlJqYVMVEhUMDBAaGxg1MiYASEQ7ZF1RXFtVjIFYxK9ik4dUZWBANzYvPD1BDRAVIxwXJR4aDA0RFxQVJyIeRz80FBEVBgYNFxgVMS8jABcYGEFANVpWS3lmUjEkHgAABwUIE3d4e7a5vB8hJTYxMDg2MwgIDQ8QEhITFRgYFxcVFSEdHS0rJkI/MwAeGhg8NSt9cGGJcGBUQjpHQD9VUVDd3dnQzc+ipKaQj5FpZWIZFhcPDxIZGBoQEBIoKCc1Lyg3LSRAOTAAjnlrm4h6taaXtqiZzcrF2trY4+Ph6uzqt7a4r7GypqepdW9qOjErDw8SISEgLy8wb29tPTw6FBEQKCIdAKSbj5mQhLGlltPJwNbX1O3v7rO2tnl5e6msq66ysp+ho3l3dDszLR8eHy8wMGJiYXR1dFFQTRoaHgsMEACekoqYiIGnloq8saXKyMOzsq+EhIJ9fn+dnqCNkpOLjpFvcHJJSUpaXWBXWltOT1BSUlB7enJva2AZGBkArqWgrKWfrKSetKuimZePKCUjqqaf7OrlvLu5gYSIa293bXF2mZ2fsLGxgIGDS01LQUE+YFhYZ1lTV0lIALKuqq6lpLStq7WvrqqeoJmSkb64seLg29TUz4mGiGZjbGZpbKKmpNfV0La1sIWHhWdwbHZ0c3xwc4FscQC3sK+wqam0r6+1sLCtoaSzra21srG2tbOxsa+ppqepp6isqaqoqai0s7G7urakpaR7gH+UmZeprKuRi4wAsaWpr6epr6ytvL29qKmorKusuLi3q6ursbKyubm5sLKwtra2tLS0o6Ojrqytp6ankYyOq6eop6anjYWILhSPwTAW0jEAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+      style=&quot;padding-bottom: 30.139103554868623%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAGCAYAAADDl76dAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAXklEQVQY062P2wqAIBAF9/8/UrpIaBIkVqbFnjIogt60eVw4wyxZO8AYDa0UwuqRYGbkQrKNENUI0XSoZQ87hUeaI6YYgdkz3LJdMh/2MuE5/RyLXk7bu+ZdVVD4LwfdK9uPNwo+wgAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
     &gt;
       &lt;img
         class=&quot;gatsby-resp-image-image&quot;
         style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
-        alt=&quot;under_construction&quot;
+        alt=&quot;added a new button&quot;
         title=&quot;&quot;
-        src=&quot;/static/under_construction-0dbb4817630ef634e3244a36c7180a25-ef677.png&quot;
-        srcset=&quot;/static/under_construction-0dbb4817630ef634e3244a36c7180a25-0bebd.png 200w,
-/static/under_construction-0dbb4817630ef634e3244a36c7180a25-16527.png 400w,
-/static/under_construction-0dbb4817630ef634e3244a36c7180a25-ef677.png 496w&quot;
-        sizes=&quot;(max-width: 496px) 100vw, 496px&quot;
+        src=&quot;/static/added_btn-f2df0b7e492592a3cb4aa9700e372623-d256b.png&quot;
+        srcset=&quot;/static/added_btn-f2df0b7e492592a3cb4aa9700e372623-1aa72.png 200w,
+/static/added_btn-f2df0b7e492592a3cb4aa9700e372623-76ac4.png 400w,
+/static/added_btn-f2df0b7e492592a3cb4aa9700e372623-d256b.png 800w,
+/static/added_btn-f2df0b7e492592a3cb4aa9700e372623-c8b46.png 1200w,
+/static/added_btn-f2df0b7e492592a3cb4aa9700e372623-2858f.png 1294w&quot;
+        sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
       /&gt;
     &lt;/span&gt;
   &lt;/span&gt;
   
   &lt;/a&gt;
-    &lt;/p&gt;</content:encoded></item><item><title><![CDATA[⚛️✌️ Part 2/3 - Beginners guide to React Renderers. How to build your own renderer from scratch?]]></title><description><![CDATA[This is the continuation of the post here:  ⚛️👆 Part 1/3 - Beginners guide to React Renderers. How to build your own renderer from scratch…]]></description><link>https://blog.atulr.com/react-custom-renderer-2/</link><guid isPermaLink="false">https://blog.atulr.com/react-custom-renderer-2/</guid><pubDate>Mon, 22 Oct 2018 22:12:03 GMT</pubDate><content:encoded>&lt;hr&gt;
-&lt;p&gt;This is the continuation of the post here: &lt;a href=&apos;/react-custom-renderer-1/&apos; target=&apos;_blank&apos;&gt;⚛️👆 Part 1/3 - Beginners guide to React Renderers. How to build your own renderer from scratch?&lt;/a&gt;. I would strongly recommend reading Part 1 before. This part will cover &lt;strong&gt;the initial render phase of the renderer&lt;/strong&gt;.&lt;/p&gt;
+    &lt;/p&gt;
+&lt;p&gt;When you try and click on the button, we see that nothing happens. This is happening because our onClick listener is not getting invoked. And the reason why this happens is because our renderer doesnt know what to do with &lt;strong&gt;onClick&lt;/strong&gt; prop on the button.
+Lets add that functionality to our &lt;strong&gt;hostConfig&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;
+createInstance&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+    type&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    newProps&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    rootContainerInstance&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    currentHostContext&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    workInProgress
+  &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; element &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; document&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;createElement&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;type&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    element&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;className &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; newProps&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;className &lt;span class=&quot;token operator&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    element&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;style &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; newProps&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;style&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// ....&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// ....&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;newProps&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;onClick&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      element&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;addEventListener&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;click&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; newProps&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;onClick&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; element&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Refresh and click on the button. Boom! we get an error.&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/prepareUpdate-cd6f8e5456f10ce3ef8c25c944b7aaed-2d94c.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; max-width:100% !important;; max-width: 800px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 24.58536585365854%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAFCAYAAABFA8wzAAAACXBIWXMAABYlAAAWJQFJUiTwAAAA3ElEQVQY04WQyXKDMBBE+f9vS07k5CrbLAlCAglhLZi10+jA1ap61T1TGs1oslkbxLLGW3aY/xosv6RVWM2ARcik5zmO4yPbviPzzkFJiV51cHZEZDz5kIjOY54m7NuKg5dZ9ZEsaA11u6G736HIUNdwQsA1Ap7q25baYu41toFT80ebMZzc0OtLkyeZbyXE1zdk/gOR57BFCVMU0M8nXnz8jAfGJ/rxgC2rlB+rir5E4JomNo5Nk8ii9+g5xYvdX9yX7Xo4qlEKwVrmNMa+v1hCSMysW2MgEViWi3+5QH39diUjFgAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;prepareUpdate error&quot;
+        title=&quot;&quot;
+        src=&quot;/static/prepareUpdate-cd6f8e5456f10ce3ef8c25c944b7aaed-d256b.png&quot;
+        srcset=&quot;/static/prepareUpdate-cd6f8e5456f10ce3ef8c25c944b7aaed-1aa72.png 200w,
+/static/prepareUpdate-cd6f8e5456f10ce3ef8c25c944b7aaed-76ac4.png 400w,
+/static/prepareUpdate-cd6f8e5456f10ce3ef8c25c944b7aaed-d256b.png 800w,
+/static/prepareUpdate-cd6f8e5456f10ce3ef8c25c944b7aaed-c8b46.png 1200w,
+/static/prepareUpdate-cd6f8e5456f10ce3ef8c25c944b7aaed-3488d.png 1600w,
+/static/prepareUpdate-cd6f8e5456f10ce3ef8c25c944b7aaed-2d94c.png 2050w&quot;
+        sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    &lt;/p&gt;
+&lt;p&gt;Well 🤷🏻‍ atleast it means that our &lt;strong&gt;onClick&lt;/strong&gt; listener is now working. Lets stub this method in our hostConfig.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;
+  prepareUpdate&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;args&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;prepareUpdate&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;args&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;We get another error related to &lt;strong&gt;commitTextUpdate&lt;/strong&gt; now. Lets stub that too.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;
+ commitTextUpdate&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;args&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;commitTextUpdate&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;args&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;No more errors! Now, lets take a look at their respective implementations.&lt;/p&gt;
+&lt;h3&gt;▸ prepareUpdate&lt;/h3&gt;
+&lt;hr&gt;
+&lt;p&gt;The function signature is:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;prepareUpdate&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+  instance&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  type&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  oldProps&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  newProps&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  rootContainerInstance&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  currentHostContext
+&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;/* update payload */&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Parameters&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;The update phase would be covered in &lt;a href=&apos;/react-custom-renderer-3/&apos; target=&apos;_blank&apos;&gt;⚛️🤟 Part 3/3 - Beginners guide to React Renderers. How to build your own renderer from scratch?&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;instance&lt;/strong&gt;: instance is the current dom instance of the node.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;type&lt;/strong&gt;: This contains the type of fiber i.e, ‘div’, ‘span’, ‘p’, ‘input’ etc.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;oldProps&lt;/strong&gt;: props before this update.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;newProps&lt;/strong&gt;: new props.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;rootContainerInstance&lt;/strong&gt;: root dom node you specify while calling render. This is most commonly &lt;code class=&quot;language-text&quot;&gt;&amp;lt;div id=&amp;quot;root&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;currentHostContext&lt;/strong&gt;: contains the context from the parent node enclosing this node. This is the return value from &lt;strong&gt;getChildHostContext&lt;/strong&gt; of the parent node.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Return Value&lt;/em&gt;&lt;/strong&gt; This function should return a payload object. Payload is a Javascript object that can contain information on what needs to be changed on this host element. If returned true,&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Purpose&lt;/em&gt;&lt;/strong&gt;
+Prepare update is called first on the node, where the prop change occurs and then it is called on all the tree nodes recursively.
+This method can be used to hint the reconciler whether an update needs to be performed on this node or not. If this function doesnt return anything, then reconciler decides whether the update should be performed on this node or not based on its algorithm.&lt;/p&gt;
+&lt;p&gt;The idea is that we will NOT perform any dom changes in this function. Dom changes should be done on the commit phase of the renderer only. Once the tree traversal for the prepareUpdate is done, then prepareForCommit method will be called on rootContainer followed by &lt;strong&gt;commitUpdate&lt;/strong&gt; on each node where we returned an updatePayload from &lt;strong&gt;prepareUpdate&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;For our custom renderer&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;We will do nothing here.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;prepareUpdate &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+  instance&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  type&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  oldProps&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  newProps&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  rootContainerInstance&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  currentHostContext
+&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;//return nothing.&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;hr&gt;
+&lt;h3&gt;▸ commitUpdate&lt;/h3&gt;
+&lt;hr&gt;
+&lt;p&gt;The function signature is:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;commitUpdate&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+  instance&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  updatePayload&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  type&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  oldProps&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  newProps&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  finishedWork
+&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;/* update payload */&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Parameters&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;instance&lt;/strong&gt;: instance is the current dom instance of the node.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;updatePayload&lt;/strong&gt;: update payload from &lt;strong&gt;prepareUpdate&lt;/strong&gt; on the same node.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;type&lt;/strong&gt;: This contains the type of fiber i.e, ‘div’, ‘span’, ‘p’, ‘input’ etc.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;oldProps&lt;/strong&gt;: props before this update.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;newProps&lt;/strong&gt;: new props.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;finishedWork&lt;/strong&gt;: The fiber node that manages work for this instance.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Purpose&lt;/em&gt;&lt;/strong&gt;
+Here we perform all updates that we queued using prepareUpdate method. We will get the instance, the updatePayload, old and new props etc. This is where we should do all our dom manupulation work if needed.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;For our custom renderer&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;We will do nothing here.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;commitUpdate&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+    instance&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    updatePayload&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    type&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    oldProps&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    newProps&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    finishedWork
+  &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;//return nothing.&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;hr&gt;
+&lt;h3&gt;▸ commitTextUpdate&lt;/h3&gt;
+&lt;hr&gt;
+&lt;p&gt;The function signature is:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;commitTextUpdate&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;textInstance&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; oldText&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; newText&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token comment&quot;&gt;/** perform dom update on textInstance **/&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Parameters&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;textInstance&lt;/strong&gt;: instance is the current text node on the dom.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;oldText&lt;/strong&gt;: text before this update.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;newText&lt;/strong&gt;: new text to be updated.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Purpose&lt;/em&gt;&lt;/strong&gt;
+Here we perform the actual dom update on the textNode.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;For our custom renderer&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Lets update the text node.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;commitTextUpdate&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;textInstance&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; oldText&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; newText&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    textInstance&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;nodeValue &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; newText&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;hr&gt;
+&lt;p&gt;Now, lets run our app and see what happens. Click that “Get current time” button 👊🏽. Our text field should now update to the latest value in the state. 🥳🥳🥳&lt;/p&gt;
+&lt;h3&gt;Order of Execution for Update&lt;/h3&gt;
+&lt;p&gt;If you see the list of all functions in the hostConfig from React Dom source code, you should see a lot of functions that are not yet covered but seem like somewhat related to update functionality. After playing around a lot with the renderer this is the order of execution that I came up with.&lt;/p&gt;
+&lt;p&gt;
+  &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/update_flow_draw_io-ae0214eb7406f3c0bb2fcaa7623c753b-2a78b.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+  
+  &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; max-width:100% !important;; max-width: 777px; margin-left: auto; margin-right: auto;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 74.25997425997426%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAYAAADkmO9VAAAACXBIWXMAAAsSAAALEgHS3X78AAACEUlEQVQ4y4VU23KbMBTk//8nD3nqQztJ+tDU47FdxyUkXIy5mbuMJCRthYhpid2EQQMjcfacPbsHC/+5lFLT87wggZCGyKoMZVGiqipIKWcx1kdgfd+jbVvUdY2WtFC9gk1tOKmDJEpwzI9TsjPwp4BDFXEcG1AuFYrNAu56id+Og2fbhuu68DwPXdd9DnjOTimFEMLs7bwfeFw+YPFzie12izAMUZblx5THw7/AlPHxXd81CDpQQ/F8/m8R1rXqxmA1fUSawgD0ogc4sCEbOKED79WD7/tgjM0rvKaoUmOTZb0He/4CRRJwofeEwo7t4MQODsEBeZFPghjAOYiaVas1ACs1oPcAVicQekP2ArXQqrMWtNO9lWJWzFXKA92BBmN0aJtWkJgqxj0GJd4Sq8veWxGL0Daj1wbphbZKmDM8BURTHCP22QkVGStpaYOlu8CxztDKFutqjb2/RxAEyPMc1k1yg+1mi9VqhSRJ0HOOl4RhHTB0TIJyhe9PBTZ+awBzkuHO/gYvfTWA99m9ibe1JwfPWgUrzDQQQibHUy5REz7ZJy4ZqpOYaFVdM0wh1DXKlwaUuvEduKamZ003Xa+e60TCLHY6Iote0DWxOX/vDuu9TRTPkXp3CJ2vWmHb/BDedIIUHOT4C3n4iCZdanFOl4AzM5t3qceM6miJsPNxe7iFG7tI4xSRnukZGVzy/gOAgY3wHD7njQAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+    &gt;
+      &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width: 100%; height: 100%; margin: 0; vertical-align: middle; position: absolute; top: 0; left: 0; box-shadow: inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;update flow&quot;
+        title=&quot;&quot;
+        src=&quot;/static/update_flow_draw_io-ae0214eb7406f3c0bb2fcaa7623c753b-2a78b.png&quot;
+        srcset=&quot;/static/update_flow_draw_io-ae0214eb7406f3c0bb2fcaa7623c753b-529eb.png 200w,
+/static/update_flow_draw_io-ae0214eb7406f3c0bb2fcaa7623c753b-19646.png 400w,
+/static/update_flow_draw_io-ae0214eb7406f3c0bb2fcaa7623c753b-2a78b.png 777w&quot;
+        sizes=&quot;(max-width: 777px) 100vw, 777px&quot;
+      /&gt;
+    &lt;/span&gt;
+  &lt;/span&gt;
+  
+  &lt;/a&gt;
+    
+&lt;em&gt;(Right Click on the image and select &lt;strong&gt;Open Image in New Tab&lt;/strong&gt; to get a better resolution version).&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;This covers all the basic methods of the renderer during first time render and subsequent updates.&lt;/p&gt;
+&lt;h3&gt;Methods used for edge cases (during Commit Phase)&lt;/h3&gt;
+&lt;p&gt;Now if you take a look a the hostConfig, you will find that there are still few methods that are not covered yet. If you play around with renderer a bit more you will find thats some of those methods will be triggered during certain edge cases.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3&gt;▸ appendChild&lt;/h3&gt;
+&lt;hr&gt;
+&lt;p&gt;The function signature is:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;appendChild&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;parentInstance&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; child&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Parameters&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;parentInstance&lt;/strong&gt;: the parent dom node into which a new child node needs to be appended at the end.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;child&lt;/strong&gt;: the new dom node that needs to be inserted.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Purpose&lt;/em&gt;&lt;/strong&gt;
+This function is called whenever a new element needs to be inserted into a parent element at the end. For example:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;html&quot;&gt;&lt;pre class=&quot;language-html&quot;&gt;&lt;code class=&quot;language-html&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;div&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+  &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;p&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt; test &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;p&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+  {this.state.test === &quot;yolo&quot; &amp;amp;&amp;amp; &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;button&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt; Hello &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;button&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;}
+&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;div&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;So here when state.test becomes yolo. This function will be called with parentInstance = div and child = button in the commit Phase.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;For our custom renderer&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;appendChild&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;parentInstance&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; child&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    parentInstance&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;appendChild&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;child&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;hr&gt;
+&lt;h3&gt;▸ insertBefore&lt;/h3&gt;
+&lt;hr&gt;
+&lt;p&gt;The function signature is:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;insertBefore&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;parentInstance&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; child&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; beforeChild&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Parameters&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;parentInstance&lt;/strong&gt;: the parent dom node into which a new child node needs to be inserted.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;child&lt;/strong&gt;: the new dom node that needs to be inserted.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;beforeChild&lt;/strong&gt;: the child node before which the new child node needs to be inserted.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Purpose&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;This function is called whenever a new element needs to be inserted before a child element inside the parent element.
+For Example:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;html&quot;&gt;&lt;pre class=&quot;language-html&quot;&gt;&lt;code class=&quot;language-html&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;div&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+  &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;p&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt; test &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;p&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+  {this.state.test === &quot;yolo&quot; &amp;amp;&amp;amp; &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;button&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;Hello&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;button&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;}
+  &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;p&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt; test2 &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;p&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;div&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;So here when state.test becomes yolo. This function will be called with parentInstance = div, beforeChild = p(test2) , child = button in the commit Phase.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;For our custom renderer&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;insertBefore&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;parentInstance&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; child&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; beforeChild&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  parentInstance&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;insertBefore&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;child&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; beforeChild&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;hr&gt;
+&lt;h3&gt;▸ removeChild&lt;/h3&gt;
+&lt;hr&gt;
+&lt;p&gt;The function signature is:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;removeChild&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;parentInstance&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; child&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Parameters&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;parentInstance&lt;/strong&gt;: the parent dom node from which a the child node needs to be removed.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;child&lt;/strong&gt;: the dom node that needs to be removed.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Purpose&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;This function is called whenever an element needs to be removed from the parent element.
+For Example:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;html&quot;&gt;&lt;pre class=&quot;language-html&quot;&gt;&lt;code class=&quot;language-html&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;div&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
+  {this.state.test === &quot;yolo&quot; &amp;amp;&amp;amp; &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;button&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;Hello&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;button&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;}
+&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;div&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;So here when state.test becomes something other than yolo.
+This function will be called with parentInstance = div and child = button in the commit Phase.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;For our custom renderer&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;removeChild&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;parentInstance&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; child&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+ parentInstance&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;removeChild&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;child&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;hr&gt;
+&lt;h3&gt;▸ insertInContainerBefore&lt;/h3&gt;
+&lt;hr&gt;
+&lt;p&gt;The function signature is:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;insertInContainerBefore&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;container&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; child&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; beforeChild&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Parameters&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;container&lt;/strong&gt;: the root container node to which a the child node needs to be inserted.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;child&lt;/strong&gt;: the dom node that needs to be inserted.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;beforeChild&lt;/strong&gt;: the child node before which the new child node needs to be inserted.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Purpose&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;This function is called whenever an element needs to insertedBefore the top most level component(Root component) itself.
+For Example:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;token function-variable function&quot;&gt;App&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+  &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;state&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;test &lt;span class=&quot;token operator&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;yolo&apos;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;button&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;Hello&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;button&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;div&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; World&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;div&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+  &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;So here when state.test becomes yolo.
+This function will be called with container = root#div and child = div(World) and beforeChild = button in the commit Phase.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;For our custom renderer&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;insertInContainerBefore&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;container&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; child&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; beforeChild&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  container&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;insertBefore&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;child&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; beforeChild&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;hr&gt;
+&lt;h3&gt;▸ removeChildFromContainer&lt;/h3&gt;
+&lt;hr&gt;
+&lt;p&gt;The function signature is:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;removeChildFromContainer&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;container&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; child&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Parameters&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;container&lt;/strong&gt;: the root container node from which a the child node needs to be removed.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;child&lt;/strong&gt;: the dom node that needs to be removed.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Purpose&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;This function is called whenever an element is present at the top level as this &lt;code class=&quot;language-text&quot;&gt;&amp;lt;button&amp;gt;&lt;/code&gt; and needs to be removed.
+For Example:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;token function-variable function&quot;&gt;App&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+  &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;state&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;test &lt;span class=&quot;token operator&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;yolo&apos;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;button&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;Hello&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;button&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;div&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; World&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;div&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+  &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;So here when state.test becomes NOT yolo.
+This function will be called with container = root#div and child=button in the commit Phase.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;For our custom renderer&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;removeChildFromContainer&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;container&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; child&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  container&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;removeChild&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;child&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;hr&gt;
+&lt;h3&gt;▸ resetTextContent&lt;/h3&gt;
+&lt;hr&gt;
+&lt;p&gt;The function signature is:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;resetTextContent&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;domElement&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Parameters&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;domElement&lt;/strong&gt;: the dom element for which the text content needs to be reset.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Purpose&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Its used in react-dom to reset the text content of the dom element. But I couldnt find a way to initiate this function. Need to dig more. Hence, I am gonna leave it as a no operation function.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;For our custom renderer&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;resetTextContent&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;domElement&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;Extra Methods&lt;/h2&gt;
+&lt;p&gt;These contain the remaining methods from the hostConfig that I was able to figure out. I would appreciate if people reading this blog helps me figure out what rest of the methods from the hostConfig do in the comment section below. I would then add them here.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3&gt;▸ shouldDeprioritizeSubtree&lt;/h3&gt;
+&lt;hr&gt;
+&lt;p&gt;The function signature is:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;shouldDeprioritizeSubtree&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;type&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; nextProps&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Parameters&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;type&lt;/strong&gt;: the dom type of the element (p, span, div, etc).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;nextProps&lt;/strong&gt;: the props passed to the element.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Purpose&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;This function is used to deprioritize rendering of some subtrees. Mostly used in cases where the subtree is hidden or offscreen.
+In react-dom code base this function contains:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;shouldDeprioritizeSubtree&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;type&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; nextProps&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;nextProps&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;hidden
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This can help improve rendering performance.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;For our custom renderer&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;shouldDeprioritizeSubtree&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;type&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; nextProps&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;nextProps&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;hidden
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;hr&gt;
+&lt;h2&gt;Final hostConfig&lt;/h2&gt;
+&lt;p&gt;This is the hostConfig that I ended up with. I will paste it here for reference.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; HostConfig &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  now&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Date&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;now&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  getRootHostContext&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;nextRootInstance&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; rootContext &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; rootContext
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  getChildHostContext&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;parentContext&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; fiberType&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; rootInstance&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; context &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; type&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; fiberType &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; context
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  shouldSetTextContent&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;type&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; nextProps&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  createTextInstance&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+    newText&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    rootContainerInstance&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    currentHostContext&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    workInProgress
+  &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; document&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;createTextNode&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;newText&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  createInstance&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+    type&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    newProps&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    rootContainerInstance&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    currentHostContext&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    workInProgress
+  &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; element &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; document&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;createElement&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;type&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    element&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;className &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; newProps&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;className &lt;span class=&quot;token operator&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;&apos;&lt;/span&gt;
+    element&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;style &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; newProps&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;style
+    &lt;span class=&quot;token comment&quot;&gt;// ....&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// ....&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;newProps&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;onClick&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      element&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;addEventListener&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;click&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; newProps&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;onClick&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; element
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  appendInitialChild&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;parent&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; child&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    parent&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;appendChild&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;child&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  finalizeInitialChildren&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+    instance&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    type&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    newProps&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    rootContainerInstance&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    currentHostContext
+  &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; newProps&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;autofocus &lt;span class=&quot;token comment&quot;&gt;//simply return true for experimenting&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  prepareForCommit&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;rootContainerInstance&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  resetAfterCommit&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;rootContainerInstance&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  commitMount&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;domElement&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; type&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; newProps&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; fiberNode&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    domElement&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;focus&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  appendChildToContainer&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;parent&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; child&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    parent&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;appendChild&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;child&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  supportsMutation&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  prepareUpdate&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+    instance&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    type&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    oldProps&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    newProps&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    rootContainerInstance&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    currentHostContext
+  &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;//return nothing.&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  commitUpdate&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+    instance&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    updatePayload&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    type&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    oldProps&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    newProps&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    finishedWork
+  &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;//return nothing.&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  commitTextUpdate&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;textInstance&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; oldText&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; newText&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    textInstance&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;nodeValue &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; newText
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  appendChild&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;parentInstance&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; child&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    parentInstance&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;appendChild&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;child&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  insertBefore&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;parentInstance&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; child&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; beforeChild&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    parentInstance&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;insertBefore&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;child&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; beforeChild&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  removeChild&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;parentInstance&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; child&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    parentInstance&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;removeChild&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;child&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  insertInContainerBefore&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;container&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; child&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; beforeChild&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    container&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;insertBefore&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;child&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; beforeChild&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  removeChildFromContainer&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;container&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; child&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    container&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;removeChild&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;child&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  resetTextContent&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;domElement&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  shouldDeprioritizeSubtree&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;type&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; nextProps&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;nextProps&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;hidden
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;Status of methods from hostConfig I was not able to figure out!&lt;/h2&gt;
+&lt;p&gt;Now there are a lot more methods I am still not sure what they are for. And I would really appreciate help here. Please let me know in the comment section so that I can document them here aswell. I have made a status tracker below that tracks the info that I know till date. I will keep updating it as and when I find some more details.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;
+&lt;span class=&quot;token constant&quot;&gt;LEGEND&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;
+✅ &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; Means &lt;span class=&quot;token constant&quot;&gt;I&lt;/span&gt; figured what these methods &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+🔔 &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; Have some idea but not completely sure&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; Need help &lt;span class=&quot;token keyword&quot;&gt;with&lt;/span&gt; these&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+❌ &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; No freakin idea what these &lt;span class=&quot;token keyword&quot;&gt;do&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; Need help &lt;span class=&quot;token keyword&quot;&gt;with&lt;/span&gt; these&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+
+
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;getPublicInstance&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; ✅
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;getRootHostContext&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; ✅
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;getChildHostContext&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; ✅
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;prepareForCommit&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; ✅
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;resetAfterCommit&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; ✅
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;createInstance&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; ✅
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;appendInitialChild&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; ✅
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;finalizeInitialChildren&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; ✅
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;prepareUpdate&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; ✅
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;shouldSetTextContent&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; ✅
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;shouldDeprioritizeSubtree&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; ✅
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;createTextInstance&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; ✅
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;scheduleDeferredCallback&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; ❌
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;cancelDeferredCallback&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; ❌
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;setTimeout&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; 🔔 React Suspense stuff&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Provide an implementation &lt;span class=&quot;token keyword&quot;&gt;of&lt;/span&gt; setTimeout here to help &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; pause execution
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;clearTimeout&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; 🔔 React Suspense stuff&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Provide an implementation &lt;span class=&quot;token keyword&quot;&gt;of&lt;/span&gt; clearTimeout
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;noTimeout&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; 🔔 React Suspense stuff&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; Usually &lt;span class=&quot;token keyword&quot;&gt;set&lt;/span&gt; it to &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1.&lt;/span&gt; But can be any &lt;span class=&quot;token constant&quot;&gt;ID&lt;/span&gt; that setTimeout doesnt provide&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; So that it can be used to check &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; timeout handler is present or not
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;now&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; ✅
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;isPrimaryRenderer&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; 🔔 Set &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt; to &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; This is primarily used &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; codebase to manage context &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; there are more than one renderers &lt;span class=&quot;token constant&quot;&gt;I&lt;/span&gt; think&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; This is the hunch &lt;span class=&quot;token constant&quot;&gt;I&lt;/span&gt; got after reading the codebase&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;supportsMutation&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; ✅
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;supportsPersistence&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; 🔔❌ &lt;span class=&quot;token keyword&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt; to &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; Current react&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;dom doesnt support it yet aswell&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;supportsHydration&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; 🔔❌ &lt;span class=&quot;token keyword&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt; to &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; Enable &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; you can support hydration&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; More on hydration here&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; https&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;reactjs&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;org&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;docs&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;react&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;dom&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;html#hydrate
+&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;
+     &lt;span class=&quot;token function&quot;&gt;Mutation&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;optional&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;appendChild&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; ✅
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;appendChildToContainer&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; ✅
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;commitTextUpdate&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; ✅
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;commitMount&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; ✅
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;commitUpdate&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; ✅
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;insertBefore&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; ✅
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;insertInContainerBefore&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; ✅
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;removeChild&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; ✅
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;removeChildFromContainer&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; ✅
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;resetTextContent&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; 🔔
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;cloneInstance&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; 🔔❌ This will be used &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; persistence
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;createContainerChildSet&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; 🔔❌ This will be used &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; persistence
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;appendChildToContainerChildSet&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; 🔔❌ This will be used &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; persistence
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;finalizeContainerChildren&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; 🔔❌ This will be used &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; persistence
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;replaceContainerChildren&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; 🔔❌ This will be used &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; persistence
+&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;
+    &lt;span class=&quot;token function&quot;&gt;Hydration&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;optional&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;canHydrateInstance&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; 🔔❌ This will be used &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; hydration
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;canHydrateTextInstance&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; 🔔❌ This will be used &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; hydration
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;getNextHydratableSibling&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; 🔔❌ This will be used &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; hydration
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;getFirstHydratableChild&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; 🔔❌ This will be used &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; hydration
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;hydrateInstance&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; 🔔❌ This will be used &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; hydration
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;hydrateTextInstance&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; 🔔❌ This will be used &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; hydration
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;didNotMatchHydratedContainerTextInstance&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; 🔔❌ This will be used &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; hydration
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;didNotMatchHydratedTextInstance&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; 🔔❌ This will be used &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; hydration
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;didNotHydrateContainerInstance&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; 🔔❌ This will be used &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; hydration
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;didNotHydrateInstance&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; 🔔❌ This will be used &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; hydration
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;didNotFindHydratableContainerInstance&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; 🔔❌ This will be used &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; hydration
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;didNotFindHydratableContainerTextInstance&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; 🔔❌ This will be used &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; hydration
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;didNotFindHydratableInstance&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; 🔔❌ This will be used &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; hydration
+$$$hostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;didNotFindHydratableTextInstance&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; 🔔❌ This will be used &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; hydration&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;hr&gt;
+&lt;p&gt;Wow!! I learnt a lot with this blog 🤯 . Hope you did too 😬.&lt;/p&gt;
+&lt;div style=&quot;display:flex;flex-direction:row;align-items:center;&quot;&gt;
+&lt;img src=&quot;/high5-f87ee88faf8157d0fb347fcf71fbae14.gif&quot; alt=&quot;high5 meme&quot; style=&quot;height:200px;margin:0 auto;&quot;&gt;
+&lt;/div&gt;</content:encoded></item><item><title><![CDATA[⚛️✌️ Part 2/3 - Beginners guide to Custom React Renderers. How to build your own renderer from scratch?]]></title><description><![CDATA[This is the continuation of the post here:  ⚛️👆 Part 1/3 - Beginners guide to Custom React Renderers. How to build your own renderer from…]]></description><link>https://blog.atulr.com/react-custom-renderer-2/</link><guid isPermaLink="false">https://blog.atulr.com/react-custom-renderer-2/</guid><pubDate>Mon, 22 Oct 2018 22:12:03 GMT</pubDate><content:encoded>&lt;hr&gt;
+&lt;p&gt;This is the continuation of the post here: &lt;a href=&apos;/react-custom-renderer-1/&apos; target=&apos;_blank&apos;&gt;⚛️👆 Part 1/3 - Beginners guide to Custom React Renderers. How to build your own renderer from scratch?&lt;/a&gt;. I would strongly recommend reading Part 1 before. This part will cover &lt;strong&gt;the initial render phase of the renderer&lt;/strong&gt;.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The update phase would be covered in &lt;a href=&apos;/react-custom-renderer-3/&apos; target=&apos;_blank&apos;&gt;⚛️🤟 Part 3/3 - Beginners guide to Custom React Renderers. How to build your own renderer from scratch?&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
 &lt;h2&gt;HostConfig&lt;/h2&gt;
@@ -709,7 +1373,7 @@ up text content during hydration mismatch).&lt;/p&gt;
 &lt;/div&gt;
 &lt;hr&gt;
 &lt;hr&gt;
-&lt;p&gt;Next part of the blog series will cover the update phase of the renderer after setState is invoked. &lt;a href=&quot;/react-custom-renderer-3/&quot;&gt;⚛️🤟 Part 3/3 - Beginners guide to React Renderers. How to build your own renderer from scratch?&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Next part of the blog series will cover the update phase of the renderer after setState is invoked. &lt;a href=&quot;/react-custom-renderer-3/&quot;&gt;⚛️🤟 Part 3/3 - Beginners guide to Custom React Renderers. How to build your own renderer from scratch?&lt;/a&gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;hr&gt;
 &lt;h1&gt;References&lt;/h1&gt;
@@ -720,11 +1384,11 @@ up text content during hydration mismatch).&lt;/p&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/nitin42/Making-a-custom-React-renderer&quot;&gt;https://github.com/nitin42/Making-a-custom-React-renderer&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://goshakkk.name/react-custom-renderers/&quot;&gt;https://goshakkk.name/react-custom-renderers/&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://hackernoon.com/learn-you-some-custom-react-renderers-aed7164a4199&quot;&gt;https://hackernoon.com/learn-you-some-custom-react-renderers-aed7164a4199&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[⚛️👆 Part 1/3 - Beginners guide to React Renderers. How to build your own renderer from scratch?]]></title><description><![CDATA[This part will cover  the basics  needed to understand the renderer along with setup of boilerplate and initial configuration. We will cover…]]></description><link>https://blog.atulr.com/react-custom-renderer-1/</link><guid isPermaLink="false">https://blog.atulr.com/react-custom-renderer-1/</guid><pubDate>Sun, 21 Oct 2018 20:11:03 GMT</pubDate><content:encoded>&lt;hr&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[⚛️👆 Part 1/3 - Beginners guide to Custom React Renderers. How to build your own renderer from scratch?]]></title><description><![CDATA[This part will cover  the basics  needed to understand the renderer along with setup of boilerplate and initial configuration. We will cover…]]></description><link>https://blog.atulr.com/react-custom-renderer-1/</link><guid isPermaLink="false">https://blog.atulr.com/react-custom-renderer-1/</guid><pubDate>Sun, 21 Oct 2018 20:11:03 GMT</pubDate><content:encoded>&lt;hr&gt;
 &lt;p&gt;This part will cover &lt;strong&gt;the basics&lt;/strong&gt; needed to understand the renderer along with setup of boilerplate and initial configuration.&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;We will cover inital render phase in &lt;a href=&apos;/react-custom-renderer-2/&apos; target=&apos;_blank&apos;&gt;⚛️✌️ Part 2/3 - Beginners guide to React Renderers…&lt;/a&gt; and&lt;/li&gt;
-&lt;li&gt;Update phase the of renderer during setState &lt;a href=&apos;/react-custom-renderer-3/&apos; target=&apos;_blank&apos;&gt;⚛️🤟 Part 3/3 - Beginners guide to React Renderers…&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;We will cover inital render phase in &lt;a href=&apos;/react-custom-renderer-2/&apos; target=&apos;_blank&apos;&gt;⚛️✌️ Part 2/3 - Beginners guide to Custom React Renderers…&lt;/a&gt; and&lt;/li&gt;
+&lt;li&gt;Update phase the of renderer during setState &lt;a href=&apos;/react-custom-renderer-3/&apos; target=&apos;_blank&apos;&gt;⚛️🤟 Part 3/3 - Beginners guide to Custom React Renderers…&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
 &lt;p&gt;React helps you write your UI declaratively.
@@ -1217,7 +1881,7 @@ value should remain unchanged throughout the fiber’s lifetime.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&lt;a href=&apos;https://github.com/master-atul/blog-custom-renderer/tree/b0f74ffc14eecceb259c5b302cf170cce843d3b1&apos; target=&apos;_blank&apos;&gt;Link to source code till here&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;br&gt;
 &lt;hr&gt;
-&lt;p&gt;We will continue with rest of the post here: &lt;a href=&apos;/react-custom-renderer-2/&apos; target=&apos;_blank&apos;&gt;⚛️✌️ Part 2/3 - Beginners guide to React Renderers. How to build your own renderer from scratch?&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;We will continue with rest of the post here: &lt;a href=&apos;/react-custom-renderer-2/&apos; target=&apos;_blank&apos;&gt;⚛️✌️ Part 2/3 - Beginners guide to Custom React Renderers. How to build your own renderer from scratch?&lt;/a&gt;.&lt;/p&gt;
 &lt;hr&gt;
 &lt;h1&gt;References&lt;/h1&gt;
 &lt;ul&gt;
