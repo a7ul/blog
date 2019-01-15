@@ -123,12 +123,12 @@ const client = redis.createClient(process.env.REDIS_URL)
 client.on('error', err => console.log(`Error ${err}`))
 
 const rateLimiter  => (req, res, next) => {
-  const apiKey = req.user.apiKey // get the unique identifier for the user here
-  // I am using apiKey here but it can be ip address, user auth token, etc
+  const token = req.user.token // get the unique identifier for the user here
+  // I am using token here but it can be ip address, API_KEY, etc
   client
     .multi() // starting a transaction
-    .set([apiKey, 0, 'EX', 60, 'NX']) // SET UUID 0 EX 60 NX
-    .incr(apiKey) // INCR UUID
+    .set([token, 0, 'EX', 60, 'NX']) // SET UUID 0 EX 60 NX
+    .incr(token) // INCR UUID
     .exec((err, replies) => {
       if (err) {
         return res.status(500).send(err.message)
