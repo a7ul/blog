@@ -50,16 +50,21 @@ const BlogPostTemplate = (props) => {
       <Bio />
 
       <ul style={styles.navLinkContainer}>
-        {
-          previous && (
+        {previous && (
           <li>
-            <Link to={previous.fields.slug} rel="prev">← {previous.frontmatter.title}</Link>
+            <Link to={previous.fields.slug} rel="prev">
+              ← {previous.frontmatter.title}
+            </Link>
           </li>
-          )
-        }
-        {
-          next && (<li><Link to={next.fields.slug} rel="next">  {next.frontmatter.title} →</Link></li>)
-        }
+        )}
+        {next && (
+          <li>
+            <Link to={next.fields.slug} rel="next">
+              {' '}
+              {next.frontmatter.title} →
+            </Link>
+          </li>
+        )}
       </ul>
     </Layout>
   );
@@ -77,11 +82,21 @@ export const pageQuery = graphql`
     }
     markdownRemark(fields: { slug: { eq: $slug } }) {
       id
-      excerpt
+      excerpt(pruneLength: 200)
       html
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
+        keywords
+        featuredImage {
+          childImageSharp {
+            resize(width: 400) {
+              src
+              height
+              width
+            }
+          }
+        }
       }
       fields {
         slug

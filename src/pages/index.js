@@ -17,9 +17,7 @@ const styles = {
 const BlogIndex = (props) => {
   const siteTitle = get(props, 'data.site.siteMetadata.title');
   const posts = get(props, 'data.allMarkdownRemark.edges');
-  const mediumPosts = blackListMediumPost(
-    get(props, 'data.allMediumPost.edges'),
-  );
+  const mediumPosts = blackListMediumPost(get(props, 'data.allMediumPost.edges'));
   const { location } = props;
   return (
     <Layout location={location}>

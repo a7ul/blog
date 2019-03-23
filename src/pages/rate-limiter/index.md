@@ -1,6 +1,8 @@
 ---
 title: 🚧 An alternative approach to building a simple API Rate limiter using NodeJS and Redis
-date: '2019-01-15T20:11:03.284Z'
+date: 2019-01-15T20:11:03.284Z
+keywords: rate, limiter, nodejs, redis
+featuredImage: high_level.png
 ---
 
 Recently I came across an interesting problem of building an API rate limiter. While doing a bit of research on the same, I came across various algorithms and approaches. Some of the popular algorithms used to implement rate limiting are:

@@ -1,6 +1,8 @@
 ---
 title: ⚛️✌️ Part 2/3 - Beginners guide to Custom React Renderers. How to build your own renderer from scratch?
-date: '2018-10-22T22:12:03.284Z'
+date: 2018-10-22T22:12:03.284Z
+keywords: custom, react, renderer, beginners, guide, javascript
+featuredImage: inital_render_tree_flow.svg
 ---
 
 ---

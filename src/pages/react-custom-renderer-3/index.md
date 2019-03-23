@@ -1,6 +1,8 @@
 ---
 title: ⚛️🤟 Part 3/3 - Beginners guide to Custom React Renderers. How to build your own renderer from scratch?
-date: '2019-01-08T01:10:03.284Z'
+date: 2019-01-08T01:10:03.284Z
+keywords: custom, react, renderer, beginners, guide, javascript
+featuredImage: update_flow_draw_io.png
 ---
 
 ---
@@ -379,8 +381,8 @@ This function is called whenever a new element needs to be inserted into a paren
 
 ```html
 <div>
-  <p> test </p>
-  {this.state.test === "yolo" && <button> Hello </button>}
+  <p>test</p>
+  {this.state.test === "yolo" && <button>Hello</button>}
 </div>
 ```
 
@@ -419,9 +421,9 @@ For Example:
 
 ```html
 <div>
-  <p> test </p>
+  <p>test</p>
   {this.state.test === "yolo" && <button>Hello</button>}
-  <p> test2 </p>
+  <p>test2</p>
 </div>
 ```
 
@@ -458,9 +460,7 @@ This function is called whenever an element needs to be removed from the parent 
 For Example:
 
 ```html
-<div>
-  {this.state.test === "yolo" && <button>Hello</button>}
-</div>
+<div>{this.state.test === "yolo" && <button>Hello</button>}</div>
 ```
 
 So here when state.test becomes something other than yolo.

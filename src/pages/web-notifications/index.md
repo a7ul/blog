@@ -1,6 +1,8 @@
 ---
 title: 🚀🔔 Beginners guide to Web Push Notifications using Service Workers
 date: '2018-09-25T20:12:03.284Z'
+keywords: web, push, notification, service workers
+featuredImage: pushoverview.png
 ---
 
 Push notifications are very common in the native mobile application platforms like Android & iOS.
@@ -56,17 +58,17 @@ Now we have a basic project structure. Lets add some basic code.
 ```html
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Push Demo</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" type="text/css" media="screen" href="index.css" />
     <script src="index.js"></script>
-</head>
-<body>
-       <h1>Hello World</h1>
-</body>
+  </head>
+  <body>
+    <h1>Hello World</h1>
+  </body>
 </html>
 ```
 
@@ -337,21 +339,19 @@ Lets clean up our code a bit as per recommendations above. Make sure our files l
 ```html
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Push Demo</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" type="text/css" media="screen" href="index.css" />
     <script src="index.js"></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <h1>Hello World</h1>
     <button id="permission-btn" onclick="main()">Ask Permission</button>
-</body>
-
+  </body>
 </html>
 ```
 
