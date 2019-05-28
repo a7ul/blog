@@ -1,6 +1,6 @@
 ---
 title: 🐳 Simplified guide to using Docker for local development environment
-date: 2019-03-26T17:11:03.284Z
+date: 2019-05-29T20:11:03.284Z
 keywords: docker, local, development, environment, guide, javascript
 featuredImage: architecture.svg
 ---
