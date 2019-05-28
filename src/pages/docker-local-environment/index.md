@@ -335,6 +335,7 @@ Once you add other services to the docker-compose file. It should look something
 
 ```yaml
 version: '3'
+
 services:
   njs1:
     build: ./njs1
@@ -347,28 +348,130 @@ services:
     working_dir: /root/njs1
     volumes:
       - ./njs1:/root/njs1:cached # <--- This will map ./njs1 to /root/njs1 inside the container.
+
+  njs2:
+    image: node:12.3-alpine
+    command: sh -c "npm install && npm start"
+    environment:
+      - NODE_ENV=development
+      - PORT=8000
+    ports:
+      - '8000:8000'
+    working_dir: /root/njs2
+    volumes:
+      - ./njs2:/root/njs2:cached # <--- This will map ./njs2 to /root/njs2 inside the container.
+
+  py1:
+    image: python:3-stretch
+    command: sh -c "pip install -r requirements.txt && python -m server"
+    environment:
+      - PORT=9000
+      - FLASK_ENV=development
+    ports:
+      - '9000:9000'
+    working_dir: /root/py1
+    volumes:
+      - ./py1:/root/py1:cached # <--- This will map ./py1 to /root/py1 inside the container.
+
+  go1:
+    image: golang:1.12-alpine
+    command: sh -c "go run ."
+    environment:
+      - PORT=5000
+    ports:
+      - '5000:5000'
+    working_dir: /root/go1
+    volumes:
+      - ./go1:/root/go1:cached # <--- This will map ./py1 to /root/py1 inside the container.
 ```
+
+**Few Changes**
+
+- **image:** instead of **build** : In docker-compose we can specify the docker image from docker-hub directly instead of a dockerfile using the **image:** property. Hence for simple setups we dont need to write our own Dockerfile.
+
+There are many more configuration options which you can use in your docker-compose.yml file. To see a complete reference of those, you can visit this link: <a href="https://docs.docker.com/compose/compose-file/" target="_blank">https://docs.docker.com/compose/compose-file/</a>
 
 ## 🧙‍ Commands Cheatsheet
 
-// Start command
+Now that you have setup your services to run via docker-compose for local development. There are few commands that can help.
 
-// stop command
+#### Start all services
 
-// start only one service
+This will start all services in the docker-compose file and detach from the terminal. So your services can run in background.
 
-// stop a single service
+```sh
+docker-compose start
+```
 
-// restart a single service
+#### Stop all services
 
-// ssh into single service
+Corresponding stop command
+
+```sh
+docker-compose stop
+```
+
+#### Launch a specific service
+
+This will only launch njs1 from the list of services in the docker-compose.yml
+
+```sh
+docker-compose up njs1
+```
+
+You can use similar commands to stop, start induvidual services as well.
+
+#### restart a single service
+
+```sh
+docker-compose restart njs1
+```
+
+#### logs from specific service
+
+This will show logs of only njs1 and also watch for more logs
+
+```sh
+docker-compose logs -f njs1
+```
+
+#### ssh into a particular service container
+
+```sh
+docker-compose exec njs1 bash
+```
 
 ## 🕵️‍ Some Tips for smoother workflow
 
-// CPU and memory increase
+### Containers / services running too slow?
 
-// removing all images and then refreshing the entire thing.
+You might notice that your services are running/launching at extremely slow as compared to when you launch them without docker-compose. This might be because you have allocated less CPU/RAM to docker service. The default values are very low and that causes issues when launching multiple services.
+
+Go to : `dockerIcon -> preferences -> Advanced`
+
+Change the slider to give CPU > 3GB and RAM > 6GB
+
+### Low on space / messed up and want to restart everything from scratch ?
+
+**Removing all images and then refreshing the entire thing.**
+
+To remove all docker containers:
 
 ```
+docker rm $(docker ps -a -q) -f
+```
+
+To remove all docker images:
 
 ```
+docker rmi $(docker images) -f
+```
+
+<br/>
+🧙‍ Thats all folks! Thanks for reading!
+<br/>
+<br/>
+
+<div style="display:flex;flex-direction:row;align-items:center;">
+<img src="./thanks.gif" alt="Thanks" style="height:200px;margin:0 auto;"/>
+</div>
