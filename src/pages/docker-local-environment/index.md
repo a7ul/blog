@@ -9,7 +9,9 @@ I recently started working at <a href="https://anyfin.com/en" target="_blank">An
 This post will explain on how we use Docker at Anyfin to setup a productive local development environment quite easily. I have seen such attempts at my previous workplaces before but none of those have worked as seamlessly as the one we have here.
 
 **👮🏻‍Credit disclaimer:🚨** <br/>
-The entire credit for the setup goes to my colleagues: <a href="https://github.com/kimpers" target="_blank">Kim</a>, <a href="https://github.com/miknie" target="_blank">Niemi</a>, <a href="https://github.com/fatalVoltage" target="_blank">Asparuh</a>, <a href="https://github.com/pepf" target="_blank">Pepijn</a> and <a href="https://github.com/hyperborea" target="_blank">Sven</a>. I found the setup at Anyfin extremely awesome and hence wanted to share it with everyone.
+
+The entire credit for the setup goes to my colleagues at Anyfin.
+I found the setup at Anyfin extremely awesome and hence wanted to share it with everyone.
 
 ## 🧦 Example Architecture
 
