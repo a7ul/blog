@@ -1,6 +1,6 @@
 ---
 title: 🔐 HTTPS certificate generation explained! Now setup HTTPS for local development environment (without sudo)
-date: '2018-08-06T22:12:03.284Z'
+date: 2018-08-06T22:12:03.284Z
 keywords: localhost, https, ssl, certificates
 featuredImage: ssl_drawing.png
 ---
