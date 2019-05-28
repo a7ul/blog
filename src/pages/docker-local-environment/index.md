@@ -451,7 +451,7 @@ You might notice that your services are running/launching at extremely slow as c
 
 Go to : `dockerIcon -> preferences -> Advanced`
 
-Change the slider to give CPU > 3GB and RAM > 6GB
+Change the slider to give CPU > 3 cores and RAM > 6GB
 
 ### Low on space / messed up and want to restart everything from scratch ?
 
