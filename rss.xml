@@ -1,4 +1,355 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog]]></title><description><![CDATA[Build. Hack. Rebuild. Hack...]]></description><link>https://blog.atulr.com</link><generator>RSS for Node</generator><lastBuildDate>Sat, 23 Mar 2019 23:14:42 GMT</lastBuildDate><item><title><![CDATA[🚧 An alternative approach to building a simple API Rate limiter using NodeJS and Redis]]></title><description><![CDATA[Recently I came across an interesting problem of building an API rate limiter. While doing a bit of research on the same, I came across…]]></description><link>https://blog.atulr.com/rate-limiter/</link><guid isPermaLink="false">https://blog.atulr.com/rate-limiter/</guid><pubDate>Tue, 15 Jan 2019 20:11:03 GMT</pubDate><content:encoded>&lt;p&gt;Recently I came across an interesting problem of building an API rate limiter. While doing a bit of research on the same, I came across various algorithms and approaches. Some of the popular algorithms used to implement rate limiting are:&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog]]></title><description><![CDATA[Build. Hack. Rebuild. Hack...]]></description><link>https://blog.atulr.com</link><generator>RSS for Node</generator><lastBuildDate>Tue, 28 May 2019 22:12:57 GMT</lastBuildDate><item><title><![CDATA[🐳 Simplified guide to using Docker for local development environment]]></title><description><![CDATA[I recently started working at  Anyfin . As a new engineer on the team, I had to setup the entire development environment. Drawing my…]]></description><link>https://blog.atulr.com/docker-local-environment/</link><guid isPermaLink="false">https://blog.atulr.com/docker-local-environment/</guid><pubDate>Wed, 29 May 2019 20:11:03 GMT</pubDate><content:encoded>&lt;p&gt;I recently started working at &lt;a href=&quot;https://anyfin.com/en&quot; target=&quot;_blank&quot;&gt;Anyfin&lt;/a&gt;. As a new engineer on the team, I had to setup the entire development environment. Drawing my expectations from my previous work engagements I thought this would take me a couple of days. But to my surprise I had a working setup of quite a few backend services written in NodeJS, Golang and Python along side the web site and portal (Javascript) in ~5hrs.
+This post will explain on how we use Docker at Anyfin to setup a productive local development environment quite easily. I have seen such attempts at my previous workplaces before but none of those have worked as seamlessly as the one we have here.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;👮🏻‍Credit disclaimer:🚨&lt;/strong&gt; &lt;br/&gt;
+The entire credit for the setup goes to my colleagues: &lt;a href=&quot;https://github.com/kimpers&quot; target=&quot;_blank&quot;&gt;Kim&lt;/a&gt;, &lt;a href=&quot;https://github.com/miknie&quot; target=&quot;_blank&quot;&gt;Niemi&lt;/a&gt;, &lt;a href=&quot;https://github.com/fatalVoltage&quot; target=&quot;_blank&quot;&gt;Asparuh&lt;/a&gt;, &lt;a href=&quot;https://github.com/pepf&quot; target=&quot;_blank&quot;&gt;Pepijn&lt;/a&gt; and &lt;a href=&quot;https://github.com/hyperborea&quot; target=&quot;_blank&quot;&gt;Sven&lt;/a&gt;. I found the setup at Anyfin extremely awesome and hence wanted to share it with everyone.&lt;/p&gt;
+&lt;h2&gt;🧦 Example Architecture&lt;/h2&gt;
+&lt;p&gt;Lets say we have a set of services that have the following architecture.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/architecture-f069ee90ad81928b31443a2451837f10.svg&quot; alt=&quot;example architecture&quot;&gt;&lt;/p&gt;
+&lt;p&gt;From the diagram we can see we have:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;NJS1 - NodeJS service running on port &lt;strong&gt;7000&lt;/strong&gt; and dependent on the database Db1 (running on port &lt;strong&gt;5433&lt;/strong&gt;).&lt;/li&gt;
+&lt;li&gt;Py1 - Python service running on port &lt;strong&gt;9000&lt;/strong&gt; and dependent on the database Db1 (running on port &lt;strong&gt;5433&lt;/strong&gt;).&lt;/li&gt;
+&lt;li&gt;Go1 - Golang service running on port &lt;strong&gt;5000&lt;/strong&gt; and dependent on the database Db1 (running on port &lt;strong&gt;5433&lt;/strong&gt;).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;ul&gt;
+&lt;li&gt;NJS2 - NodeJS service running on port &lt;strong&gt;8000&lt;/strong&gt; and dependent on the database Db2 (running on port &lt;strong&gt;5432&lt;/strong&gt;).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;ul&gt;
+&lt;li&gt;Web - A simple webpack based dev server for frontend running on port &lt;strong&gt;8080&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;em&gt;PS: We want the services to be exposed on the said ports in the local environment so that they can communicate with each other via those.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;For simplicity, lets consider that all of these services just return the message:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;Hello from &amp;lt;service name&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;So, if you hit &lt;strong&gt;GET &lt;a href=&quot;http://localhost:7000&quot;&gt;http://localhost:7000&lt;/a&gt;&lt;/strong&gt;, you should get&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;Hello from njs1&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The code for these services are here: &lt;a href=&quot;https://github.com/master-atul/blog-docker-dev-environment-example&quot; target=&quot;_blank&quot;&gt;https://github.com/master-atul/blog-docker-dev-environment-example&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Lets run all of our services on different terminal windows and try it out.
+&lt;br/&gt;&lt;/p&gt;
+&lt;h2&gt;💩 We typically face these issues with this setup&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Terminal hell:&lt;/strong&gt; To run all of those services, we would need to open up mulitple terminal tabs/windows and then run them separately (It would look like this). This will become more harder to manage as the number of services grow.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/0b1a5d3c267b9065b66bfb6f05578712/e2b4a/example_terminal.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-wrapper&quot;
+    style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width:100% !important; max-width: 800px;&quot;
+  &gt;
+    &lt;span
+      class=&quot;gatsby-resp-image-background-image&quot;
+      style=&quot;padding-bottom: 54.85674353598882%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAYAAAB/Ca1DAAAACXBIWXMAABYlAAAWJQFJUiTwAAABu0lEQVQoz2WS667iMAyE+waIy7alhZ+AhACptyRNeoGCeP83mvV4qQ5H+8NK08Sfx+NEfbCojUFVVmiaBkVZwlqL0HVwzmmE0KGTfdsPCMOIQaLve/kf9Jt3jbGS5xCt1imSJMZms8F2u8ViscDxeNQEggnkaqVYfb+j8B5WBHQs8ikUfEBVVSKqRJQkuYLiOEGe51itVjgcDmjbVqoahVF5WRRoRY2R/651GKcevm/Rdk5XF5ycGUR/4kyAqQBjZFmmQCr0ooRAwhhU4EV1Q7WugR9kDTWML8WyUqwqUFblN/BH4el0Un8IrOtaYVTopD3LlgmVMFY6EEtMI/eqWu9GcbITUIY0TbHf79XLb+AMpcpWksdxQE/wlx08n+MXcLfbYb1e43K54Pl8quHDMCicw/EC6ATUG2m5kSICKGUQ3xHFcS7ebWXSPy1fr1e832+FMqZpUk8ZcwEOLXy3/+lEPaS6eSjL5RLn81khTB7Hf2+u03dpdZ33s3LG/CL+mzKBt9sNr9dLk6iQlQkZZf+QlYW4p8r5FRDI4YmHv1smkC0TxKTH46EJnXzfBfQU5dMneMY7/tM6C/8F4WxYqCLBpNAAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+    &gt;&lt;/span&gt;
+    &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;box-shadow:inset 0px 0px 0px 400px white;&quot;
+        alt=&quot;example terminal&quot;
+        title=&quot;&quot;
+        src=&quot;/static/0b1a5d3c267b9065b66bfb6f05578712/b8742/example_terminal.png&quot;
+        srcset=&quot;/static/0b1a5d3c267b9065b66bfb6f05578712/0a321/example_terminal.png 200w,
+/static/0b1a5d3c267b9065b66bfb6f05578712/91860/example_terminal.png 400w,
+/static/0b1a5d3c267b9065b66bfb6f05578712/b8742/example_terminal.png 800w,
+/static/0b1a5d3c267b9065b66bfb6f05578712/d1b00/example_terminal.png 1200w,
+/static/0b1a5d3c267b9065b66bfb6f05578712/27d18/example_terminal.png 1600w,
+/static/0b1a5d3c267b9065b66bfb6f05578712/299ac/example_terminal.png 2400w,
+/static/0b1a5d3c267b9065b66bfb6f05578712/e2b4a/example_terminal.png 2862w&quot;
+        sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
+      /&gt;
+  &lt;/span&gt;
+  &lt;/a&gt;&lt;/p&gt;
+&lt;center&gt;&lt;sub&gt;&lt;i&gt;Typical terminal layout of a developer working with multiple services&lt;/i&gt;&lt;/sub&gt;&lt;/center&gt;
+&lt;br/&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Incompatible dependencies&lt;/strong&gt;: Lets say our services depend on different node versions. In such cases we would need to manually switch node versions before running our services. Similarly, if our services depend on multiple database servers, then we would need to make sure our database servers are running (on different ports) before we can run our services. All of this is mostly manual and cumbersome.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Fresh setup&lt;/strong&gt;: Setting up all of this services on a new machine can be tricky as we need to keep track of all the dependencies we need and their corresponding versions. This leads to the popular &lt;strong&gt;“Works on my machine”&lt;/strong&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;All of these are frankly annoying 🤯.&lt;/p&gt;
+&lt;h2&gt;🕶 Docker based local development environment&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Docker is a tool designed to make it easier to create, deploy, and run applications by using containers. Containers allow a developer to package up an application with all of the parts it needs, such as libraries and other dependencies, and ship it all out as one package.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3&gt;Mental model 🧞‍&lt;/h3&gt;
+&lt;h4&gt;Docker container&lt;/h4&gt;
+&lt;p&gt;To form a mental picture, for the time being just consider a &lt;strong&gt;Docker Container&lt;/strong&gt; as an extremely light weight isolated linux based virtual machine inside which we will run our application service (&lt;a href=&quot;https://www.backblaze.com/blog/vm-vs-containers/&quot; target=&quot;_blank&quot;&gt;although containers are not exactly VMs&lt;/a&gt;). The container will contain our code and all of its dependencies (system libraries, tools, etc). For our setup we will use one docker container per service and separate docker containers for our database.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/containers_mental_modal-413c6e75962d7baf8224cf72b52dac28.svg&quot; alt=&quot;containers_mental_modal&quot;&gt;&lt;/p&gt;
+&lt;h4&gt;Docker-Compose&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Docker compose is a tool for defining and running multi-container Docker applications. With Compose, you use a YAML file to configure your application’s services. Then, with a single command, you create and start all the services from your configuration.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;TLDR;&lt;/strong&gt; Docker compose lets you run all your services at once (also in the right order) and manage them via a unified interface.&lt;/p&gt;
+&lt;p&gt;Docker compose in general will contain:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Services&lt;/strong&gt;: Services are the list of induvidual docker containers that will be run by the compose tool. We will specify the ports and other configurations needed to run the docker containers here.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Networks&lt;/strong&gt;: Network provides a way by which different services can interact with each other. Each container can attach itself to a network and all containers within same networks can communicate with each other. We will use a single network for our case.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Volumes&lt;/strong&gt;: Docker containers by default do not contain any kind of persistence storage. If a docker container is killed then all the data in its memory gets lost. So in order to save some persistant data you need volumes. Think of volumes as permanent hard drives for these containers. We will have one volume per service.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&quot;/compose_mental_modal-5c736f83bee4417992e76fd0dcf5e271.svg&quot; alt=&quot;compose_modal&quot;&gt;&lt;/p&gt;
+&lt;br/&gt;
+&lt;h2&gt;🚀 Setting it up&lt;/h2&gt;
+&lt;p&gt;I have created a basic setup of services as described above. To follow along, take a clone of the repo with the following commands.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;sh&quot;&gt;&lt;pre class=&quot;language-sh&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;git clone https://github.com/master-atul/blog-docker-dev-environment-example.git
+
+cd blog-docker-dev-environment-example
+
+git checkout tags/basic-setup
+
+git checkout -b tryingout&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Now you should have the following project structure to start with:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+├── go1
+│   ├── &lt;span class=&quot;token constant&quot;&gt;README&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;md
+│   └── main&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;go
+├── njs1
+│   ├── &lt;span class=&quot;token constant&quot;&gt;README&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;md
+│   ├── index&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;js
+│   ├── &lt;span class=&quot;token keyword&quot;&gt;package&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;lock&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;json
+│   └── &lt;span class=&quot;token keyword&quot;&gt;package&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;json
+├── njs2
+│   ├── &lt;span class=&quot;token constant&quot;&gt;README&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;md
+│   ├── index&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;js
+│   ├── &lt;span class=&quot;token keyword&quot;&gt;package&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;lock&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;json
+│   └── &lt;span class=&quot;token keyword&quot;&gt;package&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;json
+└── py1
+    ├── &lt;span class=&quot;token constant&quot;&gt;README&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;md
+    ├── requirements&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;txt
+    └── server
+        ├── __init__&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;py
+        └── __main__&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;py&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;You could browse through each project inside and read the README to understand how to run those projects induvidually.&lt;/p&gt;
+&lt;h3&gt;Enter docker 🚪&lt;/h3&gt;
+&lt;p&gt;Make sure you have docker running by following the instructions here &lt;a href=&quot;https://www.docker.com/get-started&quot; target=&quot;_blank&quot;&gt;https://www.docker.com/get-started&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;First step is to create a docker file for our service njs1. Create a Dockerfile: &lt;strong&gt;blog-docker-dev-environment-example/njs1/Dockerfile&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;njs1/Dockerfile&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token constant&quot;&gt;FROM&lt;/span&gt; node&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;6.17&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;.0&lt;/span&gt;
+
+&lt;span class=&quot;token constant&quot;&gt;WORKDIR&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;root
+&lt;span class=&quot;token constant&quot;&gt;ADD&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;root&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Now let jump to docker-compose.&lt;/p&gt;
+&lt;p&gt;Lets take a look at what a simple docker-compose file looks like:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code class=&quot;language-text&quot;&gt;docker-compose.yml&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;&lt;span class=&quot;token key atrule&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;3&apos;&lt;/span&gt;
+&lt;span class=&quot;token key atrule&quot;&gt;services&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;&amp;lt;service_name_1&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &amp;lt;path_to_docker_file_of_service&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &amp;lt;start_command_to_run&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;environment&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &amp;lt;env_var_1&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;=&amp;lt;env_val_1&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &amp;lt;env_var_2&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;=&amp;lt;env_val_2&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;ports&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;&amp;lt;port_inside_container&gt;:&amp;lt;port_of_host_machine&gt;&apos;&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;working_dir&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &amp;lt;path_inside_the_docker_container_where_command_should_run&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;
+
+  &lt;span class=&quot;token key atrule&quot;&gt;&amp;lt;service_name_2&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;...&lt;/span&gt;.
+    &lt;span class=&quot;token punctuation&quot;&gt;...&lt;/span&gt;.
+    &lt;span class=&quot;token punctuation&quot;&gt;...&lt;/span&gt;.&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Create the file at &lt;strong&gt;blog-docker-dev-environment-example/docker-compose.yml&lt;/strong&gt; .&lt;/p&gt;
+&lt;p&gt;Lets add our first service (njs1) to it.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code class=&quot;language-text&quot;&gt;docker-compose.yml&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;&lt;span class=&quot;token key atrule&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;3&apos;&lt;/span&gt;
+&lt;span class=&quot;token key atrule&quot;&gt;services&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;njs1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; ./njs1
+    &lt;span class=&quot;token key atrule&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; sh &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;c &quot;npm install &amp;amp;&amp;amp; npm start&quot;
+    &lt;span class=&quot;token key atrule&quot;&gt;environment&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; NODE_ENV=development
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; PORT=7000
+    &lt;span class=&quot;token key atrule&quot;&gt;ports&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;7000:7000&apos;&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;working_dir&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; /root/njs1&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The above docker compose file has only one service (njs1). We will add more services incrementally. Before that lets run it and see what we get.&lt;/p&gt;
+&lt;p&gt;In the folder which contains our &lt;strong&gt;docker-compose.yml&lt;/strong&gt; run:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;sh&quot;&gt;&lt;pre class=&quot;language-sh&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;docker-compose up&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;if all goes well you should see it building our app container and in the very end&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;NJS1 app listening on port 7000!&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Open it up on the browser: &lt;code class=&quot;language-text&quot;&gt;http://localhost:7000&lt;/code&gt; to test it out.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;docker-compose service in detail:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;build:&lt;/strong&gt; : &lt;em&gt;Path to the dockerfile. Note: you can either specify the folder which contains the Dockerfile or the complete path to Dockerfile itself. Both works.&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;command:&lt;/strong&gt; : &lt;em&gt;Command to run when docker container is started.&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;environment:&lt;/strong&gt; : &lt;em&gt;All the environment variables you need to set.&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ports:&lt;/strong&gt;: &lt;em&gt;This specifies the mapping of the port inside the container to that of the host machine. They need not be same.&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;working_dir:&lt;/strong&gt; : &lt;em&gt;This is the path inside the container where you want to the run the command you specified above.&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;All this is good and fine but how can I use it for efficient development? 🤷🏻‍♀️&lt;/h3&gt;
+&lt;p&gt;To make an efficient development environment we need to be able to edit the source code (which with current setup is not possible without re building container again and again). To achieve this we will make use of &lt;strong&gt;volumes&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Make the following changes. First lets tell our &lt;strong&gt;njs1/Dockerfile&lt;/strong&gt; to not copy the project files to the container.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code class=&quot;language-text&quot;&gt;njs1/Dockerfile&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;c&quot;&gt;&lt;pre class=&quot;language-c&quot;&gt;&lt;code class=&quot;language-c&quot;&gt;FROM node&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;6.17&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;.0&lt;/span&gt;
+
+&lt;span class=&quot;token macro property&quot;&gt;# WORKDIR /root &amp;lt;-- comment out&lt;/span&gt;
+&lt;span class=&quot;token macro property&quot;&gt;# ADD . /root   &amp;lt;-- these two lines&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;then tell docker-compose to mount our project directory from our local machine as a directory inside the container.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code class=&quot;language-text&quot;&gt;docker-compose.yml&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;&lt;span class=&quot;token key atrule&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;3&apos;&lt;/span&gt;
+&lt;span class=&quot;token key atrule&quot;&gt;services&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;njs1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; ./njs1
+    &lt;span class=&quot;token key atrule&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; sh &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;c &quot;npm install &amp;amp;&amp;amp; npm start&quot;
+    &lt;span class=&quot;token key atrule&quot;&gt;environment&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; NODE_ENV=development
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; PORT=7000
+    &lt;span class=&quot;token key atrule&quot;&gt;ports&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;7000:7000&apos;&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;working_dir&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; /root/njs1
+    &lt;span class=&quot;token key atrule&quot;&gt;volumes&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; ./njs1&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;/root/njs1&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;cached &lt;span class=&quot;token comment&quot;&gt;# &amp;lt;--- This will map ./njs1 to /root/njs1 inside the container.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;In detail&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;volumes:&lt;/strong&gt; - volumes gives us a way to map our local directories to a directory inside the container. Here we are saying map njs1 folder from our local machine to /root/njs1 inside the docker container. Here we are not copying the files into the container, instead we are mounting it as a shared volume. And thats the trick that makes it useful.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;To test it out. Lets add nodemon to our njs1 service.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;cd njs1
+npm install --save-dev nodemon&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Now make the following change in&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code class=&quot;language-text&quot;&gt;njs1/package.json&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;diff&quot;&gt;&lt;pre class=&quot;language-diff&quot;&gt;&lt;code class=&quot;language-diff&quot;&gt;...
+...
+...
+  &quot;description&quot;: &quot;A sample nodejs server&quot;,
+   &quot;main&quot;: &quot;index.js&quot;,
+   &quot;scripts&quot;: {
+&lt;span class=&quot;token deleted&quot;&gt;-    &quot;start&quot;: &quot;node index.js&quot;&lt;/span&gt;
+&lt;span class=&quot;token inserted&quot;&gt;+    &quot;start&quot;: &quot;nodemon index.js&quot;&lt;/span&gt;
+   },
+...
+...&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Time to test it out! Go to the root folder and run&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;sh&quot;&gt;&lt;pre class=&quot;language-sh&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;docker-compose up --build&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The &lt;strong&gt;&lt;code class=&quot;language-text&quot;&gt;--build&lt;/code&gt;&lt;/strong&gt; tells docker-compose to rebuild the images.&lt;/p&gt;
+&lt;p&gt;You should see:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;➜  blog&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;docker&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;dev&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;environment&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;example git&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;master&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; ✗ docker&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;compose up &lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;build
+Building njs1
+Step &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;FROM&lt;/span&gt; node&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;6.17&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;.0&lt;/span&gt;
+ &lt;span class=&quot;token operator&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;dea7f33fa21
+Successfully built &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;dea7f33fa21
+Successfully tagged blog&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;docker&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;dev&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;environment&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;example_njs1&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;latest
+Starting blog&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;docker&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;dev&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;environment&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;example_njs1_1 &lt;span class=&quot;token operator&quot;&gt;...&lt;/span&gt; done
+Attaching to blog&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;docker&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;dev&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;environment&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;example_njs1_1
+njs1_1  &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; npm &lt;span class=&quot;token constant&quot;&gt;WARN&lt;/span&gt; njs1@&lt;span class=&quot;token number&quot;&gt;1.0&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;.0&lt;/span&gt; No repository field&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;
+njs1_1  &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
+njs1_1  &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; njs1@&lt;span class=&quot;token number&quot;&gt;1.0&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;.0&lt;/span&gt; start &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;root&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;njs1
+njs1_1  &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; nodemon index&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;js
+njs1_1  &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;
+njs1_1  &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;nodemon&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1.19&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;.1&lt;/span&gt;
+njs1_1  &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;nodemon&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; to restart at any time&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; enter &lt;span class=&quot;token template-string&quot;&gt;&lt;span class=&quot;token string&quot;&gt;`rs`&lt;/span&gt;&lt;/span&gt;
+njs1_1  &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;nodemon&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; watching&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt;
+njs1_1  &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;nodemon&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; starting &lt;span class=&quot;token template-string&quot;&gt;&lt;span class=&quot;token string&quot;&gt;`node index.js`&lt;/span&gt;&lt;/span&gt;
+njs1_1  &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;NJS1&lt;/span&gt; app listening on port &lt;span class=&quot;token number&quot;&gt;7000&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;!&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;Try editing njs1 source files! 🎉&lt;/h3&gt;
+&lt;p&gt;Try making some changes in the &lt;strong&gt;njs1/index.js&lt;/strong&gt; file and you should see nodemon auto reloading on file change.&lt;/p&gt;
+&lt;div style=&quot;display:flex;flex-direction:row;align-items:center;&quot;&gt;
+&lt;img src=&quot;/works_meme-63b09e0c3873a09e618abf0daf1c5e26.gif&quot; alt=&quot;It works&quot; style=&quot;height:200px;margin:0 auto;&quot;&gt;
+&lt;/div&gt;
+&lt;h3&gt;Finishing things up! 🏁&lt;/h3&gt;
+&lt;p&gt;Once you add other services to the docker-compose file. It should look something like this:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code class=&quot;language-text&quot;&gt;docker-compose.yml&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;yaml&quot;&gt;&lt;pre class=&quot;language-yaml&quot;&gt;&lt;code class=&quot;language-yaml&quot;&gt;&lt;span class=&quot;token key atrule&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;3&apos;&lt;/span&gt;
+
+&lt;span class=&quot;token key atrule&quot;&gt;services&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;token key atrule&quot;&gt;njs1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; ./njs1
+    &lt;span class=&quot;token key atrule&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; sh &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;c &quot;npm install &amp;amp;&amp;amp; npm start&quot;
+    &lt;span class=&quot;token key atrule&quot;&gt;environment&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; NODE_ENV=development
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; PORT=7000
+    &lt;span class=&quot;token key atrule&quot;&gt;ports&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;7000:7000&apos;&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;working_dir&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; /root/njs1
+    &lt;span class=&quot;token key atrule&quot;&gt;volumes&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; ./njs1&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;/root/njs1&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;cached &lt;span class=&quot;token comment&quot;&gt;# &amp;lt;--- This will map ./njs1 to /root/njs1 inside the container.&lt;/span&gt;
+
+  &lt;span class=&quot;token key atrule&quot;&gt;njs2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; node&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;12.3&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;alpine
+    &lt;span class=&quot;token key atrule&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; sh &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;c &quot;npm install &amp;amp;&amp;amp; npm start&quot;
+    &lt;span class=&quot;token key atrule&quot;&gt;environment&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; NODE_ENV=development
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; PORT=8000
+    &lt;span class=&quot;token key atrule&quot;&gt;ports&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;8000:8000&apos;&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;working_dir&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; /root/njs2
+    &lt;span class=&quot;token key atrule&quot;&gt;volumes&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; ./njs2&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;/root/njs2&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;cached &lt;span class=&quot;token comment&quot;&gt;# &amp;lt;--- This will map ./njs2 to /root/njs2 inside the container.&lt;/span&gt;
+
+  &lt;span class=&quot;token key atrule&quot;&gt;py1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; python&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;3&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;stretch
+    &lt;span class=&quot;token key atrule&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; sh &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;c &quot;pip install &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;r requirements.txt &amp;amp;&amp;amp; python &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;m server&quot;
+    &lt;span class=&quot;token key atrule&quot;&gt;environment&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; PORT=9000
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; FLASK_ENV=development
+    &lt;span class=&quot;token key atrule&quot;&gt;ports&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;9000:9000&apos;&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;working_dir&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; /root/py1
+    &lt;span class=&quot;token key atrule&quot;&gt;volumes&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; ./py1&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;/root/py1&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;cached &lt;span class=&quot;token comment&quot;&gt;# &amp;lt;--- This will map ./py1 to /root/py1 inside the container.&lt;/span&gt;
+
+  &lt;span class=&quot;token key atrule&quot;&gt;go1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; golang&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;1.12&lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;alpine
+    &lt;span class=&quot;token key atrule&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; sh &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt;c &quot;go run .&quot;
+    &lt;span class=&quot;token key atrule&quot;&gt;environment&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; PORT=5000
+    &lt;span class=&quot;token key atrule&quot;&gt;ports&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;5000:5000&apos;&lt;/span&gt;
+    &lt;span class=&quot;token key atrule&quot;&gt;working_dir&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; /root/go1
+    &lt;span class=&quot;token key atrule&quot;&gt;volumes&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;token punctuation&quot;&gt;-&lt;/span&gt; ./go1&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;/root/go1&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;cached &lt;span class=&quot;token comment&quot;&gt;# &amp;lt;--- This will map ./py1 to /root/py1 inside the container.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Few Changes&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;image:&lt;/strong&gt; instead of &lt;strong&gt;build&lt;/strong&gt; : In docker-compose we can specify the docker image from docker-hub directly instead of a dockerfile using the &lt;strong&gt;image:&lt;/strong&gt; property. Hence for simple setups we dont need to write our own Dockerfile.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;There are many more configuration options which you can use in your docker-compose.yml file. To see a complete reference of those, you can visit this link: &lt;a href=&quot;https://docs.docker.com/compose/compose-file/&quot; target=&quot;_blank&quot;&gt;https://docs.docker.com/compose/compose-file/&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;🧙‍ Commands Cheatsheet&lt;/h2&gt;
+&lt;p&gt;Now that you have setup your services to run via docker-compose for local development. There are few commands that can help.&lt;/p&gt;
+&lt;h4&gt;Start all services&lt;/h4&gt;
+&lt;p&gt;This will start all services in the docker-compose file and detach from the terminal. So your services can run in background.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;sh&quot;&gt;&lt;pre class=&quot;language-sh&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;docker-compose start&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4&gt;Stop all services&lt;/h4&gt;
+&lt;p&gt;Corresponding stop command&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;sh&quot;&gt;&lt;pre class=&quot;language-sh&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;docker-compose stop&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4&gt;Launch a specific service&lt;/h4&gt;
+&lt;p&gt;This will only launch njs1 from the list of services in the docker-compose.yml&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;sh&quot;&gt;&lt;pre class=&quot;language-sh&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;docker-compose up njs1&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;You can use similar commands to stop, start induvidual services as well.&lt;/p&gt;
+&lt;h4&gt;restart a single service&lt;/h4&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;sh&quot;&gt;&lt;pre class=&quot;language-sh&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;docker-compose restart njs1&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4&gt;logs from specific service&lt;/h4&gt;
+&lt;p&gt;This will show logs of only njs1 and also watch for more logs&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;sh&quot;&gt;&lt;pre class=&quot;language-sh&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;docker-compose logs -f njs1&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4&gt;ssh into a particular service container&lt;/h4&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;sh&quot;&gt;&lt;pre class=&quot;language-sh&quot;&gt;&lt;code class=&quot;language-sh&quot;&gt;docker-compose exec njs1 bash&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;🕵️‍ Some Tips for smoother workflow&lt;/h2&gt;
+&lt;h3&gt;Containers / services running too slow?&lt;/h3&gt;
+&lt;p&gt;You might notice that your services are running/launching at extremely slow as compared to when you launch them without docker-compose. This might be because you have allocated less CPU/RAM to docker service. The default values are very low and that causes issues when launching multiple services.&lt;/p&gt;
+&lt;p&gt;Go to : &lt;code class=&quot;language-text&quot;&gt;dockerIcon -&amp;gt; preferences -&amp;gt; Advanced&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Change the slider to give CPU &gt; 3GB and RAM &gt; 6GB&lt;/p&gt;
+&lt;h3&gt;Low on space / messed up and want to restart everything from scratch ?&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Removing all images and then refreshing the entire thing.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;To remove all docker containers:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;docker rm $(docker ps -a -q) -f&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;To remove all docker images:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;docker rmi $(docker images) -f&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;br/&gt;
+🧙‍ Thats all folks! Thanks for reading!
+&lt;br/&gt;
+&lt;br/&gt;
+&lt;div style=&quot;display:flex;flex-direction:row;align-items:center;&quot;&gt;
+&lt;img src=&quot;/thanks-eb00b58d50a871b5928be3b8e860102f.gif&quot; alt=&quot;Thanks&quot; style=&quot;height:200px;margin:0 auto;&quot;&gt;
+&lt;/div&gt;</content:encoded></item><item><title><![CDATA[🚧 An alternative approach to building a simple API Rate limiter using NodeJS and Redis]]></title><description><![CDATA[Recently I came across an interesting problem of building an API rate limiter. While doing a bit of research on the same, I came across…]]></description><link>https://blog.atulr.com/rate-limiter/</link><guid isPermaLink="false">https://blog.atulr.com/rate-limiter/</guid><pubDate>Tue, 15 Jan 2019 20:11:03 GMT</pubDate><content:encoded>&lt;p&gt;Recently I came across an interesting problem of building an API rate limiter. While doing a bit of research on the same, I came across various algorithms and approaches. Some of the popular algorithms used to implement rate limiting are:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Token bucket&lt;/li&gt;
 &lt;li&gt;Leaky bucket&lt;/li&gt;
