@@ -7,11 +7,11 @@ featuredImage: reactbanner.png
 
 This would be a very short post (approx 2min read). I recently wanted to abstract away a functionality that we had to use for multiple React components. I decided that I will write it using React hooks. Only issue is that we had a lot of legacy class components that needed the same functionality. So that would mean:
 
-1. Rewrite all components to functional components - Big NO NO
+1. Rewrite all components to functional components - _Big NO NO_
 
-2. Duplicate the same logic in both hooks and hoc format. But what do we say to code duplication? Not today!
+2. Duplicate the same logic in both hooks and hoc format. _But what do we say to code duplication? Not today!_
 
-After tinkering around a bit I came up with the following that allows me to write my logic as a hook and have great fallback option for class components in the form of a HOC.
+After tinkering around a bit I came up with the following hack that allows me to write my logic as a hook and have great fallback option for class components in the form of a HOC.
 
 We will take a simple example for this post. Lets say we have a hook as follows:
 
@@ -45,6 +45,41 @@ export const withCountry = Component => {
 }
 ```
 
-This simple trick allows you to use the same hook with class components (as a HOC 🤨)
+### Usage:
 
-Hope this helps!
+**For a functional component you could do:**
+
+```js
+const MyComponent = props => {
+  const country = useCountry()
+  return (
+    <div>
+      <div> Hi, I am from </div>
+      <div>{country}</div>
+    </div>
+  )
+}
+export default MyComponent
+```
+
+**And for a class component you would do:**
+
+```js
+class MyComponent extends React.Component {
+  render() {
+    const { country } = this.props
+    return (
+      <div>
+        <div> Hi, I am from </div>
+        <div>{country}</div>
+      </div>
+    )
+  }
+}
+
+export default withCountry(MyComponent)
+```
+
+This simple trick allows you to use the same **hook** with class components (as a **HOC** 🤨)
+
+Hope this helps 🎉
