@@ -116,7 +116,7 @@ win.show();
   <img src="./react.gif" style="width:150px;display:block;" />
 </div>
 
-React Desktop: [@nodegui/react-desktop](https://www.npmjs.com/package/@nodegui/react-desktop) is a ⚛️ react renderer for NodeGUI. This means you can create you views using React components similar to that of React Native. React Desktop is powered by React ⚛️ and Qt5 💚 which makes it easy to build performant, native and cross-platform desktop applications. With react desktop you have complete access to all React APIs including hooks. React Desktop makes it much more easy to manage all the views via Javascript.
+React Desktop: [@nodegui/react-desktop](https://www.npmjs.com/package/@nodegui/react-desktop) is a ⚛️ react renderer for NodeGUI. This means you can create your views using React components similar to that of React Native. React Desktop is powered by React ⚛️ and Qt5 💚 which makes it easy to build performant, native and cross-platform desktop applications. With react desktop you have complete access to all React APIs including hooks. React Desktop makes it much more easy to manage all the views via Javascript.
 
 ## Try it out! 🧙‍♂️
 
