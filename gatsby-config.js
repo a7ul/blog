@@ -16,6 +16,12 @@ module.exports = {
       },
     },
     {
+      resolve: 'gatsby-plugin-disqus',
+      options: {
+        shortname: 'atulr',
+      },
+    },
+    {
       resolve: 'gatsby-transformer-remark',
       options: {
         plugins: [

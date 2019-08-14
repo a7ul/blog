@@ -2,7 +2,7 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import { Link, graphql } from 'gatsby';
 import get from 'lodash/get';
-import { DiscussionEmbed } from 'disqus-react';
+import { Disqus } from 'gatsby-plugin-disqus';
 import Bio from '../components/Bio';
 import Layout from '../components/layout';
 import { rhythm, scale } from '../utils/typography';
@@ -46,7 +46,7 @@ const BlogPostTemplate = (props) => {
       <p style={styles.date}>{post.frontmatter.date}</p>
       <article style={styles.post} dangerouslySetInnerHTML={{ __html: post.html }} />
       <Share text={postTitle} url={url} />
-      <DiscussionEmbed shortname={config.disqusShortName} config={disqusConfig} />
+      <Disqus config={disqusConfig} />
       <Bio />
 
       <ul style={styles.navLinkContainer}>
