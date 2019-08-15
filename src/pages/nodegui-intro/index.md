@@ -1,22 +1,22 @@
 ---
-title: 🐕 Announcing NodeGUI and React Desktop - Build native desktop apps with Javascript and CSS 🎉
+title: 🐕 Announcing NodeGUI and React NodeGUI - Build native desktop apps with Javascript and CSS 🎉
 date: 2019-08-14T08:11:03.284Z
 keywords: react, desktop, gui, cross, platform, javascript, css, native
 featuredImage: ./nodegui.svg
 ---
 
-We’re very excited to announce the launch of **NodeGUI** and **React Desktop**! 🎊
+We’re very excited to announce the launch of **NodeGUI** and **React NodeGUI**! 🎊
 
 [NodeGUI](https://github.com/nodegui/nodegui) is an open source library for building cross platform native desktop applications with JavaScript and CSS like styling. NodeGui apps can run on Mac, Windows, and Linux from a single codebase.
 
 NodeGUI is powered by Qt5 💚 which makes it CPU and memory efficient as compared to other chromium based solutions like electron. Don't get me wrong 🤷🏽‍♂️, Electron is a great framework for building cross platform apps but suffers from performance and energy related issues due to heavy reliance on Chromium. NodeGui wants to incorporate everything that is good about Electron: The ease of development, freedom of styling, Native APIs, great documentation, etc. At the same time NodeGui aims to be memory and CPU efficient.
 
-[React Desktop](https://github.com/nodegui/react-desktop) is a react renderer for NodeGUI. It aims to be what React Native is for mobile app development.
+[React NodeGUI](https://github.com/nodegui/react-nodegui) is a react renderer for NodeGUI. It aims to be what React Native is for mobile app development.
 
 **Repository links:**
 
 - https://github.com/nodegui/nodegui
-- https://github.com/nodegui/react-desktop
+- https://github.com/nodegui/react-nodegui
 
 ## Features
 
@@ -108,7 +108,7 @@ win.show();
 (global as any).win = win;  //to prevent gc
 ```
 
-# React Desktop
+# React NodeGUI
 
 <div style="display:flex; flex-direction:row; justify-content: center;align-items:center;">
   <img src="./nodegui.svg" style="width:150px;display:block;" />
@@ -116,15 +116,15 @@ win.show();
   <img src="./react.gif" style="width:150px;display:block;" />
 </div>
 
-React Desktop: [@nodegui/react-desktop](https://www.npmjs.com/package/@nodegui/react-desktop) is a ⚛️ react renderer for NodeGUI. This means you can create your views using React components similar to that of React Native. React Desktop is powered by React ⚛️ and Qt5 💚 which makes it easy to build performant, native and cross-platform desktop applications. With react desktop you have complete access to all React APIs including hooks. React Desktop makes it much more easy to manage all the views via Javascript.
+React NodeGUI: [@nodegui/react-nodegui](https://www.npmjs.com/package/@nodegui/react-nodegui) is a ⚛️ react renderer for NodeGUI. This means you can create your views using React components similar to that of React Native. React NodeGUI is powered by React ⚛️ and Qt5 💚 which makes it easy to build performant, native and cross-platform desktop applications. With react nodegui you have complete access to all React APIs including hooks. React NodeGUI makes it much more easy to manage all the views via Javascript.
 
 ## Try it out! 🧙‍♂️
 
-The same example we saw above in NodeGui would look like this in react-desktop
+The same example we saw above in NodeGui would look like this in react-nodegui
 
 ```
-git clone https://github.com/nodegui/react-desktop-starter
-cd react-desktop-starter
+git clone https://github.com/nodegui/react-nodegui-starter
+cd react-nodegui-starter
 npm install
 npm run build
 npm start
@@ -133,7 +133,7 @@ npm start
 A simple hello world project looks like:
 
 ```js
-import { Renderer, View, Text, Window } from '@nodegui/react-desktop'
+import { Renderer, View, Text, Window } from '@nodegui/react-nodegui'
 import React from 'react'
 
 const App = () => {
@@ -171,11 +171,11 @@ The output looks like this:
 
 <br/>
 
-> Disclaimer: Please keep in mind that both NodeGui and React Desktop are at their infancy stage. Hence, I would hold on for some more time before using it in production. This post is primarily aimed at encouraging contributions to the project.
+> Disclaimer: Please keep in mind that both NodeGui and React NodeGUI are at their infancy stage. Hence, I would hold on for some more time before using it in production. This post is primarily aimed at encouraging contributions to the project.
 
 # Some more example screenshots: 📸
 
-The source code for all these examples are here: https://github.com/nodegui/react-desktop/tree/master/examples/
+The source code for all these examples are here: https://github.com/nodegui/react-nodegui/tree/master/examples/
 
 <div style="display:flex;flex-direction:row;justify-content:space-around;">
   <img src="./image_view_win.gif" alt="win" height="250px"/>
@@ -193,7 +193,7 @@ The source code for all these examples are here: https://github.com/nodegui/reac
 
 # Development and Support 🍺
 
-NodeGui and React Desktop are open source projects. If you like where these projects are heading please do <a href="https://github.com/nodegui/nodegui"><img src="./star.gif" height="30" style="position:relative;top:10px"/></a> the respective repos.
+NodeGui and React NodeGUI are open source projects. If you like where these projects are heading please do <a href="https://github.com/nodegui/nodegui"><img src="./star.gif" height="30" style="position:relative;top:10px"/></a> the respective repos.
 
 The code is structured for simplicity such that anyone who is willing to contribute can get started quickly. There is also a decent contributor's guide which also contains links to blog posts that can get you started even if you have no clue about nodejs addons, etc. I would suggest you to give it a shot. If anything is unclear you can raise an issue on the respective project repos on Github and we would be more than happy to help. We aim to make the project easy to develop and use. Hence, pull requests are always welcome.
 
