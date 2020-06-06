@@ -42,12 +42,6 @@ module.exports = {
           'gatsby-remark-copy-linked-files',
           'gatsby-remark-smartypants',
           {
-            resolve: 'gatsby-source-medium',
-            options: {
-              username: '@atulanand94',
-            },
-          },
-          {
             resolve: 'gatsby-plugin-sitemap',
           },
         ],
