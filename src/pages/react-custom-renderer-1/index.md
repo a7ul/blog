@@ -346,7 +346,7 @@ render called {$$typeof: Symbol(react.element), type: ƒ, key: null, ref: null, 
 
 <br>
 
-**<a href='https://github.com/master-atul/blog-custom-renderer/tree/5306e949bba475f80cab5a042535af5755c0aa43' target='_blank'>Link to source code till here</a>**
+**<a href='https://github.com/a7ul/blog-custom-renderer/tree/5306e949bba475f80cab5a042535af5755c0aa43' target='_blank'>Link to source code till here</a>**
 
 <br>
 
@@ -431,7 +431,7 @@ This is because we havent implemented the required methods in the HostConfig yet
 
 <br>
 
-**<a href='https://github.com/master-atul/blog-custom-renderer/tree/b0f74ffc14eecceb259c5b302cf170cce843d3b1' target='_blank'>Link to source code till here</a>**
+**<a href='https://github.com/a7ul/blog-custom-renderer/tree/b0f74ffc14eecceb259c5b302cf170cce843d3b1' target='_blank'>Link to source code till here</a>**
 
 <br>
 

@@ -38,7 +38,7 @@ The steps involved in making a local push notification: <br/>
 
 ## Code
 
-The entire code for this blog is available at <a href="https://github.com/master-atul/web-push-demo" target="_blank">https://github.com/master-atul/web-push-demo</a>
+The entire code for this blog is available at <a href="https://github.com/a7ul/web-push-demo" target="_blank">https://github.com/a7ul/web-push-demo</a>
 
 ## Step 0: Boilerplate
 
@@ -926,4 +926,4 @@ Wohoo !! 🚀 Now you can create web apps that can spam people too 🤣
 - https://developers.google.com/web/fundamentals/push-notifications/how-push-works
 - https://gist.github.com/Rich-Harris/fd6c3c73e6e707e312d7c5d7d0f3b2f9
 
-The entire code for this blog is available at <a href="https://github.com/master-atul/web-push-demo" target="_blank">https://github.com/master-atul/web-push-demo</a>
+The entire code for this blog is available at <a href="https://github.com/a7ul/web-push-demo" target="_blank">https://github.com/a7ul/web-push-demo</a>

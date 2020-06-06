@@ -1,10 +1,10 @@
 {
-  "name": "master-atul-blog",
+  "name": "atul-blog",
   "description": "Blog",
   "version": "1.0.0",
   "author": "Atul R <atulanand94@gmail.com>",
   "bugs": {
-    "url": "https://github.com/master-atul/blog/issues"
+    "url": "https://github.com/a7ul/blog/issues"
   },
   "dependencies": {
     "gatsby": "^2.13.62",
@@ -47,18 +47,18 @@
     "gh-pages": "^1.2.0",
     "prettier": "^1.14.0"
   },
-  "homepage": "https://github.com/master-atul/blog#readme",
+  "homepage": "https://github.com/a7ul/blog#readme",
   "keywords": [
     "gatsby",
     "blog",
     "atul",
-    "master-atul"
+    "a7ul"
   ],
   "license": "MIT",
   "main": "n/a",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/master-atul/blog.git"
+    "url": "git+https://github.com/a7ul/blog.git"
   },
   "scripts": {
     "start": "gatsby develop",

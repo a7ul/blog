@@ -689,7 +689,7 @@ commitMount: (domElement, type, newProps, fiberNode) => {
 
 <br>
 
-**<a href='https://github.com/master-atul/blog-custom-renderer/tree/31d5ff827565ef8f4f8e5061b97c16ec3b6a279f' target='_blank'>Link to source code till here</a>**
+**<a href='https://github.com/a7ul/blog-custom-renderer/tree/31d5ff827565ef8f4f8e5061b97c16ec3b6a279f' target='_blank'>Link to source code till here</a>**
 
 <br>
 

@@ -47,7 +47,7 @@ So, if you hit **GET http://localhost:7000**, you should get
 Hello from njs1
 ```
 
-The code for these services are here: <a href="https://github.com/master-atul/blog-docker-dev-environment-example" target="_blank">https://github.com/master-atul/blog-docker-dev-environment-example</a>
+The code for these services are here: <a href="https://github.com/a7ul/blog-docker-dev-environment-example" target="_blank">https://github.com/a7ul/blog-docker-dev-environment-example</a>
 
 Lets run all of our services on different terminal windows and try it out.
 <br/>
@@ -102,7 +102,7 @@ Docker compose in general will contain:
 I have created a basic setup of services as described above. To follow along, take a clone of the repo with the following commands.
 
 ```sh
-git clone https://github.com/master-atul/blog-docker-dev-environment-example.git
+git clone https://github.com/a7ul/blog-docker-dev-environment-example.git
 
 cd blog-docker-dev-environment-example
 

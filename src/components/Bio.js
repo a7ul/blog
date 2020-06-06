@@ -44,7 +44,7 @@ const Bio = () => (
       📖 and trainer 👨🏽‍🎓. He primarily works on Javascript ecosystem and
       occasionally hacks around in C++, Rust and Python. He is an{' '}
       <a
-        href="https://github.com/master-atul"
+        href="https://github.com/a7ul"
         target="_blank"
         rel="noopener noreferrer"
       >
