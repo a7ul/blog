@@ -45,7 +45,7 @@ const Header = () => (
       </div>
       <div style={styles.social}>
         <a style={styles.link} target="_blank" rel="noopener noreferrer" href="https://www.atulr.com"><img style={styles.icon} src={webIcon} alt="atulr.com" /></a>
-        <a style={styles.link} target="_blank" rel="noopener noreferrer" href="https://twitter.com/masteratul94"><img style={styles.icon} src={twitterIcon} alt="twitter" /></a>
+        <a style={styles.link} target="_blank" rel="noopener noreferrer" href="https://twitter.com/a7ulr"><img style={styles.icon} src={twitterIcon} alt="twitter" /></a>
         <a style={styles.link} target="_blank" rel="noopener noreferrer" href="https://github.com/master-atul/"><img style={styles.icon} src={githubIcon} alt="github" /></a>
         <a style={styles.link} target="_blank" rel="noopener noreferrer" href="https://linkedin.com/in/atulanand94"><img style={styles.icon} src={linkedinIcon} alt="linkedin" /></a>
       </div>

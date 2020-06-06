@@ -53,7 +53,7 @@ const Bio = () => (
       enthusiast and <span style={{ color: 'red' }}>❤</span> making useful tools
       for humans.{' '}
       <a
-        href="https://twitter.com/masteratul94"
+        href="https://twitter.com/a7ulr"
         target="_blank"
         rel="noopener noreferrer"
       >
