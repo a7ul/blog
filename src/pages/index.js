@@ -36,8 +36,8 @@ const BlogIndex = (props) => {
       })}
       <div>
         <h3 style={styles.title}>
-          <a href="https://medium.com/@atulanand94">
-            📝See more blog posts on medium.com/@atulanand94 ...
+          <a href="https://medium.com/@a7ul">
+            📝See more blog posts on medium.com/@a7ul ...
           </a>
         </h3>
       </div>
