@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog]]></title><description><![CDATA[Build. Hack. Rebuild. Hack...]]></description><link>https://blog.atulr.com</link><generator>RSS for Node</generator><lastBuildDate>Sat, 06 Jun 2020 18:49:21 GMT</lastBuildDate><item><title><![CDATA[🐕 Announcing NodeGUI and React NodeGUI - Build native desktop apps with Javascript and CSS 🎉]]></title><description><![CDATA[We’re very excited to announce the launch of NodeGUI and React NodeGUI! 🎊 NodeGUI is an open source library for building cross platform…]]></description><link>https://blog.atulr.com/nodegui-intro/</link><guid isPermaLink="false">https://blog.atulr.com/nodegui-intro/</guid><pubDate>Wed, 14 Aug 2019 08:11:03 GMT</pubDate><content:encoded>&lt;p&gt;We’re very excited to announce the launch of &lt;strong&gt;NodeGUI&lt;/strong&gt; and &lt;strong&gt;React NodeGUI&lt;/strong&gt;! 🎊&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog]]></title><description><![CDATA[Build. Hack. Rebuild. Hack...]]></description><link>https://blog.atulr.com</link><generator>RSS for Node</generator><lastBuildDate>Sat, 25 Jul 2020 20:39:50 GMT</lastBuildDate><item><title><![CDATA[🐕 Announcing NodeGUI and React NodeGUI - Build native desktop apps with Javascript and CSS 🎉]]></title><description><![CDATA[We’re very excited to announce the launch of NodeGUI and React NodeGUI! 🎊 NodeGUI is an open source library for building cross platform…]]></description><link>https://blog.atulr.com/nodegui-intro/</link><guid isPermaLink="false">https://blog.atulr.com/nodegui-intro/</guid><pubDate>Wed, 14 Aug 2019 08:11:03 GMT</pubDate><content:encoded>&lt;p&gt;We’re very excited to announce the launch of &lt;strong&gt;NodeGUI&lt;/strong&gt; and &lt;strong&gt;React NodeGUI&lt;/strong&gt;! 🎊&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://github.com/nodegui/nodegui&quot;&gt;NodeGUI&lt;/a&gt; is an open source library for building cross platform native desktop applications with JavaScript and CSS like styling. NodeGui apps can run on Mac, Windows, and Linux from a single codebase.&lt;/p&gt;
 &lt;p&gt;NodeGUI is powered by Qt5 💚 which makes it CPU and memory efficient as compared to other chromium based solutions like electron. Don’t get me wrong 🤷🏽‍♂️, Electron is a great framework for building cross platform apps but suffers from performance and energy related issues due to heavy reliance on Chromium. NodeGui wants to incorporate everything that is good about Electron: The ease of development, freedom of styling, Native APIs, great documentation, etc. At the same time NodeGui aims to be memory and CPU efficient.&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://github.com/nodegui/react-nodegui&quot;&gt;React NodeGUI&lt;/a&gt; is a react renderer for NodeGUI. It aims to be what React Native is for mobile app development.&lt;/p&gt;
@@ -1498,15 +1498,24 @@ HostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;didNotFi
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;So our rendered view tree should look like this:&lt;/p&gt;
 &lt;div style=&quot;display: block; max-width: 300px; margin: 0 auto;&quot;&gt;&lt;span class=&quot;gatsby-resp-image-wrapper&quot; style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width:100% !important; max-width: 301px;&quot;&gt;
-      &lt;span class=&quot;gatsby-resp-image-background-image&quot; style=&quot;padding-bottom: 129.90033222591362%; position: relative; bottom: 0; left: 0; background-image: url(&amp;apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAaCAYAAAC3g3x9AAAACXBIWXMAAAsSAAALEgHS3X78AAADCElEQVRIx5VVa1PaQBTl//+NttNOP7RTOzrVtlMdx/qoImBBJRgghBAghryfuzndXQgkgFZ3OLObu/eePffuTaigMLIsE3OSJJhMJkuYpilQtMVxXIrJR2UbYRAEcBwHYRjC930MBgNomibs3Oa6rrC/mpDPPFCWZUiSJJ45Xk3I0+EpzmYzAU7ged7y+fHxEVEU/Z9wnZSnl5MbhoFkYcvJXqxw3SmKYgSMaN133e8JwhUpXQToIxWq0hVruiDKXqJwm1JqyQi7RwjkX6AzidnoVqJna5g7E0cB7R8D45oAVY5BrIeXp7w8WfwypOMGy/cKo9o+RvV9tq4i1a+ZD3lS5WYNCzWi5j2gniHongpgeA5qNMVeybdAXFmXnzuKBndZvym/Ae1cIFZO4Nvj/PhSTL6ubDPyYds2XM8HJRGI3UNqdZGlATw/hGVZW8n4XFmvBSGJCAjX+q7Ul3EEa2YhTchGZywVUpphMgtwVm2xgLR0+lJFQQ2lBBf1M2imynqTlBUmKcWDHqM1TAQkPUEYb97k8vOWxpCmd2hoNdQZ7sctxGm0uhTN5GQp2voctxqBMo0XhS8r5UO1FNSG17gZNtBgqA9rUMxuTpihN4nRHmeoyxYu7w1IEwjFlNK11OdKZaODv6MbfD3ewc7RF0HYMdorhVM7QVNNmDoCaUzYOsXIjLfXkY2JqzOFVbT0JlosXb4e2cNyH2omq58aMbIIAyMWl/RUDfnM0+Y1bLDUB7M+uxhauOWFo2W7As81bvEAx3NgWmbuPr/lorPPvsq+7y0C6Uazr1KfqxH/L45b8l+kPA/wvPmbULRte4vyZRBGcFyvZKuQhJ1AA6F5Ou5DH8q8bdljCJp4SzW5Cpr6Yo/7mFMVw4G0yDdgex4qdHYKo3+IXnNXYNQ5gCYxtA+Q2VcgibMk5GTEYjfa+c5899Bv7WIs/4Byuwf94ScS4wSVdHIAtfUJtxdvcPfnLXqNjwKd6nukxiFIbK3ec6Y4mR5Brn1g/m9FjHb3Ge3Ld+iymHD0Df8ARbDcCSkMjUEAAAAASUVORK5CYII=&amp;apos;); background-size: cover; display: block;&quot;&gt;&lt;/span&gt;
+      &lt;a class=&quot;gatsby-resp-image-link&quot; href=&quot;/static/115619b0764ce71806ab6bee7e8ae2b7/8e7b9/first_render_view_tree.png&quot; style=&quot;display: block&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;
+    &lt;span class=&quot;gatsby-resp-image-background-image&quot; style=&quot;padding-bottom: 129.90033222591362%; position: relative; bottom: 0; left: 0; background-image: url(&amp;apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAaCAYAAAC3g3x9AAAACXBIWXMAAAsSAAALEgHS3X78AAADCElEQVRIx5VVa1PaQBTl//+NttNOP7RTOzrVtlMdx/qoImBBJRgghBAghryfuzndXQgkgFZ3OLObu/eePffuTaigMLIsE3OSJJhMJkuYpilQtMVxXIrJR2UbYRAEcBwHYRjC930MBgNomibs3Oa6rrC/mpDPPFCWZUiSJJ45Xk3I0+EpzmYzAU7ged7y+fHxEVEU/Z9wnZSnl5MbhoFkYcvJXqxw3SmKYgSMaN133e8JwhUpXQToIxWq0hVruiDKXqJwm1JqyQi7RwjkX6AzidnoVqJna5g7E0cB7R8D45oAVY5BrIeXp7w8WfwypOMGy/cKo9o+RvV9tq4i1a+ZD3lS5WYNCzWi5j2gniHongpgeA5qNMVeybdAXFmXnzuKBndZvym/Ae1cIFZO4Nvj/PhSTL6ubDPyYds2XM8HJRGI3UNqdZGlATw/hGVZW8n4XFmvBSGJCAjX+q7Ul3EEa2YhTchGZywVUpphMgtwVm2xgLR0+lJFQQ2lBBf1M2imynqTlBUmKcWDHqM1TAQkPUEYb97k8vOWxpCmd2hoNdQZ7sctxGm0uhTN5GQp2voctxqBMo0XhS8r5UO1FNSG17gZNtBgqA9rUMxuTpihN4nRHmeoyxYu7w1IEwjFlNK11OdKZaODv6MbfD3ewc7RF0HYMdorhVM7QVNNmDoCaUzYOsXIjLfXkY2JqzOFVbT0JlosXb4e2cNyH2omq58aMbIIAyMWl/RUDfnM0+Y1bLDUB7M+uxhauOWFo2W7As81bvEAx3NgWmbuPr/lorPPvsq+7y0C6Uazr1KfqxH/L45b8l+kPA/wvPmbULRte4vyZRBGcFyvZKuQhJ1AA6F5Ou5DH8q8bdljCJp4SzW5Cpr6Yo/7mFMVw4G0yDdgex4qdHYKo3+IXnNXYNQ5gCYxtA+Q2VcgibMk5GTEYjfa+c5899Bv7WIs/4Byuwf94ScS4wSVdHIAtfUJtxdvcPfnLXqNjwKd6nukxiFIbK3ec6Y4mR5Brn1g/m9FjHb3Ge3Ld+iymHD0Df8ARbDcCSkMjUEAAAAASUVORK5CYII=&amp;apos;); background-size: cover; display: block;&quot;&gt;&lt;/span&gt;
   &lt;img class=&quot;gatsby-resp-image-image&quot; alt=&quot;first render tree&quot; title=&quot;first render tree&quot; src=&quot;/static/115619b0764ce71806ab6bee7e8ae2b7/8e7b9/first_render_view_tree.png&quot; srcset=&quot;/static/115619b0764ce71806ab6bee7e8ae2b7/9ec3c/first_render_view_tree.png 200w,
 /static/115619b0764ce71806ab6bee7e8ae2b7/8e7b9/first_render_view_tree.png 301w&quot; sizes=&quot;(max-width: 301px) 100vw, 301px&quot; loading=&quot;lazy&quot;&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/div&gt;
 &lt;p&gt;Now lets look at the error that we got earlier: &lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width:100% !important; max-width: 800px;&quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/e4cf725cd4373440712b73c54227f736/9a042/first_error_now.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 35.29411764705882%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAHCAYAAAAIy204AAAACXBIWXMAABYlAAAWJQFJUiTwAAABAUlEQVQoz5WQa2vCMBiF+///2ZjuhjBwbJ3VWG16sW2a0tyepTph33QvPJwQDue8STJkO0aRY8sKU5RnpvyImww+BELk3jHWkkgpOdU1fd/Tdj0qMqmBSWvMOOKNAecI0XyL2ZdUaUqzWrF+XLBePiFe3mjTb2xVYdsWezqd1cfCmwwDSbnZ0MXQ4isl//ykybbILEPudjT7PeV2Sy0EOhaMkVl1WTLEl7muIyiFV5fAMAeqXtHHSzuvfJ3523z41cvZO09wF70SZk8k/CFRqqY6CJqiwEyxLYw4r8/4SAj/YSTR7TuNeEAelsjjgla+UufPVGKJ7j5i6AFn93fhXcEPG/McguykFE4AAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -1524,6 +1533,7 @@ HostConfig&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;didNotFi
         sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt; &lt;br/&gt;
 From the list of functions in the hostConfig lets implement &lt;strong&gt;now()&lt;/strong&gt;.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; HostConfig &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
@@ -1534,7 +1544,14 @@ From the list of functions in the hostConfig lets implement &lt;strong&gt;now()&
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width:100% !important; max-width: 800px;&quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/f9e036c66ed30e81c2952aa8298bcdfe/eccb6/get_root_host_not_function.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 21.847070506454816%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAECAYAAACOXx+WAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAqElEQVQY042NXW6DMBAGuf/9mjateGgwoQI7+G+xAsTTDQdIu9Jonna+psbE/WdEJksyV9J1YLvN7D7yyMI+B/aUqUCt9U8a0eeb6VmsOyKbD6yz5+49q46tGqxL4b/XSIxMw4C3luDs4exmog5E5xANlxAo6l2EWspLGtHA+HZiPH8yvH8cnk5fuHOLa1vi9wXpDOmiNobS92T1on4iXcemwzVnHinxCyA4M5OXfq8IAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -1552,6 +1569,7 @@ From the list of functions in the hostConfig lets implement &lt;strong&gt;now()&
         sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;
 Lets stub this function&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; HostConfig &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
@@ -1564,7 +1582,14 @@ Lets stub this function&lt;/p&gt;
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width:100% !important; max-width: 800px;&quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/64adb84c3fff67aaa2d7f9a2216e3f4d/d40c8/get_child_host_error.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 24.400000000000002%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAFCAYAAABFA8wzAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAy0lEQVQY04XO227DIAwGYN7/6TatzdKbVVoItNkSIJCSA/DXbpW7akP6ZCOMbbFcrgjdL7xUsN8SW2+QjENyI5IdsRmLkjP4lFL+JUyrMfMn55FJsg4bo4Ys+/Bstjfc8xf4iF4puLaFVhpX/WT6/sENA27eYwkBZZ6BdQGWF9b18V5ihLB1jeF4RHOoID8OOL+9Q1UV9GeNC+nqE8zXGaFpEGnwRHGSEjfC+R43Gl5osPC0ERfG7geRtmJ5HFFos12ie3LuT5lrpwl3P8t/4l2CeAAAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -1582,6 +1607,7 @@ Lets stub this function&lt;/p&gt;
         sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;Continuing the chain till we have no more errors we get:&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;js&quot;&gt;&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; HostConfig &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
@@ -1619,7 +1645,14 @@ Lets stub this function&lt;/p&gt;
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width:100% !important; max-width: 800px;&quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/b3372028ced105244dde31d90e7f2aca/0ac08/initial_render_logs_list.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 27.044854881266488%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAFCAYAAABFA8wzAAAACXBIWXMAABYlAAAWJQFJUiTwAAAA1ElEQVQY032PyW7DMAxE/f9/acNu4miXqM3bhFLqouihBAaci54eByElvh5PWGNhpUH0Eedx4r+5rqvn7m1qrViWBYNUGo/nCq0U/EvAK4OgNch5JMqIMcJzjzH1nlPCtm09pRSc5+fz1ud5xrAyZJoXCCFhOU4okDZIIaCmwoDSYe1Bg+ycBjmOA/u+/xjmnDGOIwalP4aGd2Bbsh7E54dmxedTIDjnEIlAnMy54X8N+8nrS3agEAKKgdEHJE+8CYHhkRJqqdi+Ib9Bze4GNsNpmvAGA1eChztPe/4AAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -1637,12 +1670,18 @@ Lets stub this function&lt;/p&gt;
         sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;
 &lt;em&gt;(Right Click on the image and select &lt;strong&gt;Open Image in New Tab&lt;/strong&gt; to get a better resolution version).&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;The order of execution looks like this:&lt;/p&gt;
-&lt;a target=&quot;_blank&quot; href=&quot;/d5cdb43d6edb0b0c33429306692d175/d5cdb43d6edb0b0c33429306692d175e/inital_render_tree_flow.svg&quot;&gt;
-  &lt;img src=&quot;/d5cdb43d6edb0b0c33429306692d175/d5cdb43d6edb0b0c33429306692d175e/inital_render_tree_flow.svg&quot; alt=&quot;inital render flow&quot; style=&quot;margin: 0 auto;display: block;&quot;&gt;
-&lt;/a&gt;
+&lt;span class=&quot;gatsby-resp-image-wrapper&quot; style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width:100% !important; max-width: 696px;&quot;&gt;
+      &lt;a class=&quot;gatsby-resp-image-link&quot; href=&quot;/static/d1199c4d0f1f1c5de6f8c9c1da17105d/a82ee/inital_render_tree_flow.png&quot; style=&quot;display: block&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;
+    &lt;span class=&quot;gatsby-resp-image-background-image&quot; style=&quot;padding-bottom: 67.52873563218391%; position: relative; bottom: 0; left: 0; background-image: url(&amp;apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAYAAAAvxDzwAAAACXBIWXMAAAsSAAALEgHS3X78AAADAUlEQVQ4y2NgwAJ+/fqFTZgh8mK4jl6OjhyQKcTEwiQKpLkwFFlPtgbT5p3mYPrp06eMIPrJkyeq79692/ny5ctd796/O/n+8Ttvhhvccjbz3VSA0nxMnMxCQJodq80cIhxw9vPnz5mgBpt8/Pjx54sXL37+B4I3bz+l1VboGJWXBtgDpSXZ2VhkgbQ4EPMDsQDI1UDMimH4rVu3wPS+AweZ79+7K336xDG1M2ePq/xn+M9QtTXSO7bO2RIoLcLJzy4L9TLIEA4oZmLgkuQSA9nIzM7MhmxwkxgWr8gwsLjc9JcxqTCUBPJ4mTmYeTG8zczJDKIYGZnAQccQFhbC8P/hLjDn/7O9Yu+vbev4cG2zGUx9/Ks4O+NGYwcgU4WJnUkTSMthDUcebn6GbYevQcLx9hUWEP330YG2//+//P/z6MgJsHeAIPZZrJ7LKhcdUMSw8rIKMRACe0/dZoSxX13Y4Pz74ZHLX27tKoC78HV8rP18+wQgU4mFi8UAGjEogJGJDeJfN+8gsP9X7LggXt81WxLs7TyIIht/O54Fa2crC64W4jVrNhMVtxTj4RDl4AZFDBMrEyOygaoMjAxanFzcIG9wnr33VenKo+9vrjz+fufqk58iMEXnH59ZevXl5f9X71/yASfym5G5YhZiID2qjMyMWkAaEo3A2AVFv4KCihooLTEcvPDE6M6r//+vPfnx/czdTzIgsTv/dzCee3jmwNOfj/+fvnc8EyQWdT0qXDFYUQ2kF+hDUK6BuJJNgE0bSGkDuUoa2vrgpLPn3CuTnWdegsQZrjy4AQ6GVcc3ix68dcgZxNbbZMoRcjmkTClUCZS9NIFe1kROPixcEpywhMn8//9lnhubwnieHszg+f//Fjiv/v9/kf3/k7X8a0ocuYDyoLTHkPgvWdRumi0nSA/QhSC9kHTssdXDHhxTrIyKaoqCYp+e7t186fjy17cvrHv7+eneZSA131/uz7t5dvWXq6dXPnl7e+f56U/q03hyJUCukgLGtCIokcNcBwBTRwfQDYw5LAAAAABJRU5ErkJggg==&amp;apos;); background-size: cover; display: block;&quot;&gt;&lt;/span&gt;
+  &lt;img class=&quot;gatsby-resp-image-image&quot; alt=&quot;inital render flow&quot; title=&quot;inital render flow&quot; src=&quot;/static/d1199c4d0f1f1c5de6f8c9c1da17105d/a82ee/inital_render_tree_flow.png&quot; srcset=&quot;/static/d1199c4d0f1f1c5de6f8c9c1da17105d/9ec3c/inital_render_tree_flow.png 200w,
+/static/d1199c4d0f1f1c5de6f8c9c1da17105d/c7805/inital_render_tree_flow.png 400w,
+/static/d1199c4d0f1f1c5de6f8c9c1da17105d/a82ee/inital_render_tree_flow.png 696w&quot; sizes=&quot;(max-width: 696px) 100vw, 696px&quot; loading=&quot;lazy&quot;&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;
 &lt;br&gt;
 &lt;p&gt;Now we should be able to guess what these methods do. But instead of just making wild guesses, It is a good idea to read through &lt;a href=&apos;https://github.com/facebook/react/blob/409e472fcaae2b6c171f4e9a0c4b5ad88ec2bf21/packages/react-dom/src/client/ReactDOMHostConfig.js#L97&apos; target=&apos;_blank&apos;&gt;the source code of &lt;strong&gt;react-dom&lt;/strong&gt; to &lt;/a&gt; better understand what each of these functions are doing.&lt;/p&gt;
 &lt;h3&gt;▸ now&lt;/h3&gt;
@@ -1913,7 +1952,14 @@ supportsMutation&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width:100% !important; max-width: 800px;&quot;
     &gt;
-      &lt;span
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/3fdfaf2dc3871c4ad0d021208902d6eb/4033a/working-initial-render.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
     class=&quot;gatsby-resp-image-background-image&quot;
     style=&quot;padding-bottom: 27.042577675489067%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAFCAYAAABFA8wzAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAaElEQVQY062O2wqAIBBE/f/PLCQKxLxl4uqkkhD0Zg0Me/bCMiyEAO9PWOsgd4Vp5uDLWlhDGwdlbLO+qyl3znu44+HS13nds22TIEqoyjkXJlBKjUfMhCDEmPGXWIfRRK+EHfrTr7oAQP+Ks1LKR1gAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
   &gt;&lt;/span&gt;
@@ -1931,6 +1977,7 @@ supportsMutation&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &
         sizes=&quot;(max-width: 800px) 100vw, 800px&quot;
         loading=&quot;lazy&quot;
       /&gt;
+  &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;Holy!!! We just built our very own mini React 😎🎉🎊🤟&lt;/p&gt;
