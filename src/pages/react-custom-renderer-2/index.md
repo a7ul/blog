@@ -2,7 +2,7 @@
 title: ⚛️✌️ Part 2/3 - Beginners guide to Custom React Renderers. How to build your own renderer from scratch?
 date: 2018-10-22T22:12:03.284Z
 keywords: custom, react, renderer, beginners, guide, javascript
-featuredImage: inital_render_tree_flow.svg
+featuredImage: inital_render_tree_flow.png
 ---
 
 ---
@@ -201,9 +201,7 @@ _(Right Click on the image and select **Open Image in New Tab** to get a better 
 
 The order of execution looks like this:
 
-<a target="_blank" href="./inital_render_tree_flow.svg">
-  <img src="./inital_render_tree_flow.svg" alt="inital render flow" style="margin: 0 auto;display: block;" />
-</a>
+<img src="./inital_render_tree_flow.png" alt="inital render flow" style="margin: 0 auto;display: block;" />
 <br />
 
 Now we should be able to guess what these methods do. But instead of just making wild guesses, It is a good idea to read through <a href='https://github.com/facebook/react/blob/409e472fcaae2b6c171f4e9a0c4b5ad88ec2bf21/packages/react-dom/src/client/ReactDOMHostConfig.js#L97' target='_blank'>the source code of <strong>react-dom</strong> to </a> better understand what each of these functions are doing.
