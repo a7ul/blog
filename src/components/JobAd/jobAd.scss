@@ -1,0 +1,27 @@
+.job-ad-container {
+  display: flex;
+  border: 2px dashed #dbdfe4;
+  border-radius: 6px;
+  padding: 5px;
+  margin: 20px 0;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.job-company-icon {
+  padding: 10px;
+  height: 90px;
+  margin: 0;
+}
+
+.job-text-container {
+  padding: 0 20px;
+}
+
+.job-ad-link {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}

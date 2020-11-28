@@ -9,6 +9,7 @@ import { rhythm, scale } from '../utils/typography';
 import Seo from '../components/Seo';
 import config from '../config';
 import Share from '../components/Share';
+import JobAd from '../components/JobAd';
 
 const styles = {
   date: {
@@ -42,9 +43,14 @@ const BlogPostTemplate = (props) => {
     <Layout location={location}>
       <Seo postData={post} />
       <Helmet title={`${postTitle} | ${siteTitle}`} />
+
       <h1>{postTitle}</h1>
       <p style={styles.date}>{post.frontmatter.date}</p>
-      <article style={styles.post} dangerouslySetInnerHTML={{ __html: post.html }} />
+      <article
+        style={styles.post}
+        dangerouslySetInnerHTML={{ __html: post.html }}
+      />
+      <JobAd />
       <Share text={postTitle} url={url} />
       <Disqus config={disqusConfig} />
       <Bio />
