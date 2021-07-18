@@ -3,6 +3,7 @@ title: ⚛️ Using React hooks for functional components with perfect fallback 
 date: 2019-06-12T17:12:03.284Z
 keywords: react, react-hooks, hooks, hocs, fallback
 featuredImage: reactbanner.png
+slug: react-hooks-hocs
 ---
 
 This would be a very short post (approx 2min read). I recently wanted to abstract away a functionality that we had to use for multiple React components. I decided that I will write it using React hooks. Only issue is that we had a lot of legacy class components that needed the same functionality. So that would mean:

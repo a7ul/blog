@@ -6,10 +6,7 @@ require('prismjs/themes/prism-okaidia.css');
 
 const styles = {
   container: {
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    maxWidth: rhythm(35),
-    padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
+    padding: `${rhythm(1.5)} ${rhythm(1)}`,
     paddingTop: '3px',
   },
 };

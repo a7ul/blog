@@ -3,6 +3,7 @@ title: ⚛️🤟 Part 3/3 - Beginners guide to Custom React Renderers. How to b
 date: 2019-01-08T01:10:03.284Z
 keywords: custom, react, renderer, beginners, guide, javascript
 featuredImage: update_flow_draw_io.png
+slug: react-custom-renderer-3
 ---
 
 ---

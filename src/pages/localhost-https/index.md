@@ -3,6 +3,7 @@ title: 🔐 HTTPS certificate generation explained! Now setup HTTPS for local de
 date: 2018-08-06T22:12:03.284Z
 keywords: localhost, https, ssl, certificates
 featuredImage: ssl_drawing.png
+slug: localhost-https
 ---
 
 Recently, Google security blog published an article [here](https://security.googleblog.com/2018/02/a-secure-web-is-here-to-stay.html) which states:

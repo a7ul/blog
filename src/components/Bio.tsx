@@ -7,11 +7,15 @@ import 'typeface-merriweather';
 import { rhythm } from '../utils/typography';
 
 const styles = {
+  container: {
+    display: 'flex',
+    flexDirection: 'row',
+    paddingTop: rhythm(1 / 3),
+  },
   avatar: {
-    marginRight: rhythm(1 / 2),
-    marginBottom: 0,
     width: rhythm(2),
     height: rhythm(2),
+    marginRight: rhythm(1),
   },
   intro: {
     textAlign: 'justify',
@@ -19,9 +23,9 @@ const styles = {
 };
 
 const Bio = () => (
-  <section>
+  <section style={styles.container}>
+    <img src={config.image} alt="Atul R" style={styles.avatar} />
     <p style={styles.intro}>
-      <img src={config.image} alt="Atul R" style={styles.avatar} />
       Written by
       <strong>
         {' '}

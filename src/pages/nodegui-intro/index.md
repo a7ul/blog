@@ -1,17 +1,18 @@
 ---
-title: 🐕 Announcing NodeGUI and React NodeGUI - Build native desktop apps with Javascript and CSS 🎉
+title: 🐕 Announcing NodeGui and React NodeGui - Build native desktop apps with Javascript and CSS 🎉
 date: 2019-08-14T08:11:03.284Z
 keywords: react, desktop, gui, cross, platform, javascript, css, native
 featuredImage: ./nodegui.svg
+slug: nodegui-intro
 ---
 
-We’re very excited to announce the launch of **NodeGUI** and **React NodeGUI**! 🎊
+We’re very excited to announce the launch of **NodeGui** and **React NodeGui**! 🎊
 
-[NodeGUI](https://github.com/nodegui/nodegui) is an open source library for building cross platform native desktop applications with JavaScript and CSS like styling. NodeGui apps can run on Mac, Windows, and Linux from a single codebase.
+[NodeGui](https://github.com/nodegui/nodegui) is an open source library for building cross platform native desktop applications with JavaScript and CSS like styling. NodeGui apps can run on Mac, Windows, and Linux from a single codebase.
 
-NodeGUI is powered by Qt5 💚 which makes it CPU and memory efficient as compared to other chromium based solutions like electron. Don't get me wrong 🤷🏽‍♂️, Electron is a great framework for building cross platform apps but suffers from performance and energy related issues due to heavy reliance on Chromium. NodeGui wants to incorporate everything that is good about Electron: The ease of development, freedom of styling, Native APIs, great documentation, etc. At the same time NodeGui aims to be memory and CPU efficient.
+NodeGui is powered by Qt5 💚 which makes it CPU and memory efficient as compared to other chromium based solutions like electron. Don't get me wrong 🤷🏽‍♂️, Electron is a great framework for building cross platform apps but suffers from performance and energy related issues due to heavy reliance on Chromium. NodeGui wants to incorporate everything that is good about Electron: The ease of development, freedom of styling, Native APIs, great documentation, etc. At the same time NodeGui aims to be memory and CPU efficient.
 
-[React NodeGUI](https://github.com/nodegui/react-nodegui) is a react renderer for NodeGUI. It aims to be what React Native is for mobile app development.
+[React NodeGui](https://github.com/nodegui/react-nodegui) is a react renderer for NodeGui. It aims to be what React Native is for mobile app development.
 
 **Repository links:**
 
@@ -32,24 +33,24 @@ NodeGUI is powered by Qt5 💚 which makes it CPU and memory efficient as compar
 - 🦹🏻‍♀️ Good support for dark mode (Thanks to QT).
 - 🏅First class Typescript support. (Works on regular JS projects too 😉).
 
-# NodeGUI
+# NodeGui
 
 <img src="./nodegui.svg" style="width:150px;display:block; margin:0 auto;" />
 
-NodeGUI: [@nodegui/nodegui](https://www.npmjs.com/package/@nodegui/nodegui) is essentially native javascript bindings for [Qt](https://www.qt.io/). Qt is a cross-platform C++ application development framework for desktop and various other platforms. The native Javascript bindings are written using [N-API or node addon api](https://nodejs.org/api/n-api.html). This means applications written using NodeGUI **DO NOT** open up a browser instance and render the UI in it, instead all the widgets are natively rendered. Since NodeGUI is a native addon to NodeJs (extends Nodejs) you have complete access to Node APIs and all compatible npm modules. Also all debugging tools that you use with NodeJS can now be used with NodeGUI applications as well.
+NodeGui: [@nodegui/nodegui](https://www.npmjs.com/package/@nodegui/nodegui) is essentially native javascript bindings for [Qt](https://www.qt.io/). Qt is a cross-platform C++ application development framework for desktop and various other platforms. The native Javascript bindings are written using [N-API or node addon api](https://nodejs.org/api/n-api.html). This means applications written using NodeGui **DO NOT** open up a browser instance and render the UI in it, instead all the widgets are natively rendered. Since NodeGui is a native addon to NodeJs (extends Nodejs) you have complete access to Node APIs and all compatible npm modules. Also all debugging tools that you use with NodeJS can now be used with NodeGui applications as well.
 
-A big motivation towards choosing Qt was that it provides APIs to style a widget using CSS (this includes actual cascading and not just inline styling). Flex box support to the existing amazing Qt stylesheet was added using [Yoga](https://github.com/facebook/yoga/). Hence NodeGUI supports both paint and layout properties via CSS.
+A big motivation towards choosing Qt was that it provides APIs to style a widget using CSS (this includes actual cascading and not just inline styling). Flex box support to the existing amazing Qt stylesheet was added using [Yoga](https://github.com/facebook/yoga/). Hence NodeGui supports both paint and layout properties via CSS.
 
 Some screenshots of example apps that were built during development.
 
-<div style="display:flex;flex-direction:row;justify-content:space-around;">
+<div style="display:flex;flex-direction:row;justify-content:space-around;flex-wrap: wrap;">
   <img src="./calculator_win.gif" alt="win" height="250px"/>
   <img src="./calculator_linux.gif" alt="linux" height="250px"/>
   <img src="./calculator_mac.gif" alt="mac" height="250px"/>
 </div>
 <div><center><i><b>Calculator clone: win, linux & mac</b></i></center></div>
 
-## Try it out! 🧙‍♂️
+### Try it out! 🧙‍♂️
 
 ```
 git clone https://github.com/nodegui/nodegui-starter
@@ -108,7 +109,7 @@ win.show();
 (global as any).win = win;  //to prevent gc
 ```
 
-# React NodeGUI
+# React NodeGui
 
 <div style="display:flex; flex-direction:row; justify-content: center;align-items:center;">
   <img src="./nodegui.svg" style="width:150px;display:block;" />
@@ -116,9 +117,9 @@ win.show();
   <img src="./react.gif" style="width:150px;display:block;" />
 </div>
 
-React NodeGUI: [@nodegui/react-nodegui](https://www.npmjs.com/package/@nodegui/react-nodegui) is a ⚛️ react renderer for NodeGUI. This means you can create your views using React components similar to that of React Native. React NodeGUI is powered by React ⚛️ and Qt5 💚 which makes it easy to build performant, native and cross-platform desktop applications. With react nodegui you have complete access to all React APIs including hooks. React NodeGUI makes it much more easy to manage all the views via Javascript.
+React NodeGui: [@nodegui/react-nodegui](https://www.npmjs.com/package/@nodegui/react-nodegui) is a ⚛️ react renderer for NodeGui. This means you can create your views using React components similar to that of React Native. React NodeGui is powered by React ⚛️ and Qt5 💚 which makes it easy to build performant, native and cross-platform desktop applications. With react nodegui you have complete access to all React APIs including hooks. React NodeGui makes it much more easy to manage all the views via Javascript.
 
-## Try it out! 🧙‍♂️
+### Try it out! 🧙‍♂️
 
 The same example we saw above in NodeGui would look like this in react-nodegui
 
@@ -171,13 +172,13 @@ The output looks like this:
 
 <br/>
 
-> Disclaimer: Please keep in mind that both NodeGui and React NodeGUI are at their infancy stage. Hence, I would hold on for some more time before using it in production. This post is primarily aimed at encouraging contributions to the project.
+> Disclaimer: Please keep in mind that both NodeGui and React NodeGui are at their infancy stage. Hence, I would hold on for some more time before using it in production. This post is primarily aimed at encouraging contributions to the project.
 
-# Some more example screenshots: 📸
+# Some more example screenshots
 
 The source code for all these examples are here: https://github.com/nodegui/react-nodegui/tree/master/examples/
 
-<div style="display:flex;flex-direction:row;justify-content:space-around;">
+<div style="display:flex;flex-direction:row;justify-content:space-around;flex-wrap: wrap;">
   <img src="./image_view_win.gif" alt="win" height="250px"/>
   <img src="./image_view_linux.gif" alt="linux" height="250px"/>
   <img src="./image_view_mac.gif" alt="mac" height="250px"/>
@@ -185,15 +186,15 @@ The source code for all these examples are here: https://github.com/nodegui/reac
 <div><center><i><b>Image Viewer: win, linux and mac</b></i></center></div>
 <br/>
 <br/>
-<div style="display:flex;flex-direction:row;justify-content:space-around;">
+<div style="display:flex;flex-direction:row;justify-content:space-around;flex-wrap: wrap;">
   <img src="./weather_widget_mac.gif" alt="win" height="350px"/>
   <img src="./kitchen.gif" alt="mac" height="350px"/>
 </div>
 <div><center><i><b>More examples: A weather widget  & kitchen app</b></i></center></div>
 
-# Development and Support 🍺
+# Development and Support
 
-NodeGui and React NodeGUI are open source projects. If you like where these projects are heading please do <a href="https://github.com/nodegui/nodegui"><img src="./star.gif" height="30" style="position:relative;top:10px"/></a> the respective repos.
+NodeGui and React NodeGui are open source projects. If you like where these projects are heading please do <a href="https://github.com/nodegui/nodegui"><img src="./star.gif" height="30" style="position:relative;top:10px"/></a> the respective repos.
 
 The code is structured for simplicity such that anyone who is willing to contribute can get started quickly. There is also a decent contributor's guide which also contains links to blog posts that can get you started even if you have no clue about nodejs addons, etc. I would suggest you to give it a shot. If anything is unclear you can raise an issue on the respective project repos on Github and we would be more than happy to help. We aim to make the project easy to develop and use. Hence, pull requests are always welcome.
 

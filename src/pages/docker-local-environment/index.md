@@ -3,6 +3,7 @@ title: 🐳 Simplified guide to using Docker for local development environment
 date: 2019-05-28T20:11:03.284Z
 keywords: docker, local, development, environment, guide, javascript
 featuredImage: architecture.jpg
+slug: docker-local-environment
 ---
 
 I recently started working at <a href="https://anyfin.com/en" target="_blank">Anyfin</a>. As a new engineer on the team, I had to setup the entire development environment. Drawing my expectations from my previous work engagements I thought this would take me a couple of days. But to my surprise I had a working setup of quite a few backend services written in NodeJS, Golang and Python along side the web site and portal (Javascript) in ~5hrs.

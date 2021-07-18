@@ -1,3 +1,4 @@
+import '../global.scss';
 import React from 'react';
 import { Link, graphql } from 'gatsby';
 import get from 'lodash/get';
@@ -20,30 +21,39 @@ const BlogIndex = (props) => {
   return (
     <Layout location={location}>
       <Helmet title={siteTitle} />
-      {posts.map(({ node }) => {
-        const title = get(node, 'frontmatter.title', node.fields.slug);
-        return (
-          <div key={node.fields.slug}>
+      <main className="page-spacing" style={{ display: 'flex' }}>
+        <section>
+          {posts.map(({ node }) => {
+            const title = get(node, 'frontmatter.title', node.frontmatter.slug);
+            return (
+              <div key={node.frontmatter.slug}>
+                <h3 style={styles.title}>
+                  <Link
+                    style={{ boxShadow: 'none' }}
+                    to={node.frontmatter.slug}
+                  >
+                    {title}
+                  </Link>
+                </h3>
+                <small>{node.frontmatter.date}</small>
+                <p dangerouslySetInnerHTML={{ __html: node.excerpt }} />
+              </div>
+            );
+          })}
+          <div>
             <h3 style={styles.title}>
-              <Link style={{ boxShadow: 'none' }} to={node.fields.slug}>
-                {title}
-              </Link>
+              <a href="https://medium.com/@a7ul">
+                📝See more blog posts on medium.com/@a7ul ...
+              </a>
             </h3>
-            <small>{node.frontmatter.date}</small>
-            <p dangerouslySetInnerHTML={{ __html: node.excerpt }} />
           </div>
-        );
-      })}
-      <div>
-        <h3 style={styles.title}>
-          <a href="https://medium.com/@a7ul">
-            📝See more blog posts on medium.com/@a7ul ...
-          </a>
-        </h3>
-      </div>
-      <br />
-      <hr />
-      <Bio />
+          <br />
+          <hr />
+        </section>
+      </main>
+      <footer className="page-spacing">
+        <Bio />
+      </footer>
     </Layout>
   );
 };
@@ -62,12 +72,10 @@ export const pageQuery = graphql`
         node {
           id
           excerpt
-          fields {
-            slug
-          }
           frontmatter {
             date(formatString: "DD MMMM, YYYY")
             title
+            slug
           }
         }
       }

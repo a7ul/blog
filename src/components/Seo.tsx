@@ -6,9 +6,13 @@ import config from '../config';
 const SEO = ({ postData }) => {
   const tags = get(postData, 'frontmatter.keywords', '');
   const title = get(postData, 'frontmatter.title', '');
-  const description = get(postData, 'frontmatter.description', postData.excerpt);
-  const image = get(postData, 'frontmatter.featuredImage.childImageSharp.resize.src', '');
-  const url = `${config.url}${get(postData, 'fields.slug', '')}`;
+  const description = get(
+    postData,
+    'frontmatter.description',
+    postData.excerpt
+  );
+  const image = '';
+  const url = `${config.url}${get(postData, 'frontmatter.slug', '')}`;
 
   return (
     <Helmet>
