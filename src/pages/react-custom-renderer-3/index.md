@@ -6,8 +6,6 @@ featuredImage: update_flow_draw_io.png
 slug: react-custom-renderer-3
 ---
 
----
-
 This is the third post of 3 post series on Custom React Renderers.This post will cover **the update phase of the renderer**.
 
 I strongly recommend you to read earlier posts before reading this post.

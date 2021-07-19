@@ -6,7 +6,6 @@ featuredImage: renderer_in_short.png
 slug: react-custom-renderer-1
 ---
 
----
 
 This part will cover **the basics** needed to understand the renderer along with setup of boilerplate and initial configuration.
 

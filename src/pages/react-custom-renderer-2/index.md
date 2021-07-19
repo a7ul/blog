@@ -6,8 +6,6 @@ featuredImage: inital_render_tree_flow.png
 slug: react-custom-renderer-2
 ---
 
----
-
 This is the continuation of the post here: <a href='/react-custom-renderer-1/' target='_blank'>⚛️👆 Part 1/3 - Beginners guide to Custom React Renderers. How to build your own renderer from scratch?</a>. I would strongly recommend reading Part 1 before. This part will cover **the initial render phase of the renderer**.
 
 - The update phase would be covered in <a href='/react-custom-renderer-3/' target='_blank'>⚛️🤟 Part 3/3 - Beginners guide to Custom React Renderers. How to build your own renderer from scratch?</a>.
