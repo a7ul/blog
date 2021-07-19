@@ -11,19 +11,32 @@ import config from '../config';
 import Share from '../components/Share';
 import { TableOfContents } from '../components/TableOfContents';
 import './blogpost.scss';
+import coffeeImg from '../icons/coffee.svg';
 
 const styles = {
   date: {
     ...scale(-1 / 5),
     display: 'block',
-    marginTop: rhythm(-0.5),
   },
   header: {
-    marginTop: 0,
+    margin: 0,
     border: `1px solid #e6e6e6`,
   },
   post: {
     paddingBottom: rhythm(1),
+  },
+
+  donateText: {
+    textAlign: 'center',
+    fontSize: 'small',
+    fontWeight: 'bold',
+    marginTop: rhythm(-0.5),
+  },
+  donate: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
 };
 
@@ -40,27 +53,46 @@ const BlogPostTemplate = (props) => {
       <Seo postData={post} />
       <Helmet title={`${postTitle} | ${siteTitle}`} />
       <header className="page-spacing">
-        <h1>{postTitle}</h1>
-        <p style={styles.date}>{post.frontmatter.date}</p>
+        <h1 style={{ textAlign: 'start', marginBottom: 5 }}>{postTitle}</h1>
       </header>
       <main className="main-area">
         <aside className="left-side-area">
-          <TableOfContents headings={post.headings}></TableOfContents>
+          <div className="side-area-wrapper">
+            <TableOfContents headings={post.headings}></TableOfContents>
+            <ins
+              class="adsbygoogle"
+              style={{ display: 'block' }}
+              data-ad-client="ca-pub-7851801517117579"
+              data-ad-slot="9312053399"
+              data-ad-format="auto"
+              data-full-width-responsive="true"
+            ></ins>
+          </div>
         </aside>
-        <section className="page-spacing">
+        <section className="page-spacing center-area">
+          <p style={styles.date}>{post.frontmatter.date}</p>
           <article
-            className="center-area"
             style={styles.post}
             dangerouslySetInnerHTML={{ __html: post.html }}
           />
         </section>
 
         <aside className="right-side-area">
-          <TableOfContents headings={post.headings}></TableOfContents>
+          <div className="side-area-wrapper">
+            <Share text={postTitle} url={url} />
+            <a
+              href="https://revolut.me/atul"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={styles.donate}
+            >
+              <img className="coffee" src={coffeeImg} alt="coffee" />
+              <div style={styles.donateText}>Buy me coffee </div>
+            </a>
+          </div>
         </aside>
       </main>
       <footer className="page-spacing">
-        <Share text={postTitle} url={url} />
         <Disqus config={disqusConfig} />
         <Bio />
       </footer>
