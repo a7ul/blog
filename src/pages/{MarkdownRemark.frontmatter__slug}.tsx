@@ -66,7 +66,7 @@ const BlogPostTemplate = (props) => {
             <TableOfContents headings={post.headings}></TableOfContents>
             <ins
               class="adsbygoogle"
-              style={{ display: 'block' }}
+              style={{ display: 'block', width: 150, height: 200 }}
               data-ad-client="ca-pub-7851801517117579"
               data-ad-slot="9312053399"
               data-ad-format="auto"
