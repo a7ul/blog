@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Helmet from 'react-helmet';
 import { Link, graphql } from 'gatsby';
 import get from 'lodash/get';
@@ -47,6 +47,11 @@ const BlogPostTemplate = (props) => {
   const { location } = props;
   const disqusConfig = { identifier: post.id, title: postTitle };
   const url = `${config.url}${get(post, 'frontmatter.slug', '')}`;
+
+  useEffect(() => {
+    const adsbygoogle = (window as any).adsbygoogle || [];
+    adsbygoogle.push({});
+  }, []);
 
   return (
     <Layout location={location}>
