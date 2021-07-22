@@ -8,6 +8,7 @@ module.exports = {
   pathPrefix: '/',
   plugins: [
     'gatsby-plugin-sass',
+    'gatsby-plugin-no-sourcemaps',
     {
       resolve: 'gatsby-source-filesystem',
       options: {
