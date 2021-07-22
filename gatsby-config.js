@@ -21,12 +21,6 @@ module.exports = {
       options: { shortname: 'atulr' },
     },
     {
-      resolve: 'gatsby-plugin-google-adsense',
-      options: {
-        publisherId: 'ca-pub-7851801517117579',
-      },
-    },
-    {
       resolve: 'gatsby-transformer-remark',
       options: {
         plugins: [

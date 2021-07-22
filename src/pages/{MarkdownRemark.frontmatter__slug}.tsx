@@ -48,11 +48,6 @@ const BlogPostTemplate = (props) => {
   const disqusConfig = { identifier: post.id, title: postTitle };
   const url = `${config.url}${get(post, 'frontmatter.slug', '')}`;
 
-  useEffect(() => {
-    const adsbygoogle = (window as any).adsbygoogle || [];
-    adsbygoogle.push({});
-  }, []);
-
   return (
     <Layout location={location}>
       <Seo postData={post} />
@@ -64,14 +59,6 @@ const BlogPostTemplate = (props) => {
         <aside className="left-side-area">
           <div className="side-area-wrapper">
             <TableOfContents headings={post.headings}></TableOfContents>
-            <ins
-              class="adsbygoogle"
-              style={{ display: 'block', width: 160, height: 200 }}
-              data-ad-client="ca-pub-7851801517117579"
-              data-ad-slot="9312053399"
-              data-ad-format="auto"
-              data-full-width-responsive="true"
-            ></ins>
           </div>
         </aside>
         <section className="page-spacing center-area">
