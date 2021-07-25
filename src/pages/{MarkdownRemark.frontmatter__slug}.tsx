@@ -12,6 +12,7 @@ import Share from '../components/Share';
 import { TableOfContents } from '../components/TableOfContents';
 import './blogpost.scss';
 import coffeeImg from '../icons/coffee.svg';
+import { Subscribe } from '../components/Subscribe';
 
 const styles = {
   date: {
@@ -68,7 +69,6 @@ const BlogPostTemplate = (props) => {
             dangerouslySetInnerHTML={{ __html: post.html }}
           />
         </section>
-
         <aside className="right-side-area">
           <div className="side-area-wrapper">
             <Share text={postTitle} url={url} />
@@ -85,6 +85,9 @@ const BlogPostTemplate = (props) => {
         </aside>
       </main>
       <footer className="page-spacing">
+        <Subscribe />
+        <br />
+        <br />
         <Disqus config={disqusConfig} />
         <Bio />
       </footer>

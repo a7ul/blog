@@ -30,9 +30,27 @@
 .coffee {
   margin-top: 10px;
   margin-bottom: 15px;
-  width: 50px;
+  width: 40px;
   transition: 50ms;
   &:hover {
    transform: translateY(-5px);
+  }
+}
+
+input#subscribe-button {
+  margin-left: 5px;
+  font-size: 0.9rem;
+  background-color: rgb(81, 73, 243);
+  border-radius: 5px;
+  color: white;
+  border: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+  cursor: pointer;
+  &:hover {
+    background-color: rgb(43, 38, 129);
+  }
+  &:disabled {
+    background-color: #ccc;
   }
 }
