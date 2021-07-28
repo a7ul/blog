@@ -3,7 +3,7 @@ module.exports = {
     title: 'Blog',
     author: 'Atul R',
     description: 'Build things for fun',
-    siteUrl: 'https://blog.atulr.com',
+    siteUrl: 'https://blog.atulr.com/',
   },
   pathPrefix: '/',
   plugins: [

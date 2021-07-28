@@ -32,7 +32,9 @@ const Share = ({ text, url }) => (
     <div style={styles.social}>
       <a
         className="resp-sharing-button__link"
-        href={`https://twitter.com/intent/tweet/?text=${text}&amp;url=${url}`}
+        href={`https://twitter.com/intent/tweet?text=${text}&url=${encodeURIComponent(
+          url
+        )}`}
         target="_blank"
         rel="noopener noreferrer"
         aria-label=""
