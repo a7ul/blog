@@ -77,12 +77,15 @@
   <span class="token key atrule">postgres-data</span><span class="token punctuation">:</span>
 <span class="token key atrule">services</span><span class="token punctuation">:</span>
   <span class="token key atrule">api</span><span class="token punctuation">:</span>
-    <span class="token key atrule">build</span><span class="token punctuation">:</span> ./api/Dockerfile.development
+    <span class="token key atrule">build</span><span class="token punctuation">:</span>
+      <span class="token key atrule">context</span><span class="token punctuation">:</span> <span class="token string">"./api"</span>
+      <span class="token key atrule">dockerfile</span><span class="token punctuation">:</span> <span class="token string">"Dockerfile.development"</span>
+  
     <span class="token key atrule">command</span><span class="token punctuation">:</span> sh <span class="token punctuation">-</span>c "yarn install <span class="token important">&amp;&amp;</span> yarn start"
     <span class="token key atrule">environment</span><span class="token punctuation">:</span>
       <span class="token punctuation">-</span> NODE_ENV=development
       <span class="token punctuation">-</span> PORT=5000
-      <span class="token punctuation">-</span> <span class="token key atrule">DATABASE_LOGIN_URL</span><span class="token punctuation">:</span> postgres<span class="token punctuation">:</span>//postgres<span class="token punctuation">:</span>secret@db/postgres
+      <span class="token punctuation">-</span> DATABASE_LOGIN_URL=postgres<span class="token punctuation">:</span>//postgres<span class="token punctuation">:</span>secret@db/postgres
     <span class="token key atrule">ports</span><span class="token punctuation">:</span>
       <span class="token punctuation">-</span> <span class="token string">'5000:5000'</span>
     <span class="token key atrule">working_dir</span><span class="token punctuation">:</span> /root/app
@@ -93,8 +96,8 @@
     <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
       <span class="token punctuation">-</span> postgres<span class="token punctuation">-</span>data<span class="token punctuation">:</span>/var/lib/postgresql/data<span class="token punctuation">:</span>delegated
     <span class="token key atrule">environment</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> <span class="token key atrule">POSTGRES_USER</span><span class="token punctuation">:</span> postgres
-      <span class="token punctuation">-</span> <span class="token key atrule">POSTGRES_PASSWORD</span><span class="token punctuation">:</span> secret
+      <span class="token punctuation">-</span> POSTGRES_USER=postgres
+      <span class="token punctuation">-</span> POSTGRES_PASSWORD=secret
     <span class="token key atrule">ports</span><span class="token punctuation">:</span>
       <span class="token punctuation">-</span> 5432<span class="token punctuation">:</span><span class="token number">5432</span>
 </code></pre></div>
@@ -121,7 +124,7 @@ COPY <span class="token punctuation">.</span> <span class="token punctuation">.<
 
 CMD <span class="token punctuation">[</span><span class="token string">"node"</span><span class="token punctuation">,</span> <span class="token string">"index.js"</span><span class="token punctuation">]</span></code></pre></div>
 <p>In order to run locally we would do:</p>
-<div class="gatsby-highlight" data-language="sh"><pre class="language-sh"><code class="language-sh">docker-compose up api-service</code></pre></div>
+<div class="gatsby-highlight" data-language="sh"><pre class="language-sh"><code class="language-sh">docker-compose up api</code></pre></div>
 <p>and for building production docker image we could do</p>
 <div class="gatsby-highlight" data-language="sh"><pre class="language-sh"><code class="language-sh">cd api
 docker build . -t api:latest</code></pre></div>
@@ -156,15 +159,15 @@ volumes:
 <span class="token unchanged"><span class="token prefix unchanged"> </span> postgres-data:
 </span>services:
 <span class="token unchanged"><span class="token prefix unchanged"> </span> api:
-</span><span class="token deleted-sign deleted"><span class="token prefix deleted">-</span>   build: ./api/Dockerfile.development 
-</span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span>   build:
-<span class="token prefix inserted">+</span>     context: "./api"   # This will point to ./api/Dockerfile
-<span class="token prefix inserted">+</span>     target: "base"   # We specify which stage of the dockerfile to use
+<span class="token prefix unchanged"> </span>  build:
+<span class="token prefix unchanged"> </span>    context: "./api"
+</span><span class="token deleted-sign deleted"><span class="token prefix deleted">-</span>    dockerfile: "Dockerfile.development"
+</span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span>    target: "base"   # We specify which stage of the dockerfile to use
 </span><span class="token unchanged"><span class="token prefix unchanged"> </span>   command: sh -c "yarn install &amp;&amp; yarn start"
 <span class="token prefix unchanged"> </span>   environment:
 <span class="token prefix unchanged"> </span>     - NODE_ENV=development
 <span class="token prefix unchanged"> </span>     - PORT=5000
-<span class="token prefix unchanged"> </span>     - DATABASE_LOGIN_URL: postgres://postgres:secret@db/postgres
+<span class="token prefix unchanged"> </span>     - DATABASE_LOGIN_URL=postgres://postgres:secret@db/postgres
 <span class="token prefix unchanged"> </span>   ports:
 <span class="token prefix unchanged"> </span>     - '5000:5000'
 <span class="token prefix unchanged"> </span>   working_dir: /root/app
@@ -175,13 +178,13 @@ volumes:
 <span class="token prefix unchanged"> </span>   volumes:
 <span class="token prefix unchanged"> </span>     - postgres-data:/var/lib/postgresql/data:delegated
 <span class="token prefix unchanged"> </span>   environment:
-<span class="token prefix unchanged"> </span>     - POSTGRES_USER: postgres
-<span class="token prefix unchanged"> </span>     - POSTGRES_PASSWORD: secret
+<span class="token prefix unchanged"> </span>     - POSTGRES_USER=postgres
+<span class="token prefix unchanged"> </span>     - POSTGRES_PASSWORD=secret
 <span class="token prefix unchanged"> </span>   ports:
-<span class="token prefix unchanged"> </span>     - 5432:5432
+<span class="token prefix unchanged"> </span>     - 5432:5432 
 </span></code></pre></div>
 <p>In order to run locally we would do:</p>
-<div class="gatsby-highlight" data-language="sh"><pre class="language-sh"><code class="language-sh">docker-compose up api-service</code></pre></div>
+<div class="gatsby-highlight" data-language="sh"><pre class="language-sh"><code class="language-sh">docker-compose up api</code></pre></div>
 <p>and for building production docker image we could do</p>
 <div class="gatsby-highlight" data-language="sh"><pre class="language-sh"><code class="language-sh">cd api
 docker build . -t api:latest</code></pre></div>
