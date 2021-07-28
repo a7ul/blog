@@ -47,12 +47,15 @@ volumes:
   postgres-data:
 services:
   api:
-    build: ./api/Dockerfile.development
+    build:
+      context: "./api"
+      dockerfile: "Dockerfile.development"
+  
     command: sh -c "yarn install && yarn start"
     environment:
       - NODE_ENV=development
       - PORT=5000
-      - DATABASE_LOGIN_URL: postgres://postgres:secret@db/postgres
+      - DATABASE_LOGIN_URL=postgres://postgres:secret@db/postgres
     ports:
       - '5000:5000'
     working_dir: /root/app
@@ -63,8 +66,8 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data:delegated
     environment:
-      - POSTGRES_USER: postgres
-      - POSTGRES_PASSWORD: secret
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=secret
     ports:
       - 5432:5432
 
@@ -102,7 +105,7 @@ CMD ["node", "index.js"]
 In order to run locally we would do:
 
 ```sh
-docker-compose up api-service
+docker-compose up api
 ```
 
 and for building production docker image we could do
@@ -155,15 +158,15 @@ volumes:
   postgres-data:
 services:
   api:
--   build: ./api/Dockerfile.development 
-+   build:
-+     context: "./api"   # This will point to ./api/Dockerfile
-+     target: "base"   # We specify which stage of the dockerfile to use
+   build:
+     context: "./api"
+-    dockerfile: "Dockerfile.development"
++    target: "base"   # We specify which stage of the dockerfile to use
     command: sh -c "yarn install && yarn start"
     environment:
       - NODE_ENV=development
       - PORT=5000
-      - DATABASE_LOGIN_URL: postgres://postgres:secret@db/postgres
+      - DATABASE_LOGIN_URL=postgres://postgres:secret@db/postgres
     ports:
       - '5000:5000'
     working_dir: /root/app
@@ -174,10 +177,10 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data:delegated
     environment:
-      - POSTGRES_USER: postgres
-      - POSTGRES_PASSWORD: secret
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=secret
     ports:
-      - 5432:5432
+      - 5432:5432 
 
 ```
 
@@ -185,7 +188,7 @@ services:
 In order to run locally we would do:
 
 ```sh
-docker-compose up api-service
+docker-compose up api
 ```
 
 and for building production docker image we could do
