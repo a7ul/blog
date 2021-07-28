@@ -12,6 +12,7 @@ At Anyfin, we have completely embraced docker for both local development environ
 
 To explain it better, let's take an example.
 
+> The complete source code used in this repo can be found here: https://github.com/a7ul/blog-same-docker-local-prod-example
 ## Example
 
 Let's say we have a backend Node.js service called **api-service** which depends on postgres database.
@@ -197,6 +198,7 @@ and for building production docker image we could do
 cd api
 docker build . -t api:latest
 ```
+
 
 
 This way each service can just specify one single Dockerfile and we could reuse it for both development and production 🚀
