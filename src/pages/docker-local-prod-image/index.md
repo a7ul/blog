@@ -51,7 +51,6 @@ services:
     build:
       context: "./api"
       dockerfile: "Dockerfile.development"
-  
     command: sh -c "yarn install && yarn start"
     environment:
       - NODE_ENV=development
