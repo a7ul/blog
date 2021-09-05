@@ -6,8 +6,6 @@ featuredImage: ./node-addon.png
 slug: node-addon-guide
 ---
 
-# 🤖 Beginners guide to writing NodeJS Addons using C++ and N-API (node-addon-api)
-
 According to nodejs.org:
 
 > Node.js Addons are dynamically-linked shared objects, written in C++, that can be loaded into Node.js using the require() function, and used just as if they were an ordinary Node.js module. They are used primarily to provide an interface between JavaScript running in Node.js and C/C++ libraries.
