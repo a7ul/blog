@@ -663,7 +663,3 @@ query {
 
 - https://www.apollographql.com/docs/apollo-server/security/authentication/
 - https://www.apollographql.com/docs/apollo-server/schema/creating-directives
-
-```
-
-```
