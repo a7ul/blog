@@ -1,7 +1,7 @@
 ---
 title: 🦄 Authentication, authorization and RBAC for GraphQL Servers in depth
-date: 2022-06-02T12:00:00.000Z
-keywords: graphql, apollo, authentication, federation, supergraph, jwt, authorization
+date: 2022-06-14T12:00:00.000Z
+keywords: graphql, apollo, authentication, federation, supergraph, jwt, authorization, deny, rbac
 featuredImage: authentication.jpg
 slug: graphql-auth
 ---
@@ -12,8 +12,8 @@ Hence, our application needs to control who (authentication) can see and interac
 There are multiple ways to introduce authentication and authorization into our GraphQL application. In this post we will be design our GraphQL application security with the following characteristics:
 
 - **Declarative** - We define all the access control rules in the schema itself. This makes it easier to understand and maintain the access declaratively as the schema evolves. Effectively, our schema also becomes the source of truth for the access control rules.
-- **Deny first and explicit authorization** - Following the principle of least privilege, we would like to deny access to fields that are not explicitly authorized. This is a good way to prevent accidental access to sensitive data.
 - **Role based access control (RBAC)** - Allow users to access different parts of the data based on their role.
+<!-- - **Deny first and explicit authorization** - Following the principle of least privilege, we would like to deny access to fields that are not explicitly authorized. This is a good way to prevent accidental access to sensitive data. -->
 
 These could be implemented in any language that supports GraphQL. In this post, we will be using [Apollo](https://www.apollographql.com/) to see how we can implement these concepts.
 
@@ -657,7 +657,7 @@ query {
 >
 > or visit https://github.com/a7ul/blog-graphql-auth-example/tree/type-auth
 
-## Deny first and explicit authorization
+<!-- ## Deny first and explicit authorization -->
 
 # References
 
