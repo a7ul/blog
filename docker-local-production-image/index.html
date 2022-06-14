@@ -81,8 +81,8 @@
 <span class="token key atrule">services</span><span class="token punctuation">:</span>
   <span class="token key atrule">api</span><span class="token punctuation">:</span>
     <span class="token key atrule">build</span><span class="token punctuation">:</span>
-      <span class="token key atrule">context</span><span class="token punctuation">:</span> <span class="token string">"./api"</span>
-      <span class="token key atrule">dockerfile</span><span class="token punctuation">:</span> <span class="token string">"Dockerfile.development"</span>
+      <span class="token key atrule">context</span><span class="token punctuation">:</span> <span class="token string">'./api'</span>
+      <span class="token key atrule">dockerfile</span><span class="token punctuation">:</span> <span class="token string">'Dockerfile.development'</span>
     <span class="token key atrule">command</span><span class="token punctuation">:</span> sh <span class="token punctuation">-</span>c "yarn install <span class="token important">&amp;&amp;</span> yarn start"
     <span class="token key atrule">environment</span><span class="token punctuation">:</span>
       <span class="token punctuation">-</span> NODE_ENV=development
@@ -101,8 +101,7 @@
       <span class="token punctuation">-</span> POSTGRES_USER=postgres
       <span class="token punctuation">-</span> POSTGRES_PASSWORD=secret
     <span class="token key atrule">ports</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> 5432<span class="token punctuation">:</span><span class="token number">5432</span>
-</code></pre></div>
+      <span class="token punctuation">-</span> 5432<span class="token punctuation">:</span><span class="token number">5432</span></code></pre></div>
 <p><code class="language-text">./api/Dockerfile.development</code> - development docker image</p>
 <div class="gatsby-highlight" data-language="c"><pre class="language-c"><code class="language-c">FROM node<span class="token operator">:</span><span class="token number">16</span><span class="token operator">-</span>alpine
 
@@ -139,12 +138,12 @@ Hence, we tried to merge both the Dockerfiles into one.</p>
 <p>With multi stage dockerfile our setup will now only have a single Dockferfile for both production build and local development.</p>
 <p><code class="language-text">./api/Dockerfile</code></p>
 <div class="gatsby-highlight" data-language="c"><pre class="language-c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span> <span class="token directive keyword">base</span> <span class="token expression">image contains the dependencies and no application code</span></span>
-FROM node<span class="token operator">:</span><span class="token number">16</span><span class="token operator">-</span>alpine as base  
+FROM node<span class="token operator">:</span><span class="token number">16</span><span class="token operator">-</span>alpine as base
 
 RUN apk add <span class="token operator">--</span>update graphicsmagick
 
 <span class="token macro property"><span class="token directive-hash">#</span> <span class="token directive keyword">prod</span> <span class="token expression">image inherits from base and adds application code</span></span>
-FROM base as prod 
+FROM base as prod
 
 WORKDIR <span class="token operator">/</span>home<span class="token operator">/</span>node<span class="token operator">/</span>app
 COPY package<span class="token punctuation">.</span>json yarn<span class="token punctuation">.</span>lock <span class="token punctuation">.</span><span class="token operator">/</span>
@@ -183,7 +182,7 @@ volumes:
 <span class="token prefix unchanged"> </span>     - POSTGRES_USER=postgres
 <span class="token prefix unchanged"> </span>     - POSTGRES_PASSWORD=secret
 <span class="token prefix unchanged"> </span>   ports:
-<span class="token prefix unchanged"> </span>     - 5432:5432 
+<span class="token prefix unchanged"> </span>     - 5432:5432
 </span></code></pre></div>
 <p>In order to run locally we would do:</p>
 <div class="gatsby-highlight" data-language="sh"><pre class="language-sh"><code class="language-sh">docker-compose up api</code></pre></div>

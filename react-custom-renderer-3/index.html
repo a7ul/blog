@@ -59,18 +59,18 @@
 <p>Our HostConfig looks like this now:</p>
 <div class="gatsby-highlight" data-language="js"><pre class="language-js"><code class="language-js"><span class="token keyword">const</span> HostConfig <span class="token operator">=</span> <span class="token punctuation">{</span>
   now<span class="token operator">:</span> Date<span class="token punctuation">.</span>now<span class="token punctuation">,</span>
-  <span class="token function-variable function">getRootHostContext</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">nextRootInstance</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function-variable function">getRootHostContext</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">nextRootInstance</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">let</span> rootContext <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
     <span class="token keyword">return</span> rootContext
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token function-variable function">getChildHostContext</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">parentContext<span class="token punctuation">,</span> fiberType<span class="token punctuation">,</span> rootInstance</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function-variable function">getChildHostContext</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">parentContext<span class="token punctuation">,</span> fiberType<span class="token punctuation">,</span> rootInstance</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">let</span> context <span class="token operator">=</span> <span class="token punctuation">{</span> type<span class="token operator">:</span> fiberType <span class="token punctuation">}</span>
     <span class="token keyword">return</span> context
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token function-variable function">shouldSetTextContent</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">type<span class="token punctuation">,</span> nextProps</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function-variable function">shouldSetTextContent</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">type<span class="token punctuation">,</span> nextProps</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">return</span> <span class="token boolean">false</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token function-variable function">createTextInstance</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span>
+  <span class="token function-variable function">createTextInstance</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>
     <span class="token parameter">newText<span class="token punctuation">,</span>
     rootContainerInstance<span class="token punctuation">,</span>
     currentHostContext<span class="token punctuation">,</span>
@@ -78,7 +78,7 @@
   <span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">return</span> document<span class="token punctuation">.</span><span class="token function">createTextNode</span><span class="token punctuation">(</span>newText<span class="token punctuation">)</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token function-variable function">createInstance</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span>
+  <span class="token function-variable function">createInstance</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>
     <span class="token parameter">type<span class="token punctuation">,</span>
     newProps<span class="token punctuation">,</span>
     rootContainerInstance<span class="token punctuation">,</span>
@@ -107,8 +107,8 @@
   <span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
     <span class="token keyword">return</span> newProps<span class="token punctuation">.</span>autofocus <span class="token comment">//simply return true for experimenting</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token function-variable function">prepareForCommit</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">rootContainerInstance</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token function-variable function">resetAfterCommit</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">rootContainerInstance</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token function-variable function">prepareForCommit</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">rootContainerInstance</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token function-variable function">resetAfterCommit</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">rootContainerInstance</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
   <span class="token function-variable function">commitMount</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token parameter">domElement<span class="token punctuation">,</span> type<span class="token punctuation">,</span> newProps<span class="token punctuation">,</span> fiberNode</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
     domElement<span class="token punctuation">.</span><span class="token function">focus</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
@@ -122,7 +122,7 @@
 <span class="token comment">// import ReactDOM from "react-dom";</span>
 <span class="token keyword">import</span> CustomRenderer <span class="token keyword">from</span> <span class="token string">'./renderer'</span>
 
-<span class="token keyword">const</span> <span class="token function-variable function">Text</span> <span class="token operator">=</span> <span class="token parameter">props</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+<span class="token keyword">const</span> <span class="token function-variable function">Text</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">props</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
   <span class="token keyword">return</span> <span class="token operator">&lt;</span>p className<span class="token operator">=</span><span class="token punctuation">{</span>props<span class="token punctuation">.</span>className<span class="token punctuation">}</span><span class="token operator">></span><span class="token punctuation">{</span>props<span class="token punctuation">.</span>content<span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
 <span class="token punctuation">}</span>
 
@@ -144,7 +144,7 @@ CustomRenderer<span class="token punctuation">.</span><span class="token functio
 <span class="token comment">// import ReactDOM from "react-dom";</span>
 <span class="token keyword">import</span> CustomRenderer <span class="token keyword">from</span> <span class="token string">'./renderer'</span>
 
-<span class="token keyword">const</span> <span class="token function-variable function">Text</span> <span class="token operator">=</span> <span class="token parameter">props</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+<span class="token keyword">const</span> <span class="token function-variable function">Text</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">props</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
   <span class="token keyword">return</span> <span class="token operator">&lt;</span>p className<span class="token operator">=</span><span class="token punctuation">{</span>props<span class="token punctuation">.</span>className<span class="token punctuation">}</span><span class="token operator">></span><span class="token punctuation">{</span>props<span class="token punctuation">.</span>content<span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
 <span class="token punctuation">}</span>
 
@@ -572,18 +572,18 @@ In react-dom code base this function contains:</p>
 <p>This is the hostConfig that I ended up with. I will paste it here for reference.</p>
 <div class="gatsby-highlight" data-language="js"><pre class="language-js"><code class="language-js"><span class="token keyword">const</span> HostConfig <span class="token operator">=</span> <span class="token punctuation">{</span>
   now<span class="token operator">:</span> Date<span class="token punctuation">.</span>now<span class="token punctuation">,</span>
-  <span class="token function-variable function">getRootHostContext</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">nextRootInstance</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function-variable function">getRootHostContext</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">nextRootInstance</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">let</span> rootContext <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
     <span class="token keyword">return</span> rootContext
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token function-variable function">getChildHostContext</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">parentContext<span class="token punctuation">,</span> fiberType<span class="token punctuation">,</span> rootInstance</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function-variable function">getChildHostContext</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">parentContext<span class="token punctuation">,</span> fiberType<span class="token punctuation">,</span> rootInstance</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">let</span> context <span class="token operator">=</span> <span class="token punctuation">{</span> type<span class="token operator">:</span> fiberType <span class="token punctuation">}</span>
     <span class="token keyword">return</span> context
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token function-variable function">shouldSetTextContent</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">type<span class="token punctuation">,</span> nextProps</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function-variable function">shouldSetTextContent</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">type<span class="token punctuation">,</span> nextProps</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">return</span> <span class="token boolean">false</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token function-variable function">createTextInstance</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span>
+  <span class="token function-variable function">createTextInstance</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>
     <span class="token parameter">newText<span class="token punctuation">,</span>
     rootContainerInstance<span class="token punctuation">,</span>
     currentHostContext<span class="token punctuation">,</span>
@@ -591,7 +591,7 @@ In react-dom code base this function contains:</p>
   <span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">return</span> document<span class="token punctuation">.</span><span class="token function">createTextNode</span><span class="token punctuation">(</span>newText<span class="token punctuation">)</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token function-variable function">createInstance</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span>
+  <span class="token function-variable function">createInstance</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>
     <span class="token parameter">type<span class="token punctuation">,</span>
     newProps<span class="token punctuation">,</span>
     rootContainerInstance<span class="token punctuation">,</span>
@@ -620,8 +620,8 @@ In react-dom code base this function contains:</p>
   <span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
     <span class="token keyword">return</span> newProps<span class="token punctuation">.</span>autofocus <span class="token comment">//simply return true for experimenting</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token function-variable function">prepareForCommit</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">rootContainerInstance</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token function-variable function">resetAfterCommit</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">rootContainerInstance</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token function-variable function">prepareForCommit</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">rootContainerInstance</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token function-variable function">resetAfterCommit</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">rootContainerInstance</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
   <span class="token function-variable function">commitMount</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token parameter">domElement<span class="token punctuation">,</span> type<span class="token punctuation">,</span> newProps<span class="token punctuation">,</span> fiberNode</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
     domElement<span class="token punctuation">.</span><span class="token function">focus</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
@@ -629,7 +629,7 @@ In react-dom code base this function contains:</p>
     parent<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>child<span class="token punctuation">)</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
   supportsMutation<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-  <span class="token function-variable function">prepareUpdate</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span>
+  <span class="token function-variable function">prepareUpdate</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>
     <span class="token parameter">instance<span class="token punctuation">,</span>
     type<span class="token punctuation">,</span>
     oldProps<span class="token punctuation">,</span>
@@ -639,7 +639,7 @@ In react-dom code base this function contains:</p>
   <span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">return</span> <span class="token comment">//return nothing.</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token function-variable function">commitUpdate</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span>
+  <span class="token function-variable function">commitUpdate</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>
     <span class="token parameter">instance<span class="token punctuation">,</span>
     updatePayload<span class="token punctuation">,</span>
     type<span class="token punctuation">,</span>
@@ -649,26 +649,26 @@ In react-dom code base this function contains:</p>
   <span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">return</span> <span class="token comment">//return nothing.</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token function-variable function">commitTextUpdate</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">textInstance<span class="token punctuation">,</span> oldText<span class="token punctuation">,</span> newText</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function-variable function">commitTextUpdate</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">textInstance<span class="token punctuation">,</span> oldText<span class="token punctuation">,</span> newText</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     textInstance<span class="token punctuation">.</span>nodeValue <span class="token operator">=</span> newText
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token function-variable function">appendChild</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">parentInstance<span class="token punctuation">,</span> child</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function-variable function">appendChild</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">parentInstance<span class="token punctuation">,</span> child</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     parentInstance<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>child<span class="token punctuation">)</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
   <span class="token function-variable function">insertBefore</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token parameter">parentInstance<span class="token punctuation">,</span> child<span class="token punctuation">,</span> beforeChild</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
     parentInstance<span class="token punctuation">.</span><span class="token function">insertBefore</span><span class="token punctuation">(</span>child<span class="token punctuation">,</span> beforeChild<span class="token punctuation">)</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token function-variable function">removeChild</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">parentInstance<span class="token punctuation">,</span> child</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function-variable function">removeChild</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">parentInstance<span class="token punctuation">,</span> child</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     parentInstance<span class="token punctuation">.</span><span class="token function">removeChild</span><span class="token punctuation">(</span>child<span class="token punctuation">)</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token function-variable function">insertInContainerBefore</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">container<span class="token punctuation">,</span> child<span class="token punctuation">,</span> beforeChild</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function-variable function">insertInContainerBefore</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">container<span class="token punctuation">,</span> child<span class="token punctuation">,</span> beforeChild</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     container<span class="token punctuation">.</span><span class="token function">insertBefore</span><span class="token punctuation">(</span>child<span class="token punctuation">,</span> beforeChild<span class="token punctuation">)</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token function-variable function">removeChildFromContainer</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">container<span class="token punctuation">,</span> child</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function-variable function">removeChildFromContainer</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">container<span class="token punctuation">,</span> child</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     container<span class="token punctuation">.</span><span class="token function">removeChild</span><span class="token punctuation">(</span>child<span class="token punctuation">)</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token function-variable function">resetTextContent</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">domElement</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token function-variable function">shouldDeprioritizeSubtree</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">type<span class="token punctuation">,</span> nextProps</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function-variable function">resetTextContent</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">domElement</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token function-variable function">shouldDeprioritizeSubtree</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">type<span class="token punctuation">,</span> nextProps</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">return</span> <span class="token operator">!</span><span class="token operator">!</span>nextProps<span class="token punctuation">.</span>hidden
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
 <span class="token punctuation">}</span></code></pre></div>

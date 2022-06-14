@@ -90,24 +90,24 @@ npm install node-addon-api</code></pre></div>
 *.log
 build</code></pre></div>
 <p><code class="language-text">binding.gyp</code></p>
-<div class="gatsby-highlight" data-language="gyp"><pre class="language-gyp"><code class="language-gyp">{
-    &quot;targets&quot;: [{
-        &quot;target_name&quot;: &quot;testaddon&quot;,
-        &quot;cflags!&quot;: [ &quot;-fno-exceptions&quot; ],
-        &quot;cflags_cc!&quot;: [ &quot;-fno-exceptions&quot; ],
-        &quot;sources&quot;: [
-            &quot;cppsrc/main.cpp&quot;
-        ],
-        &#39;include_dirs&#39;: [
-            &quot;&lt;!@(node -p \&quot;require(&#39;node-addon-api&#39;).include\&quot;)&quot;
-        ],
-        &#39;libraries&#39;: [],
-        &#39;dependencies&#39;: [
-            &quot;&lt;!(node -p \&quot;require(&#39;node-addon-api&#39;).gyp\&quot;)&quot;
-        ],
-        &#39;defines&#39;: [ &#39;NAPI_DISABLE_CPP_EXCEPTIONS&#39; ]
-    }]
-}</code></pre></div>
+<div class="gatsby-highlight" data-language="python"><pre class="language-python"><code class="language-python"><span class="token punctuation">{</span>
+    <span class="token string">"targets"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+        <span class="token string">"target_name"</span><span class="token punctuation">:</span> <span class="token string">"testaddon"</span><span class="token punctuation">,</span>
+        <span class="token string">"cflags!"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span> <span class="token string">"-fno-exceptions"</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">"cflags_cc!"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span> <span class="token string">"-fno-exceptions"</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">"sources"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+            <span class="token string">"cppsrc/main.cpp"</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">'include_dirs'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+            <span class="token string">"&lt;!@(node -p \"require('node-addon-api').include\")"</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">'libraries'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">'dependencies'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+            <span class="token string">"&lt;!(node -p \"require('node-addon-api').gyp\")"</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">'defines'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span> <span class="token string">'NAPI_DISABLE_CPP_EXCEPTIONS'</span> <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span></code></pre></div>
 <p><code class="language-text">package.json</code></p>
 <div class="gatsby-highlight" data-language="json"><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
   <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"test-addon"</span><span class="token punctuation">,</span>
@@ -143,9 +143,9 @@ Napi<span class="token double-colon punctuation">::</span>Object <span class="to
 <span class="token function">NODE_API_MODULE</span><span class="token punctuation">(</span>testaddon<span class="token punctuation">,</span> InitAll<span class="token punctuation">)</span></code></pre></div>
 <p><code class="language-text">index.js</code></p>
 <div class="gatsby-highlight" data-language="js"><pre class="language-js"><code class="language-js"><span class="token comment">//index.js</span>
-<span class="token keyword">const</span> testAddon <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./build/Release/testaddon.node'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> testAddon <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./build/Release/testaddon.node'</span><span class="token punctuation">)</span>
 
-module<span class="token punctuation">.</span>exports <span class="token operator">=</span> testAddon<span class="token punctuation">;</span></code></pre></div>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> testAddon</code></pre></div>
 <p>The base boilerplate is complete. Lets try and build our addon.</p>
 <div class="gatsby-highlight" data-language="sh"><pre class="language-sh"><code class="language-sh">npm run build</code></pre></div>
 <p>You should have an output similar to this:</p>
@@ -160,9 +160,9 @@ SOLINK_MODULE(target) Release/nothing.node
 <div class="gatsby-highlight" data-language="text"><pre class="language-text"><code class="language-text">node index.js</code></pre></div>
 <p>Sadly you will not get any output here. Ideally you should use a debugger tool to debug and see what the contents of <code class="language-text">testAddon</code> is but for demo here lets just add a <code class="language-text">console.log</code> like this:</p>
 <div class="gatsby-highlight" data-language="js"><pre class="language-js"><code class="language-js"><span class="token comment">//index.js</span>
-<span class="token keyword">const</span> testAddon <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./build/Release/testaddon.node'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'addon'</span><span class="token punctuation">,</span>testAddon<span class="token punctuation">)</span><span class="token punctuation">;</span>
-module<span class="token punctuation">.</span>exports <span class="token operator">=</span> testAddon<span class="token punctuation">;</span></code></pre></div>
+<span class="token keyword">const</span> testAddon <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./build/Release/testaddon.node'</span><span class="token punctuation">)</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'addon'</span><span class="token punctuation">,</span> testAddon<span class="token punctuation">)</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> testAddon</code></pre></div>
 <p>Now run <code class="language-text">index.js</code> again.</p>
 <p>You should see an output like this :</p>
 <div class="gatsby-highlight" data-language="sh"><pre class="language-sh"><code class="language-sh">node index.js
@@ -185,7 +185,7 @@ addon {}</code></pre></div>
 */</span>
 
 <span class="token function">NODE_API_MODULE</span><span class="token punctuation">(</span>NODE_GYP_MODULE_NAME<span class="token punctuation">,</span> Init<span class="token punctuation">)</span></code></pre></div>
-<p>To read in more depth you can visit the documentation of node-gyp here: </p>
+<p>To read in more depth you can visit the documentation of node-gyp here:</p>
 <p><a href="https://github.com/nodejs/node-addon-api/blob/master/doc/node-gyp.md">https://github.com/nodejs/node-addon-api/blob/master/doc/node-gyp.md</a></p>
 <hr>
 <h2 id="exporting-a-hello-world-c-function-using-n-api" style="position:relative;"><a href="#exporting-a-hello-world-c-function-using-n-api" aria-label="exporting a hello world c function using n api permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Exporting a Hello World C++ function using N-API</h2>
@@ -209,20 +209,20 @@ std<span class="token double-colon punctuation">::</span>string functionexample<
   <span class="token keyword">return</span> <span class="token string">"Hello World"</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-Napi<span class="token double-colon punctuation">::</span>String functionexample<span class="token double-colon punctuation">::</span><span class="token function">HelloWrapped</span><span class="token punctuation">(</span><span class="token keyword">const</span> Napi<span class="token double-colon punctuation">::</span>CallbackInfo<span class="token operator">&amp;</span> info<span class="token punctuation">)</span> 
+Napi<span class="token double-colon punctuation">::</span>String functionexample<span class="token double-colon punctuation">::</span><span class="token function">HelloWrapped</span><span class="token punctuation">(</span><span class="token keyword">const</span> Napi<span class="token double-colon punctuation">::</span>CallbackInfo<span class="token operator">&amp;</span> info<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
   Napi<span class="token double-colon punctuation">::</span>Env env <span class="token operator">=</span> info<span class="token punctuation">.</span><span class="token function">Env</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   Napi<span class="token double-colon punctuation">::</span>String returnValue <span class="token operator">=</span> Napi<span class="token double-colon punctuation">::</span><span class="token class-name">String</span><span class="token double-colon punctuation">::</span><span class="token function">New</span><span class="token punctuation">(</span>env<span class="token punctuation">,</span> functionexample<span class="token double-colon punctuation">::</span><span class="token function">hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  
+
   <span class="token keyword">return</span> returnValue<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-Napi<span class="token double-colon punctuation">::</span>Object functionexample<span class="token double-colon punctuation">::</span><span class="token function">Init</span><span class="token punctuation">(</span>Napi<span class="token double-colon punctuation">::</span>Env env<span class="token punctuation">,</span> Napi<span class="token double-colon punctuation">::</span>Object exports<span class="token punctuation">)</span> 
+Napi<span class="token double-colon punctuation">::</span>Object functionexample<span class="token double-colon punctuation">::</span><span class="token function">Init</span><span class="token punctuation">(</span>Napi<span class="token double-colon punctuation">::</span>Env env<span class="token punctuation">,</span> Napi<span class="token double-colon punctuation">::</span>Object exports<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
   exports<span class="token punctuation">.</span><span class="token function">Set</span><span class="token punctuation">(</span>
 <span class="token string">"hello"</span><span class="token punctuation">,</span> Napi<span class="token double-colon punctuation">::</span><span class="token class-name">Function</span><span class="token double-colon punctuation">::</span><span class="token function">New</span><span class="token punctuation">(</span>env<span class="token punctuation">,</span> functionexample<span class="token double-colon punctuation">::</span>HelloWrapped<span class="token punctuation">)</span>
   <span class="token punctuation">)</span><span class="token punctuation">;</span>
- 
+
   <span class="token keyword">return</span> exports<span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre></div>
 <p>Wow ! Looks like a lot. But if you look closely, its not as complex as it looks. For every function in C++ we want to export we will basically create a NAPI wrapped function (<code class="language-text">HelloWrapped</code> in this example) and add it to the exports object using <code class="language-text">Init</code>.</p>
@@ -254,13 +254,13 @@ index f016c4e..f62ed77 100644
 <span class="token coord">@@ -1,7 +1,8 @@</span>
 <span class="token unchanged"><span class="token prefix unchanged"> </span>#include &lt;napi.h>
 </span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span>#include "Samples/functionexample.h"
-</span><span class="token unchanged"><span class="token prefix unchanged"> </span>
-<span class="token prefix unchanged"> </span>Napi::Object InitAll(Napi::Env env, Napi::Object exports) {
+</span>
+<span class="token unchanged"><span class="token prefix unchanged"> </span>Napi::Object InitAll(Napi::Env env, Napi::Object exports) {
 </span><span class="token deleted-sign deleted"><span class="token prefix deleted">-</span>  return exports;
 </span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span>  return functionexample::Init(env, exports);
 </span><span class="token unchanged"><span class="token prefix unchanged"> </span>}
-<span class="token prefix unchanged"> </span>
-<span class="token prefix unchanged"> </span>NODE_API_MODULE(testaddon, InitAll)
+</span>
+<span class="token unchanged"><span class="token prefix unchanged"> </span>NODE_API_MODULE(testaddon, InitAll)
 </span>
 
 
@@ -274,13 +274,12 @@ index 65f955e..e91b98f 100644
 </span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span>console.log(testAddon.hello());
 </span><span class="token unchanged"><span class="token prefix unchanged"> </span>module.exports = testAddon;
 </span></code></pre></div>
-<p><strong>Remember : Any change in c++ src files will need recompilation before you can use the changes in NodeJS.</strong>
- 
-So make sure you run <code class="language-text">npm run build</code> again after changing c++ files.</p>
+<p><strong>Remember : Any change in c++ src files will need recompilation before you can use the changes in NodeJS.</strong></p>
+<p>So make sure you run <code class="language-text">npm run build</code> again after changing c++ files.</p>
 <p>Also when you add a new header file/cpp file :</p>
 <ol>
-<li>Add it to <code class="language-text">binding.gyp</code> </li>
-<li>Add it to <code class="language-text">main.cpp</code> </li>
+<li>Add it to <code class="language-text">binding.gyp</code></li>
+<li>Add it to <code class="language-text">main.cpp</code></li>
 <li>Do <code class="language-text">npm rebuild</code> and access it via JS.</li>
 </ol>
 <p>Now run it!</p>
@@ -305,8 +304,8 @@ index 0bd9bc2..37b7eb9 100644
 @@ -4,13 +4,33 @@ std::string functionexample::hello(){
 <span class="token unchanged"><span class="token prefix unchanged"> </span>    return "Hello World";
 <span class="token prefix unchanged"> </span>}
-<span class="token prefix unchanged"> </span>
-</span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span>int functionexample::add(int a, int b){
+</span>
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span>int functionexample::add(int a, int b){
 <span class="token prefix inserted">+</span>  return a + b;
 <span class="token prefix inserted">+</span>}
 <span class="token prefix inserted">+</span>
@@ -315,19 +314,19 @@ index 0bd9bc2..37b7eb9 100644
 <span class="token prefix unchanged"> </span>    Napi::String returnValue = Napi::String::New(env, functionexample::hello());
 <span class="token prefix unchanged"> </span>    return returnValue;
 <span class="token prefix unchanged"> </span>}
-<span class="token prefix unchanged"> </span>
-</span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span>
+</span>
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span>
 <span class="token prefix inserted">+</span>Napi::Number functionexample::AddWrapped(const Napi::CallbackInfo&amp; info) {
 <span class="token prefix inserted">+</span>    Napi::Env env = info.Env();
 <span class="token prefix inserted">+</span>    if (info.Length() &lt; 2 || !info[0].IsNumber() || !info[1].IsNumber()) {
 <span class="token prefix inserted">+</span>        Napi::TypeError::New(env, "Number expected").ThrowAsJavaScriptException();
-<span class="token prefix inserted">+</span>    } 
+<span class="token prefix inserted">+</span>    }
 <span class="token prefix inserted">+</span>
 <span class="token prefix inserted">+</span>    Napi::Number first = info[0].As&lt;Napi::Number>();
 <span class="token prefix inserted">+</span>    Napi::Number second = info[1].As&lt;Napi::Number>();
 <span class="token prefix inserted">+</span>
 <span class="token prefix inserted">+</span>    int returnValue = functionexample::add(first.Int32Value(), second.Int32Value());
-<span class="token prefix inserted">+</span>    
+<span class="token prefix inserted">+</span>
 <span class="token prefix inserted">+</span>    return Napi::Number::New(env, returnValue);
 <span class="token prefix inserted">+</span>}
 <span class="token prefix inserted">+</span>
@@ -336,27 +335,27 @@ index 0bd9bc2..37b7eb9 100644
 </span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span>    exports.Set("add", Napi::Function::New(env, functionexample::AddWrapped));
 </span><span class="token unchanged"><span class="token prefix unchanged"> </span>    return exports;
 <span class="token prefix unchanged"> </span>}
-<span class="token prefix unchanged"> </span>
-<span class="token prefix unchanged"> </span>
-</span>diff --git a/cppsrc/Samples/functionexample.h b/cppsrc/Samples/functionexample.h
+</span>
+
+diff --git a/cppsrc/Samples/functionexample.h b/cppsrc/Samples/functionexample.h
 index 44563aa..e15aa7b 100644
 <span class="token coord">--- a/cppsrc/Samples/functionexample.h</span>
 <span class="token coord">+++ b/cppsrc/Samples/functionexample.h</span>
 @@ -4,6 +4,10 @@ namespace functionexample {
-<span class="token unchanged"><span class="token prefix unchanged"> </span>
-<span class="token prefix unchanged"> </span>    std::string hello();
+
+<span class="token unchanged"><span class="token prefix unchanged"> </span>    std::string hello();
 <span class="token prefix unchanged"> </span>    Napi::String HelloWrapped(const Napi::CallbackInfo&amp; info);
 </span><span class="token deleted-sign deleted"><span class="token prefix deleted">-</span>    Napi::Object Init(Napi::Env env, Napi::Object exports);
-</span><span class="token unchanged"><span class="token prefix unchanged"> </span>
-</span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span>    int add(int a, int b);
+</span>
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span>    int add(int a, int b);
 <span class="token prefix inserted">+</span>    Napi::Number AddWrapped(const Napi::CallbackInfo&amp; info);
 <span class="token prefix inserted">+</span>
 <span class="token prefix inserted">+</span>    Napi::Object Init(Napi::Env env, Napi::Object exports);
-<span class="token prefix inserted">+</span>    
+<span class="token prefix inserted">+</span>
 </span><span class="token unchanged"><span class="token prefix unchanged"> </span>}
-<span class="token prefix unchanged"> </span>
-<span class="token prefix unchanged"> </span>
-</span>diff --git a/index.js b/index.js
+</span>
+
+diff --git a/index.js b/index.js
 index e91b98f..72860f8 100644
 <span class="token coord">--- a/index.js</span>
 <span class="token coord">+++ b/index.js</span>
@@ -434,7 +433,7 @@ To export this class to JS side we will need to create a wrapper class. Lets nam
 
  <span class="token keyword">private</span><span class="token operator">:</span>
   <span class="token keyword">static</span> Napi<span class="token double-colon punctuation">::</span>FunctionReference constructor<span class="token punctuation">;</span> <span class="token comment">//reference to store the class definition that needs to be exported to JS</span>
-  Napi<span class="token double-colon punctuation">::</span>Value <span class="token function">GetValue</span><span class="token punctuation">(</span><span class="token keyword">const</span> Napi<span class="token double-colon punctuation">::</span>CallbackInfo<span class="token operator">&amp;</span> info<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//wrapped getValue function </span>
+  Napi<span class="token double-colon punctuation">::</span>Value <span class="token function">GetValue</span><span class="token punctuation">(</span><span class="token keyword">const</span> Napi<span class="token double-colon punctuation">::</span>CallbackInfo<span class="token operator">&amp;</span> info<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//wrapped getValue function</span>
   Napi<span class="token double-colon punctuation">::</span>Value <span class="token function">Add</span><span class="token punctuation">(</span><span class="token keyword">const</span> Napi<span class="token double-colon punctuation">::</span>CallbackInfo<span class="token operator">&amp;</span> info<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//wrapped add function</span>
   ActualClass <span class="token operator">*</span>actualClass_<span class="token punctuation">;</span> <span class="token comment">//internal instance of actualclass used to perform actual operations.</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
@@ -500,7 +499,7 @@ Napi<span class="token double-colon punctuation">::</span>Value <span class="tok
 <p>Lets take a good look at the header file of our wrapper class <code class="language-text">classexample.h</code>:</p>
 <p>As mentioned before, Anything that needs to be exported to JS world needs to be wrapped with N-API. Hence:</p>
 <ol>
-<li>First step is to create a wrapper class which extends <code class="language-text">Napi::ObjectWrap&lt;ClassExample></code> . </li>
+<li>First step is to create a wrapper class which extends <code class="language-text">Napi::ObjectWrap&lt;ClassExample></code> .</li>
 <li>Just like in case of functions we need a <code class="language-text">Init</code> method to set the export key.</li>
 <li>Except the <code class="language-text">static Napi::FunctionReference constructor;</code> rest all the methods are self explanatory.</li>
 </ol>
@@ -509,7 +508,7 @@ Napi<span class="token double-colon punctuation">::</span>Value <span class="tok
 <li><code class="language-text">ClassExample::Init</code> function is responsible to create and set the export key. Here we will export the class as <code class="language-text">ClassExample</code> to the JS side.</li>
 </ol>
 <p>Important part here is:</p>
-<div class="gatsby-highlight" data-language="cpp"><pre class="language-cpp"><code class="language-cpp">Napi<span class="token double-colon punctuation">::</span>Function func <span class="token operator">=</span> <span class="token function">DefineClass</span><span class="token punctuation">(</span>env<span class="token punctuation">,</span> <span class="token string">"ClassExample"</span><span class="token punctuation">,</span> 
+<div class="gatsby-highlight" data-language="cpp"><pre class="language-cpp"><code class="language-cpp">Napi<span class="token double-colon punctuation">::</span>Function func <span class="token operator">=</span> <span class="token function">DefineClass</span><span class="token punctuation">(</span>env<span class="token punctuation">,</span> <span class="token string">"ClassExample"</span><span class="token punctuation">,</span>
 <span class="token punctuation">{</span>
   <span class="token function">InstanceMethod</span><span class="token punctuation">(</span><span class="token string">"add"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>ClassExample<span class="token double-colon punctuation">::</span>Add<span class="token punctuation">)</span><span class="token punctuation">,</span>
   <span class="token function">InstanceMethod</span><span class="token punctuation">(</span><span class="token string">"getValue"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>ClassExample<span class="token double-colon punctuation">::</span>GetValue<span class="token punctuation">)</span><span class="token punctuation">,</span>
@@ -524,11 +523,11 @@ constructor <span class="token operator">=</span> <span class="token class-name"
 <ol>
 <li>Now lets see the implementation of <code class="language-text">ClassExample::Add</code> function.</li>
 </ol>
-<div class="gatsby-highlight" data-language="cpp"><pre class="language-cpp"><code class="language-cpp">Napi<span class="token double-colon punctuation">::</span>Value <span class="token class-name">ClassExample</span><span class="token double-colon punctuation">::</span><span class="token function">Add</span><span class="token punctuation">(</span><span class="token keyword">const</span> Napi<span class="token double-colon punctuation">::</span>CallbackInfo<span class="token operator">&amp;</span> info<span class="token punctuation">)</span> 
+<div class="gatsby-highlight" data-language="cpp"><pre class="language-cpp"><code class="language-cpp">Napi<span class="token double-colon punctuation">::</span>Value <span class="token class-name">ClassExample</span><span class="token double-colon punctuation">::</span><span class="token function">Add</span><span class="token punctuation">(</span><span class="token keyword">const</span> Napi<span class="token double-colon punctuation">::</span>CallbackInfo<span class="token operator">&amp;</span> info<span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
   Napi<span class="token double-colon punctuation">::</span>Env env <span class="token operator">=</span> info<span class="token punctuation">.</span><span class="token function">Env</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   Napi<span class="token double-colon punctuation">::</span>HandleScope <span class="token function">scope</span><span class="token punctuation">(</span>env<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  
+
   <span class="token keyword">if</span> <span class="token punctuation">(</span>info<span class="token punctuation">.</span><span class="token function">Length</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">1</span> <span class="token operator">||</span> <span class="token operator">!</span>info<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">IsNumber</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
      Napi<span class="token double-colon punctuation">::</span><span class="token class-name">TypeError</span><span class="token double-colon punctuation">::</span><span class="token function">New</span><span class="token punctuation">(</span>env<span class="token punctuation">,</span> <span class="token string">"Numberexpected"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">ThrowAsJavaScriptException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
@@ -558,9 +557,9 @@ index 2d188af..031bf18 100644
 </span><span class="token unchanged"><span class="token prefix unchanged"> </span>        ],
 <span class="token prefix unchanged"> </span>        'include_dirs': [
 <span class="token prefix unchanged"> </span>            "&lt;!@(node -p \"require('node-addon-api').include\")"
-<span class="token prefix unchanged"> </span>            
-<span class="token prefix unchanged"> </span>            
-</span>diff --git a/cppsrc/main.cpp b/cppsrc/main.cpp
+</span>
+
+diff --git a/cppsrc/main.cpp b/cppsrc/main.cpp
 index f62ed77..2b739d3 100644
 <span class="token coord">--- a/cppsrc/main.cpp</span>
 <span class="token coord">+++ b/cppsrc/main.cpp</span>
@@ -568,14 +567,14 @@ index f62ed77..2b739d3 100644
 <span class="token unchanged"><span class="token prefix unchanged"> </span>#include &lt;napi.h>
 <span class="token prefix unchanged"> </span>#include "Samples/functionexample.h"
 </span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span>#include "Samples/classexample.h"
-</span><span class="token unchanged"><span class="token prefix unchanged"> </span>
-<span class="token prefix unchanged"> </span>Napi::Object InitAll(Napi::Env env, Napi::Object exports) {
+</span>
+<span class="token unchanged"><span class="token prefix unchanged"> </span>Napi::Object InitAll(Napi::Env env, Napi::Object exports) {
 </span><span class="token deleted-sign deleted"><span class="token prefix deleted">-</span>  return functionexample::Init(env, exports);
 </span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span>  functionexample::Init(env, exports);
 <span class="token prefix inserted">+</span>  return ClassExample::Init(env, exports);
 </span><span class="token unchanged"><span class="token prefix unchanged"> </span>}
-<span class="token prefix unchanged"> </span>
-</span><span class="token deleted-sign deleted"><span class="token prefix deleted">-</span>NODE_API_MODULE(testaddon, InitAll)
+</span>
+<span class="token deleted-sign deleted"><span class="token prefix deleted">-</span>NODE_API_MODULE(testaddon, InitAll)
 </span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span>NODE_API_MODULE(NODE_GYP_MODULE_NAME, InitAll)
 </span>
 
@@ -593,9 +592,8 @@ index 72860f8..d849e0e 100644
 <span class="token prefix inserted">+</span>console.log('Testing class initial value : ',classInstance.getValue());
 <span class="token prefix inserted">+</span>console.log('After adding 3.3 : ',classInstance.add(3.3));
 </span><span class="token unchanged"><span class="token prefix unchanged"> </span>module.exports = testAddon;</span></code></pre></div>
-<p>Make the above changes and run <code class="language-text">npm run build</code>, followed by <code class="language-text">node index.js</code>.
- 
-Notice that we have to both <code class="language-text">classexample.cpp</code> and <code class="language-text">actualclass.cpp</code> in the <code class="language-text">binding.gyp</code>. The reason is that both classes are written by us. If you have a thrid party library c++ file. Then you would need to include the precompiled dynamic library in the <code class="language-text">libraries</code> section of <code class="language-text">binding.gyp</code> instead.</p>
+<p>Make the above changes and run <code class="language-text">npm run build</code>, followed by <code class="language-text">node index.js</code>.</p>
+<p>Notice that we have to both <code class="language-text">classexample.cpp</code> and <code class="language-text">actualclass.cpp</code> in the <code class="language-text">binding.gyp</code>. The reason is that both classes are written by us. If you have a thrid party library c++ file. Then you would need to include the precompiled dynamic library in the <code class="language-text">libraries</code> section of <code class="language-text">binding.gyp</code> instead.</p>
 <p><strong>Output:</strong></p>
 <div class="gatsby-highlight" data-language="text"><pre class="language-text"><code class="language-text">node index.js
 addon { hello: [Function],
@@ -610,12 +608,12 @@ After adding 3.3 :  7.6</code></pre></div>
 <hr>
 <h2 id="sending-complex-js-objects-to-the-c-world" style="position:relative;"><a href="#sending-complex-js-objects-to-the-c-world" aria-label="sending complex js objects to the c world permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Sending complex js objects to the C++ world</h2>
 <p>Lets say we have a use case like below:</p>
-<div class="gatsby-highlight" data-language="js"><pre class="language-js"><code class="language-js"><span class="token keyword">const</span> prevInstance <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">testAddon<span class="token punctuation">.</span>ClassExample</span><span class="token punctuation">(</span><span class="token number">4.3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Initial value : '</span><span class="token punctuation">,</span> prevInstance<span class="token punctuation">.</span><span class="token function">getValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'After adding 3.3 : '</span><span class="token punctuation">,</span> prevInstance<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token number">3.3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">const</span> newFromExisting <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">testAddon<span class="token punctuation">.</span>ClassExample</span><span class="token punctuation">(</span>prevInstance<span class="token punctuation">)</span><span class="token punctuation">;</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Testing class initial value for derived instance'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>newFromExisting<span class="token punctuation">.</span><span class="token function">getValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> </code></pre></div>
+<div class="gatsby-highlight" data-language="js"><pre class="language-js"><code class="language-js"><span class="token keyword">const</span> prevInstance <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">testAddon<span class="token punctuation">.</span>ClassExample</span><span class="token punctuation">(</span><span class="token number">4.3</span><span class="token punctuation">)</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Initial value : '</span><span class="token punctuation">,</span> prevInstance<span class="token punctuation">.</span><span class="token function">getValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'After adding 3.3 : '</span><span class="token punctuation">,</span> prevInstance<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token number">3.3</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">const</span> newFromExisting <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">testAddon<span class="token punctuation">.</span>ClassExample</span><span class="token punctuation">(</span>prevInstance<span class="token punctuation">)</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Testing class initial value for derived instance'</span><span class="token punctuation">)</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>newFromExisting<span class="token punctuation">.</span><span class="token function">getValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre></div>
 <p>Here, we have an instance of <code class="language-text">ClassExample</code> in <code class="language-text">prevInstance</code>.</p>
 <p>And we want a new instance <code class="language-text">newFromExisting</code> which has same value of <code class="language-text">prevInstance</code>. For that, we want to pass the existing instance <code class="language-text">prevInstance</code> to the constructor of <code class="language-text">ClassExample </code>. Since, <code class="language-text">prevInstance</code> is not a primitive value like int, double etc. The expected output of the last <code class="language-text">console.log</code> should be <code class="language-text">7.6</code> .
 Lets see how we can do that:</p>
@@ -625,11 +623,11 @@ index 8dfa3cc..834f7ea 100644
 <span class="token coord">+++ b/cppsrc/Samples/classexample.cpp</span>
 @@ -22,8 +22,17 @@ ClassExample::ClassExample(const Napi::CallbackInfo&amp; info) : Napi::ObjectWrap&lt;Cl
 <span class="token unchanged"><span class="token prefix unchanged"> </span>  Napi::HandleScope scope(env);
-<span class="token prefix unchanged"> </span>
-<span class="token prefix unchanged"> </span>  int length = info.Length();
+</span>
+<span class="token unchanged"><span class="token prefix unchanged"> </span>  int length = info.Length();
 </span><span class="token deleted-sign deleted"><span class="token prefix deleted">-</span>  if (length != 1 || !info[0].IsNumber()) {
 <span class="token prefix deleted">-</span>    Napi::TypeError::New(env, "Number expected").ThrowAsJavaScriptException();
-</span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span>  
+</span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span>
 <span class="token prefix inserted">+</span>  if (length != 1) {
 <span class="token prefix inserted">+</span>    Napi::TypeError::New(env, "Only one argument expected").ThrowAsJavaScriptException();
 <span class="token prefix inserted">+</span>  }
@@ -641,12 +639,12 @@ index 8dfa3cc..834f7ea 100644
 <span class="token prefix inserted">+</span>    this->actualClass_ = new ActualClass(parent_actual_class_instance->getValue());
 <span class="token prefix inserted">+</span>    return;
 </span><span class="token unchanged"><span class="token prefix unchanged"> </span>  }
-<span class="token prefix unchanged"> </span>
-<span class="token prefix unchanged"> </span>  Napi::Number value = info[0].As&lt;Napi::Number>();
+</span>
+<span class="token unchanged"><span class="token prefix unchanged"> </span>  Napi::Number value = info[0].As&lt;Napi::Number>();
 </span>@@ -51,4 +60,8 @@ Napi::Value ClassExample::Add(const Napi::CallbackInfo&amp; info) {
 <span class="token unchanged"><span class="token prefix unchanged"> </span>  double answer = this->actualClass_->add(toAdd.DoubleValue());
-<span class="token prefix unchanged"> </span>
-<span class="token prefix unchanged"> </span>  return Napi::Number::New(info.Env(), answer);
+</span>
+<span class="token unchanged"><span class="token prefix unchanged"> </span>  return Napi::Number::New(info.Env(), answer);
 </span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span>}
 <span class="token prefix inserted">+</span>
 <span class="token prefix inserted">+</span>ActualClass* ClassExample::GetInternalInstance() {
@@ -665,21 +663,21 @@ index 1f0cf69..7f6237f 100644
 <span class="token prefix unchanged"> </span>  static Napi::Object Init(Napi::Env env, Napi::Object exports);
 <span class="token prefix unchanged"> </span>  ClassExample(const Napi::CallbackInfo&amp; info);
 </span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span>  ActualClass* GetInternalInstance();
-</span><span class="token unchanged"><span class="token prefix unchanged"> </span>
-<span class="token prefix unchanged"> </span> private:
+</span>
+<span class="token unchanged"><span class="token prefix unchanged"> </span> private:
 <span class="token prefix unchanged"> </span>  static Napi::FunctionReference constructor;
-<span class="token prefix unchanged"> </span>  
-<span class="token prefix unchanged"> </span>  
-<span class="token prefix unchanged"> </span>  
-</span>diff --git a/index.js b/index.js
+</span>
+
+
+diff --git a/index.js b/index.js
 index d849e0e..efce991 100644
 <span class="token coord">--- a/index.js</span>
 <span class="token coord">+++ b/index.js</span>
 @@ -3,8 +3,13 @@ console.log('addon',testAddon);
 <span class="token unchanged"><span class="token prefix unchanged"> </span>console.log('hello ', testAddon.hello());
 <span class="token prefix unchanged"> </span>console.log('add ', testAddon.add(5, 10));
-<span class="token prefix unchanged"> </span>
-</span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span>const prevInstance = new testAddon.ClassExample(4.3);
+</span>
+<span class="token inserted-sign inserted"><span class="token prefix inserted">+</span>const prevInstance = new testAddon.ClassExample(4.3);
 <span class="token prefix inserted">+</span>console.log('Initial value : ', prevInstance.getValue());
 <span class="token prefix inserted">+</span>console.log('After adding 3.3 : ', prevInstance.add(3.3));
 <span class="token prefix inserted">+</span>
@@ -687,8 +685,8 @@ index d849e0e..efce991 100644
 <span class="token prefix inserted">+</span>
 <span class="token prefix inserted">+</span>console.log('Testing class initial value for derived instance');
 <span class="token prefix inserted">+</span>console.log(newFromExisting.getValue());
-</span><span class="token unchanged"><span class="token prefix unchanged"> </span>
-</span><span class="token deleted-sign deleted"><span class="token prefix deleted">-</span>const classInstance = new testAddon.ClassExample(4.3);
+</span>
+<span class="token deleted-sign deleted"><span class="token prefix deleted">-</span>const classInstance = new testAddon.ClassExample(4.3);
 <span class="token prefix deleted">-</span>console.log('Testing class initial value : ',classInstance.getValue());
 <span class="token prefix deleted">-</span>console.log('After adding 3.3 : ',classInstance.add(3.3));
 </span><span class="token unchanged"><span class="token prefix unchanged"> </span>module.exports = testAddon;</span></code></pre></div>

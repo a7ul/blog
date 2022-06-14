@@ -160,7 +160,7 @@ There are two types of reconcilers:</p>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 
-<span class="token keyword">const</span> <span class="token function-variable function">Content</span> <span class="token operator">=</span> <span class="token parameter">props</span> <span class="token operator">=></span> <span class="token operator">&lt;</span>p<span class="token operator">></span><span class="token punctuation">{</span>props<span class="token punctuation">.</span>text<span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
+<span class="token keyword">const</span> <span class="token function-variable function">Content</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">props</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token operator">&lt;</span>p<span class="token operator">></span><span class="token punctuation">{</span>props<span class="token punctuation">.</span>text<span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
 
 <span class="token keyword">const</span> <span class="token function-variable function">App</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
   <span class="token keyword">return</span> <span class="token punctuation">(</span>
@@ -191,7 +191,7 @@ ReactDom<span class="token punctuation">.</span><span class="token function">ren
 <p>An element is an immutable plain object describing a component instance or DOM node and its desired properties. The render function of the component returns an element. In case of functional components. The input is props while the output is a react element. Since elements are just plain light JS objects they are easy to traverse and don’t need to be parsed.</p>
 <p>To explain it lets take an example:</p>
 <p>Here <strong>Content</strong> is a functional component.</p>
-<div class="gatsby-highlight" data-language="js"><pre class="language-js"><code class="language-js"><span class="token keyword">const</span> <span class="token function-variable function">Content</span> <span class="token operator">=</span> <span class="token parameter">props</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+<div class="gatsby-highlight" data-language="js"><pre class="language-js"><code class="language-js"><span class="token keyword">const</span> <span class="token function-variable function">Content</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">props</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
   <span class="token keyword">return</span> <span class="token operator">&lt;</span>p style<span class="token operator">=</span><span class="token punctuation">{</span>props<span class="token punctuation">.</span>style<span class="token punctuation">}</span><span class="token operator">></span><span class="token punctuation">{</span>props<span class="token punctuation">.</span>text<span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
 <span class="token punctuation">}</span></code></pre></div>
 <p>Lets say we use it as</p>
@@ -306,7 +306,7 @@ And create a directory structure like this.</p>
 <div class="gatsby-highlight" data-language="js"><pre class="language-js"><code class="language-js"><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">'react'</span>
 <span class="token keyword">import</span> ReactDOM <span class="token keyword">from</span> <span class="token string">'react-dom'</span>
 
-<span class="token keyword">const</span> <span class="token function-variable function">Text</span> <span class="token operator">=</span> <span class="token parameter">props</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+<span class="token keyword">const</span> <span class="token function-variable function">Text</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">props</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
   <span class="token keyword">return</span> <span class="token operator">&lt;</span>p className<span class="token operator">=</span><span class="token punctuation">{</span>props<span class="token punctuation">.</span>className<span class="token punctuation">}</span><span class="token operator">></span><span class="token punctuation">{</span>props<span class="token punctuation">.</span>content<span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
 <span class="token punctuation">}</span>
 
@@ -358,7 +358,7 @@ The basic premise is that our renderer should be able to render the same result 
 <span class="token comment">// import ReactDOM from "react-dom";</span>
 <span class="token keyword">import</span> CustomRenderer <span class="token keyword">from</span> <span class="token string">'./renderer'</span>
 
-<span class="token keyword">const</span> <span class="token function-variable function">Text</span> <span class="token operator">=</span> <span class="token parameter">props</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+<span class="token keyword">const</span> <span class="token function-variable function">Text</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">props</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
   <span class="token keyword">return</span> <span class="token operator">&lt;</span>p className<span class="token operator">=</span><span class="token punctuation">{</span>props<span class="token punctuation">.</span>className<span class="token punctuation">}</span><span class="token operator">></span><span class="token punctuation">{</span>props<span class="token punctuation">.</span>content<span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
 <span class="token punctuation">}</span>
 
