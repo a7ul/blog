@@ -53,26 +53,26 @@ Lets take few scenarios.
 If you are using the standalone Apollo Server to run your application, you could authenticate the user in the context layer like so:
 
 ```js
-import { ApolloServer } from 'apollo-server'
+import { ApolloServer } from 'apollo-server';
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   context: ({ req }) => {
     // Get the user token from the headers.
-    const token = req.headers.authorization || ''
+    const token = req.headers.authorization || '';
 
     // Try to retrieve a user with the token
-    const user = getUser(token)
+    const user = getUser(token);
 
     // The resolvers can now access the user via the context
-    return { user }
+    return { user };
   },
-})
+});
 
 server.listen().then(({ url }) => {
-  console.log(`🚀 Server ready at ${url}`)
-})
+  console.log(`🚀 Server ready at ${url}`);
+});
 ```
 
 ## apollo-server-express (Apollo Server Express)
@@ -81,12 +81,12 @@ In the case of Apollo Server with Express or similar, you can authenticate the u
 Hence, here if the jwt is expired we could return early with a 401 error to the client.
 
 ```js
-import { ApolloServer, gql } from 'apollo-server-express'
-import express from 'express'
-import { expressjwt } from 'express-jwt'
+import { ApolloServer, gql } from 'apollo-server-express';
+import express from 'express';
+import { expressjwt } from 'express-jwt';
 
 async function startApolloServer(typeDefs, resolvers) {
-  const app = express()
+  const app = express();
 
   // 1. Authenticate the user before passing request to apollo server
   app.use(
@@ -95,7 +95,7 @@ async function startApolloServer(typeDefs, resolvers) {
       credentialsRequired: false,
       algorithms: ['HS256'],
     })
-  )
+  );
 
   const server = new ApolloServer({
     typeDefs,
@@ -104,17 +104,17 @@ async function startApolloServer(typeDefs, resolvers) {
       // 2. Map the authenticated user from express to the context
       user: req.auth,
     }),
-  })
+  });
 
-  await server.start()
-  server.applyMiddleware({ app })
+  await server.start();
+  server.applyMiddleware({ app });
 
   app.listen({ port: 3000 }, () =>
     console.log(`🚀 Server ready at http://localhost:3000${server.graphqlPath}`)
-  )
+  );
 }
 
-await startApolloServer(typeDefs, resolvers)
+await startApolloServer(typeDefs, resolvers);
 ```
 
 ## Infrastructure layer
@@ -134,20 +134,20 @@ In the initial stages of building our GraphQL application, the most basic approa
 ```js
 context: ({ req }) => {
   // try to retrieve a user with the token
-  const user = getUser(req)
+  const user = getUser(req);
 
   // Block if non authenticated users should not be allowed to access any data
   if (!user) {
-    throw new AuthenticationError('you must be logged in')
+    throw new AuthenticationError('you must be logged in');
   }
 
   // Also check user roles/permissions inside the retrieved user here
   if (!user.roles.includes('admin')) {
-    throw new ForbiddenError('you must be an admin')
+    throw new ForbiddenError('you must be an admin');
   }
   // add the user to the context
-  return { user }
-}
+  return { user };
+};
 ```
 
 ## Role based access control or RBAC
@@ -174,7 +174,7 @@ if we are using JWTs for auth then we could even assign them as part of the payl
 
 ### Permissions
 
-Permissions are identifiers assigned to different groups of data in your application. We would assign permissions to each field in the GraphQL schema to mark its access requirements. The idea is to use a **@auth** GraphQL schema directive to annotate permissions for each field (We will look at **@auth**'s implementation in a bit).
+Permissions are identifiers assigned to different groups of data in your application. We would assign permissions to each field in the GraphQL schema to mark its access requirements. The idea is to use an **@auth** GraphQL schema directive to annotate permissions for each field (We will look at **@auth**'s implementation in a bit).
 
 For example, consider a GraphQL schema with the following **@auth** anotations:
 
@@ -267,7 +267,7 @@ Both roles and permissions evolve independently over time as the type of users a
 
 As mentioned above, for authorization, we will be using the **@auth** schema directive to annotate permissions for each field. A schema directive in GraphQL decorates part of the GraphQL schema with additional configuration in order to add custom functionality. More details about directives here: https://www.apollographql.com/docs/apollo-server/schema/directives/
 
-Our aim is to implement a **@auth** schema directive to perform authorization on a field before our query is executed by its resolvers.
+Our aim is to implement an **@auth** schema directive to perform authorization on a field before our query is executed by its resolvers.
 
 In order to implement a schema directive for fields we will first need to declare it in our schema.
 Once declared, we can then go ahead and annotate our fields with the **@auth** directive.
@@ -301,35 +301,35 @@ Next, lets create a `getAuthorizedSchema` function that will take a GraphQL sche
 **src/graphql/directives.js**
 
 ```js
-import { mapSchema, getDirective, MapperKind } from '@graphql-tools/utils'
+import { mapSchema, getDirective, MapperKind } from '@graphql-tools/utils';
 
 export function getAuthorizedSchema(schema) {
   const authorizedSchema = mapSchema(schema, {
     // Executes once for each object field definition in the schema
     [MapperKind.OBJECT_FIELD]: (fieldConfig) => {
       // 1. Try to get the @auth directive config on the field
-      const fieldAuthDirective = getDirective(schema, fieldConfig, 'auth')?.[0]
+      const fieldAuthDirective = getDirective(schema, fieldConfig, 'auth')?.[0];
 
       // 2. If a @auth directive is found, replace the field's resolver with a custom resolver
       if (fieldAuthDirective) {
         // 2.1. Get the original resolver on the field
-        const originalResolver = fieldConfig.resolve ?? defaultFieldResolver
+        const originalResolver = fieldConfig.resolve ?? defaultFieldResolver;
         // 2.2. Replace the field's resolver with a custom resolver
         fieldConfig.resolve = (source, args, context, info) => {
-          const user = context.user
-          const fieldPermissions = fieldAuthDirective.permissions
+          const user = context.user;
+          const fieldPermissions = fieldAuthDirective.permissions;
           if (!isAuthorized(fieldPermissions, user)) {
             // 2.3 If the user doesn't have the required permissions, throw an error
-            throw new ForbiddenError('Unauthorized')
+            throw new ForbiddenError('Unauthorized');
           }
           // 2.4 Otherwise call the original resolver and return the result
-          return originalResolver(source, args, context, info)
-        }
+          return originalResolver(source, args, context, info);
+        };
       }
-      return fieldConfig
+      return fieldConfig;
     },
-  })
-  return authorizedSchema
+  });
+  return authorizedSchema;
 }
 ```
 
@@ -337,21 +337,21 @@ where `isAuthorized` function would check if the user has the required permissio
 
 ```js
 function isAuthorized(fieldPermissions, user) {
-  const userRoles = user?.roles ?? []
-  const userPermissions = new Set()
+  const userRoles = user?.roles ?? [];
+  const userPermissions = new Set();
   // 1. Expand user roles to permissions
   userRoles.forEach((roleKey) => {
-    const role = RolePermissions[roleKey] ?? RolePermissions.anonymous
-    role.permissions?.forEach((permission) => userPermissions.add(permission))
-  })
+    const role = RolePermissions[roleKey] ?? RolePermissions.anonymous;
+    role.permissions?.forEach((permission) => userPermissions.add(permission));
+  });
 
   // 2. Check if atleast one of the user's permissions matches that of required for accessing the field
   for (const permission of fieldPermissions) {
     if (userPermissions.has(permission)) {
-      return true
+      return true;
     }
   }
-  return false
+  return false;
 }
 ```
 
@@ -360,10 +360,10 @@ Now we can use the `getAuthorizedSchema` function just before apollo server is c
 ```js
 async function startApolloServer(typeDefs, resolvers) {
   // Create the base executable schema
-  let schema = makeExecutableSchema({ typeDefs, resolvers })
+  let schema = makeExecutableSchema({ typeDefs, resolvers });
 
   // Transform the schema by applying directive logic
-  schema = getAuthorizedSchema(schema)
+  schema = getAuthorizedSchema(schema);
 
   // Provide the transformed schema to the ApolloServer constructor
   const server = new ApolloServer({
@@ -371,16 +371,16 @@ async function startApolloServer(typeDefs, resolvers) {
     context: ({ req }) => ({
       user: req.auth,
     }),
-  })
+  });
 
-  await server.start()
+  await server.start();
 
   server.listen().then(({ url }) => {
-    console.log(`🚀 Server ready at ${url}`)
-  })
+    console.log(`🚀 Server ready at ${url}`);
+  });
 }
 
-await startApolloServer(typeDefs, resolvers)
+await startApolloServer(typeDefs, resolvers);
 ```
 
 ### Code link
@@ -447,9 +447,9 @@ query {
 }
 ```
 
-A quick fix for this issue would be to add a **@auth** directive to the type Customer's **invoices** field. But, this feels like we have to manually keep track of new fields that are added to the schema and add **@auth** to block access. This is error prone and can cause accidental leaks. Ideally, our auth system should be designed in a way that it prevents this behaviour by default.
+A quick fix for this issue would be to add an **@auth** directive to the type Customer's **invoices** field. But, this feels like we have to manually keep track of new fields that are added to the schema and add **@auth** to block access. This is error prone and can cause accidental leaks. Ideally, our auth system should be designed in a way that it prevents this behaviour by default.
 
-**The solution** to this problem is to make it possible to add a **@auth** directive at the **type level**.
+**The solution** to this problem is to make it possible to add an **@auth** directive at the **type level**.
 
 We could add **@auth** to the type **Invoice**
 
@@ -534,18 +534,18 @@ let add a new function `gatherTypePermissions` which will parse through the sche
 ```js
 function gatherTypePermissions(schema) {
   // 1. Create a map to store a type and its permissions
-  const typePermissionMapping = new Map()
+  const typePermissionMapping = new Map();
   mapSchema(schema, {
     // 2. Executes once for each type definition in the schema
     [MapperKind.OBJECT_TYPE]: (typeConfig) => {
-      const typeAuthDirective = getDirective(schema, typeConfig, 'auth')?.[0]
-      const typeLevelPermissions = typeAuthDirective?.permissions ?? []
+      const typeAuthDirective = getDirective(schema, typeConfig, 'auth')?.[0];
+      const typeLevelPermissions = typeAuthDirective?.permissions ?? [];
       // 3. Collect permissions for each type
-      typePermissionMapping.set(typeConfig.name, typeLevelPermissions)
-      return typeConfig
+      typePermissionMapping.set(typeConfig.name, typeLevelPermissions);
+      return typeConfig;
     },
-  })
-  return typePermissionMapping
+  });
+  return typePermissionMapping;
 }
 ```
 
@@ -659,7 +659,7 @@ query {
 
 ## Deny first and explicit authorization
 
-With type + field level authorization, we now get a lot of control over managing access to the data graph. But in the current approach we consider a field without an **@auth** directive as **publicly accessible**. This approach is essentially a blocklist approach, ie, we are blocking access by adding **@auth**. But, following the principle of least privilege, we should be doing the reverse. We should be denying access to fields by default and only open up access if a field has an **@auth** directive specified. This way our auth system would automatically prevent fields that were accidentally exposed without a **@auth** directive. And if we need few fields to be public we could annotate those fields with a special permission (For example: **@auth(permissions: ['self:anyone'])**) so that our **@auth** directive can skip authorization on. This way as the schema grows, we can be explicit about and keep track of these publicly accessible fields along with avoiding unintentional leaks.
+With type + field level authorization, we now get a lot of control over managing access to the data graph. But in the current approach we consider a field without an **@auth** directive as **publicly accessible**. This approach is essentially a blocklist approach, ie, we are blocking access by adding **@auth**. But, following the principle of least privilege, we should be doing the reverse. We should be denying access to fields by default and only open up access if a field has an **@auth** directive specified. This way our auth system would automatically prevent fields that were accidentally exposed without an **@auth** directive. And if we need few fields to be public we could annotate those fields with a special permission (For example: **@auth(permissions: ['self:anyone'])**) so that our **@auth** directive can skip authorization on. This way as the schema grows, we can be explicit about and keep track of these publicly accessible fields along with avoiding unintentional leaks.
 
 Lets take an example to understand this better:
 
@@ -707,8 +707,8 @@ function shouldDenyFieldByDefault(fieldPermissions, typePermissions) {
   // Check if a field has either field or type permissions
   // If no, then return true (meaning deny this field)
   const hasNoPermissions =
-    fieldPermissions.length === 0 && typePermissions.length === 0
-  return hasNoPermissions
+    fieldPermissions.length === 0 && typePermissions.length === 0;
+  return hasNoPermissions;
 }
 ```
 
@@ -823,7 +823,7 @@ Lets fix that by modifying our **isAuthorized** function.
   We would expect that the query would succeed since we explicitly marked the mutation with **self:anyone**.
   But it should fail because the mutation returns a type **AccessToken** whose field dont have any permissions. So the fields of the AccessToken type are also denied by default.
 
-  To fix this we add a **@auth(permission: ["self:anyone"])** to the AccessToken type like so.
+  To fix this we add an **@auth(permission: ["self:anyone"])** to the AccessToken type like so.
 
   ```diff
   -type AccessToken {
@@ -871,7 +871,7 @@ Lets fix that by modifying our **isAuthorized** function.
 
 # Summary
 
-GraphQL is a really powerful tool for building apis that are versionless and well documented. As we introduce more types and fields to our schema, we need to make sure that we do so in a secure way. The **@auth** directive in this post allows us to introduce security with to our schema with following characteristics:
+GraphQL is a really powerful tool for building apis that are versionless and well documented. As we introduce more types and fields to our schema, we need to make sure that we do so in a secure way. The **@auth** directive in this post allows us to introduce security to our schema with following characteristics:
 
 - **Declarative** - We can use our schema as a documentation and source of truth for authorization.
 - **Flexible** - Type and field permissions allows us to introduce RBAC with ease without sacrificing DX.
