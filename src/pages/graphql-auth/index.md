@@ -13,7 +13,7 @@ There are multiple ways to introduce authentication and authorization into our G
 
 - **Declarative** - We define all the access control rules in the schema itself. This makes it easier to understand and maintain the access declaratively as the schema evolves. Effectively, our schema also becomes the source of truth for the access control rules.
 - **Role based access control (RBAC)** - Allow users to access different parts of the data based on their role.
-<!-- - **Deny first and explicit authorization** - Following the principle of least privilege, we would like to deny access to fields that are not explicitly authorized. This is a good way to prevent accidental access to sensitive data. -->
+- **Deny first and explicit authorization** - Following the principle of least privilege, we would like to deny access to fields that are not explicitly authorized. This is a good way to prevent accidental access to sensitive data.
 
 These could be implemented in any language that supports GraphQL. In this post, we will be using [Apollo](https://www.apollographql.com/) to see how we can implement these concepts.
 
@@ -657,7 +657,227 @@ query {
 >
 > or visit https://github.com/a7ul/blog-graphql-auth-example/tree/type-auth
 
-<!-- ## Deny first and explicit authorization -->
+## Deny first and explicit authorization
+
+With type + field level authorization, we now get a lot of control over managing access to the data graph. But in the current approach we consider a field without an **@auth** directive as **publicly accessible**. This approach is essentially a blocklist approach, ie, we are blocking access by adding **@auth**. But, following the principle of least privilege, we should be doing the reverse. We should be denying access to fields by default and only open up access if a field has an **@auth** directive specified. This way our auth system would automatically prevent fields that were accidentally exposed without a **@auth** directive. And if we need few fields to be public we could annotate those fields with a special permission (For example: **@auth(permissions: ['self:anyone'])**) so that our **@auth** directive can skip authorization on. This way as the schema grows, we can be explicit about and keep track of these publicly accessible fields along with avoiding unintentional leaks.
+
+Lets take an example to understand this better:
+
+**Schema without explicit deny first approach** ❌
+
+```graphql
+type Query {
+  # Missed adding an @auth for custoers query accidentally,
+  # but now its public by default and is sensitive
+  # This is bad ❌
+  customers: [Customer]
+  # Public health query - this is public by default
+  # and its okay since its non sensitive ✅
+  health: String
+  me: Customer @auth(permissions: ["self:customer"]) ✅
+}
+```
+
+**vs**
+
+**Schema with explicit DENY-FIST approach** ✅
+
+```graphql
+type Query {
+  # Missed adding an @auth for customers query accidentally,
+  # but now its denied by default so its not accessible to anyone
+  # This is good since it prevented accidental leak ✅
+  customers: [Customer]
+  # Public health query - Since we added @auth here and
+  # explicitly marked it as publicly accessible with self:anyone,
+  # its accessible ✅
+  health: String @auth(permission: ["self:anyone"])
+  me: Customer @auth(permissions: ["self:customer"]) ✅
+}
+```
+
+### Code
+
+In order to implement a deny first approach we need to make minor tweaks to our **getAuthorizedSchema** function.
+
+But before that lets add a new helper function **shouldDenyByDefault** that will return true if the field is not explicitly authorized.
+
+```js
+function shouldDenyFieldByDefault(fieldPermissions, typePermissions) {
+  // Check if a field has either field or type permissions
+  // If no, then return true (meaning deny this field)
+  const hasNoPermissions =
+    fieldPermissions.length === 0 && typePermissions.length === 0;
+  return hasNoPermissions;
+}
+```
+
+Next we modify the **getAuthorizedSchema** function to check if the field is explicitly authorized.
+
+```diff
+ export function getAuthorizedSchema(schema) {
+   const typePermissionMapping = gatherTypePermissions(schema);
+
+@@ -56,9 +63,21 @@ export function getAuthorizedSchema(schema) {
+       const fieldAuthDirective = getDirective(schema, fieldConfig, "auth")?.[0];
+       // 1.1 Get the permissions for the field
+       const fieldPermissions = fieldAuthDirective?.permissions ?? [];
+       // 1.2 Get the permissions for the field's type
+       const typePermissions = typePermissionMapping.get(typeName) ?? [];
+
++      // 1.3 Check if field should be denied by default
++      if (shouldDenyFieldByDefault(fieldPermissions, typePermissions)) {
++        // Replace, the resolver with a ForbiddenError throwing function.
++        // Optionally log here so it shows up while the server starts
++        fieldConfig.resolve = () => {
++          throw new ForbiddenError(
++            `No access control specified for ${typeName}.${fieldName}. Deny by default`
++          );
++        };
++        return fieldConfig;
++      }
++
+       // 2. If a @auth directive is found, replace the field's resolver with a custom resolver
+       if (fieldPermissions.length > 0 || typePermissions.length > 0) {
+         // 2.1. Get the original resolver on the field
+
+```
+
+Now for this schema, if we make
+
+```graphql
+type Query {
+  # Missed adding an @auth for customers query accidentally here
+  customers: [Customer]
+
+  # Public health query - should be publicly accessible
+  # explicitly marked it as publicly accessible with self:anyone,
+  health: String @auth(permission: ["self:anyone"])
+  me: Customer @auth(permissions: ["self:customer"])
+}
+```
+
+Then the following query will fail with a ForbiddenError since its now deny by default.
+
+```graphql
+query {
+  customers {
+    id
+  }
+}
+```
+
+Sweet! But we have a slight problem. Now if we try to make a query like so
+
+```graphql
+query {
+  health
+}
+```
+
+Then the following query also fails with a **ForbiddenError** even though we marked it with **@auth(permission: ["self:anyone"])**.
+This is because our **@auth** directive doesnt know yet that it has to allow access to any field / type marked with **@auth(permission: ["self:anyone"])**.
+
+Lets fix that by modifying our **isAuthorized** function.
+
+```diff
+ function isAuthorized(fieldPermissions, typePermissions, user) {
+   const userRoles = user?.roles ?? [];
+-  const userPermissions = new Set();
++  // Add self:anyone to user permissions by default
++  const userPermissions = new Set(["self:anyone"]);
+   // 1. Expand user roles to permissions
+   userRoles.forEach((roleKey) => {
+     const role = RolePermissions[roleKey] ?? RolePermissions.anonymous;
+@@ -46,6 +47,12 @@ function gatherTypePermissions(schema) {
+   return typePermissionMapping;
+ }
+```
+
+### Caveats to deny by default approach
+
+- **Deny by default approach is applied to all types and fields irrespective of whether they are top level types or not**.
+  Lets take the following schema as an example
+
+  ```graphql
+  type Mutation {
+    # Should be accessible to all users
+    login(username: String!): AccessToken! @auth(permissions: ["self:anyone"])
+  }
+
+  type AccessToken {
+    token: String
+  }
+  ```
+
+  If we now make the following query
+
+  ```graphql
+  mutation {
+    login(username: "test") {
+      token
+    }
+  }
+  ```
+
+  We would expect that the query would succeed since we explicitly marked the mutation with **self:anyone**.
+  But it should fail because the mutation returns a type **AccessToken** whose field dont have any permissions. So the fields of the AccessToken type are also denied by default.
+
+  To fix this we add a **@auth(permission: ["self:anyone"])** to the AccessToken type like so.
+
+  ```diff
+  -type AccessToken {
+  +type AccessToken @auth(permissions: ["self:anyone"]) {
+     token: String
+   }
+  ```
+
+- **We should skip internal apollo types otherwise our directive will deny them too by default**.
+  Apollo has some types and fields that it uses internally. For example, **\_\_typename**, **\_entities**, **\_service**, etc
+  We should skip these types and fields from our **@auth** directive
+
+  To skip these we can make the following change to **shouldDenyFieldByDefault** function:
+
+  ```diff
+  -function shouldDenyFieldByDefault(fieldPermissions, typePermissions) {
+  +function shouldDenyFieldByDefault(
+  +  fieldPermissions,
+  +  typePermissions,
+  +  fieldName,
+  +  typeName
+  +) {
+  +  if (fieldName.startsWith("_") || typeName.startsWith("_")) {
+  +    // Apollo's internal fields / types start with _
+  +    return false;
+  +  }
+     const hasNoPermissions =
+       fieldPermissions.length === 0 && typePermissions.length === 0;
+     return hasNoPermissions;
+  ```
+
+### Code link
+
+> Complete working code till here can be found at:
+>
+> https://github.com/a7ul/blog-graphql-auth-example under the tag **deny-by-default**
+>
+> ```
+> git clone https://github.com/a7ul/blog-graphql-auth-example
+> cd blog-graphql-auth-example
+> git checkout deny-by-default
+> ```
+>
+> or visit https://github.com/a7ul/blog-graphql-auth-example/tree/deny-by-default
+
+# Summary
+
+GraphQL is a really powerful tool for building apis that are versionless and well documented. As we introduce more types and fields to our schema, we need to make sure that we do so in a secure way. The **@auth** directive in this post allows us to introduce security with to our schema with following characteristics:
+
+- **Declarative** - We can use our schema as a documentation and source of truth for authorization.
+- **Flexible** - Type and field permissions allows us to introduce RBAC with ease without sacrificing DX.
+- **Deny first and explicit authorization** - Follows the principle of least privilege, so we deny access to fields that are not explicitly authorized in order to prevent accidental access to sensitive data.
+
+> The entire code for this post can be found at: https://github.com/a7ul/blog-graphql-auth-example
 
 # References
 
