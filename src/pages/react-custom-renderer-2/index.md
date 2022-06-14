@@ -116,7 +116,7 @@ I will try to explain what most of these methods do, but we will primarily focus
 We are trying to render **src/index.js** that looks like this:
 
 ```js
-const Text = props => {
+const Text = (props) => {
   return <p className={props.className}>{props.content}</p>
 }
 
@@ -151,7 +151,7 @@ Lets stub this function
 ```js
 const HostConfig = {
   now: Date.now,
-  getRootHostContext: function(...args) {
+  getRootHostContext: function (...args) {
     console.log('getRootHostContext', ...args)
   },
 }
@@ -164,31 +164,31 @@ Continuing the chain till we have no more errors we get:
 ```js
 const HostConfig = {
   now: Date.now,
-  getRootHostContext: function(...args) {
+  getRootHostContext: function (...args) {
     console.log('getRootHostContext', ...args)
   },
-  getChildHostContext: function(...args) {
+  getChildHostContext: function (...args) {
     console.log('getChildHostContext', ...args)
   },
-  shouldSetTextContent: function(...args) {
+  shouldSetTextContent: function (...args) {
     console.log('shouldSetTextContent', ...args)
   },
-  createTextInstance: function(...args) {
+  createTextInstance: function (...args) {
     console.log('createTextInstance', ...args)
   },
-  createInstance: function(...args) {
+  createInstance: function (...args) {
     console.log('createInstance', ...args)
   },
-  appendInitialChild: function(...args) {
+  appendInitialChild: function (...args) {
     console.log('appendInitialChild', ...args)
   },
-  finalizeInitialChildren: function(...args) {
+  finalizeInitialChildren: function (...args) {
     console.log('finalizeInitialChildren', ...args)
   },
-  prepareForCommit: function(...args) {
+  prepareForCommit: function (...args) {
     console.log('prepareForCommit', ...args)
   },
-  resetAfterCommit: function(...args) {
+  resetAfterCommit: function (...args) {
     console.log('resetAfterCommit', ...args)
   },
 }
@@ -555,7 +555,7 @@ For example: In the case of react-dom, it keeps track of all the currently focus
 Since we are aiming at a simple renderer, this will be a no-op for us.
 
 ```js
-prepareForCommit = function(rootContainerInstance) {}
+prepareForCommit = function (rootContainerInstance) {}
 ```
 
 ---
@@ -585,7 +585,7 @@ This function gets executed after the inmemory tree has been attached to the roo
 Since we are aiming at a simple renderer, this will be a no-op for us.
 
 ```js
-resetAfterCommit = function(rootContainerInstance) {}
+resetAfterCommit = function (rootContainerInstance) {}
 ```
 
 <br/>
@@ -695,18 +695,18 @@ Our HostConfig looks like this now:
 ```js
 const HostConfig = {
   now: Date.now,
-  getRootHostContext: function(nextRootInstance) {
+  getRootHostContext: function (nextRootInstance) {
     let rootContext = {}
     return rootContext
   },
-  getChildHostContext: function(parentContext, fiberType, rootInstance) {
+  getChildHostContext: function (parentContext, fiberType, rootInstance) {
     let context = { type: fiberType }
     return context
   },
-  shouldSetTextContent: function(type, nextProps) {
+  shouldSetTextContent: function (type, nextProps) {
     return false
   },
-  createTextInstance: function(
+  createTextInstance: function (
     newText,
     rootContainerInstance,
     currentHostContext,
@@ -714,7 +714,7 @@ const HostConfig = {
   ) {
     return document.createTextNode(newText)
   },
-  createInstance: function(
+  createInstance: function (
     type,
     newProps,
     rootContainerInstance,
@@ -743,8 +743,8 @@ const HostConfig = {
   ) => {
     return newProps.autofocus //simply return true for experimenting
   },
-  prepareForCommit: function(rootContainerInstance) {},
-  resetAfterCommit: function(rootContainerInstance) {},
+  prepareForCommit: function (rootContainerInstance) {},
+  resetAfterCommit: function (rootContainerInstance) {},
   commitMount: (domElement, type, newProps, fiberNode) => {
     domElement.focus()
   },

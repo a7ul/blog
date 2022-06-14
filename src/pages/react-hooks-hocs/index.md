@@ -38,8 +38,8 @@ export const useCountry = () => {
 }
 
 // HOC for class components
-export const withCountry = Component => {
-  return props => {
+export const withCountry = (Component) => {
+  return (props) => {
     const country = useCountry()
     return <Component {...props} country={country} />
   }
@@ -51,7 +51,7 @@ export const withCountry = Component => {
 **For a functional component you could do:**
 
 ```js
-const MyComponent = props => {
+const MyComponent = (props) => {
   const country = useCountry()
   return (
     <div>

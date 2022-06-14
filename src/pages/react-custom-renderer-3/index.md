@@ -22,18 +22,18 @@ Our HostConfig looks like this now:
 ```js
 const HostConfig = {
   now: Date.now,
-  getRootHostContext: function(nextRootInstance) {
+  getRootHostContext: function (nextRootInstance) {
     let rootContext = {}
     return rootContext
   },
-  getChildHostContext: function(parentContext, fiberType, rootInstance) {
+  getChildHostContext: function (parentContext, fiberType, rootInstance) {
     let context = { type: fiberType }
     return context
   },
-  shouldSetTextContent: function(type, nextProps) {
+  shouldSetTextContent: function (type, nextProps) {
     return false
   },
-  createTextInstance: function(
+  createTextInstance: function (
     newText,
     rootContainerInstance,
     currentHostContext,
@@ -41,7 +41,7 @@ const HostConfig = {
   ) {
     return document.createTextNode(newText)
   },
-  createInstance: function(
+  createInstance: function (
     type,
     newProps,
     rootContainerInstance,
@@ -70,8 +70,8 @@ const HostConfig = {
   ) => {
     return newProps.autofocus //simply return true for experimenting
   },
-  prepareForCommit: function(rootContainerInstance) {},
-  resetAfterCommit: function(rootContainerInstance) {},
+  prepareForCommit: function (rootContainerInstance) {},
+  resetAfterCommit: function (rootContainerInstance) {},
   commitMount: (domElement, type, newProps, fiberNode) => {
     domElement.focus()
   },
@@ -89,7 +89,7 @@ import React from 'react'
 // import ReactDOM from "react-dom";
 import CustomRenderer from './renderer'
 
-const Text = props => {
+const Text = (props) => {
   return <p className={props.className}>{props.content}</p>
 }
 
@@ -115,7 +115,7 @@ import React from 'react'
 // import ReactDOM from "react-dom";
 import CustomRenderer from './renderer'
 
-const Text = props => {
+const Text = (props) => {
   return <p className={props.className}>{props.content}</p>
 }
 
@@ -637,18 +637,18 @@ This is the hostConfig that I ended up with. I will paste it here for reference.
 ```js
 const HostConfig = {
   now: Date.now,
-  getRootHostContext: function(nextRootInstance) {
+  getRootHostContext: function (nextRootInstance) {
     let rootContext = {}
     return rootContext
   },
-  getChildHostContext: function(parentContext, fiberType, rootInstance) {
+  getChildHostContext: function (parentContext, fiberType, rootInstance) {
     let context = { type: fiberType }
     return context
   },
-  shouldSetTextContent: function(type, nextProps) {
+  shouldSetTextContent: function (type, nextProps) {
     return false
   },
-  createTextInstance: function(
+  createTextInstance: function (
     newText,
     rootContainerInstance,
     currentHostContext,
@@ -656,7 +656,7 @@ const HostConfig = {
   ) {
     return document.createTextNode(newText)
   },
-  createInstance: function(
+  createInstance: function (
     type,
     newProps,
     rootContainerInstance,
@@ -685,8 +685,8 @@ const HostConfig = {
   ) => {
     return newProps.autofocus //simply return true for experimenting
   },
-  prepareForCommit: function(rootContainerInstance) {},
-  resetAfterCommit: function(rootContainerInstance) {},
+  prepareForCommit: function (rootContainerInstance) {},
+  resetAfterCommit: function (rootContainerInstance) {},
   commitMount: (domElement, type, newProps, fiberNode) => {
     domElement.focus()
   },
@@ -694,7 +694,7 @@ const HostConfig = {
     parent.appendChild(child)
   },
   supportsMutation: true,
-  prepareUpdate: function(
+  prepareUpdate: function (
     instance,
     type,
     oldProps,
@@ -704,7 +704,7 @@ const HostConfig = {
   ) {
     return //return nothing.
   },
-  commitUpdate: function(
+  commitUpdate: function (
     instance,
     updatePayload,
     type,
@@ -714,26 +714,26 @@ const HostConfig = {
   ) {
     return //return nothing.
   },
-  commitTextUpdate: function(textInstance, oldText, newText) {
+  commitTextUpdate: function (textInstance, oldText, newText) {
     textInstance.nodeValue = newText
   },
-  appendChild: function(parentInstance, child) {
+  appendChild: function (parentInstance, child) {
     parentInstance.appendChild(child)
   },
   insertBefore: (parentInstance, child, beforeChild) => {
     parentInstance.insertBefore(child, beforeChild)
   },
-  removeChild: function(parentInstance, child) {
+  removeChild: function (parentInstance, child) {
     parentInstance.removeChild(child)
   },
-  insertInContainerBefore: function(container, child, beforeChild) {
+  insertInContainerBefore: function (container, child, beforeChild) {
     container.insertBefore(child, beforeChild)
   },
-  removeChildFromContainer: function(container, child) {
+  removeChildFromContainer: function (container, child) {
     container.removeChild(child)
   },
-  resetTextContent: function(domElement) {},
-  shouldDeprioritizeSubtree: function(type, nextProps) {
+  resetTextContent: function (domElement) {},
+  shouldDeprioritizeSubtree: function (type, nextProps) {
     return !!nextProps.hidden
   },
 }

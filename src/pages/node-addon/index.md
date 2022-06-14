@@ -11,6 +11,7 @@ According to nodejs.org:
 > Node.js Addons are dynamically-linked shared objects, written in C++, that can be loaded into Node.js using the require() function, and used just as if they were an ordinary Node.js module. They are used primarily to provide an interface between JavaScript running in Node.js and C/C++ libraries.
 
 There can be many reasons to write nodejs addons:
+
 1. You may want to access some native apis that is difficult using JS alone.
 2. You may want to integrate a third party library written in C/C++ and use it directly in NodeJs.
 3. You may want to rewrite some of the modules in C++ for performance reasons.
@@ -32,7 +33,6 @@ N-API is a stable API as of Node v10 (latest stable release when writing this ar
 To see a demo of N-API in action watch this youtube video:
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/-Oniup60Afs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
 
 This article will only focus on C++ addons for NodeJs using N-API. For this we will use the node-addon-api (https://github.com/nodejs/node-addon-api) package from the N-API team which contains header-only C++ wrapper classes for the N-API ( basically it provides C++ object model and exception handling semantics with low overhead).
 
@@ -65,6 +65,7 @@ npm install node-addon-api
 In the `package.json` set the attribute `gypfile:true` and setup the following files as below:
 
 `.gitignore`
+
 ```
 node_modules
 *.log
@@ -72,7 +73,8 @@ build
 ```
 
 `binding.gyp`
-```gyp
+
+```python
 {
     "targets": [{
         "target_name": "testaddon",
@@ -94,6 +96,7 @@ build
 ```
 
 `package.json`
+
 ```json
 {
   "name": "test-addon",
@@ -123,6 +126,7 @@ Also our package.json mentions a `index.js` file as its main file.
 Lets create both of them :
 
 `cppsrc/main.cpp`
+
 ```cpp
 
 /* cppsrc/main.cpp */
@@ -139,11 +143,10 @@ NODE_API_MODULE(testaddon, InitAll)
 
 ```js
 //index.js
-const testAddon = require('./build/Release/testaddon.node');
+const testAddon = require('./build/Release/testaddon.node')
 
-module.exports = testAddon;
+module.exports = testAddon
 ```
-
 
 The base boilerplate is complete. Lets try and build our addon.
 
@@ -173,14 +176,15 @@ Sadly you will not get any output here. Ideally you should use a debugger tool t
 
 ```js
 //index.js
-const testAddon = require('./build/Release/testaddon.node');
-console.log('addon',testAddon);
-module.exports = testAddon;
+const testAddon = require('./build/Release/testaddon.node')
+console.log('addon', testAddon)
+module.exports = testAddon
 ```
 
-Now run `index.js` again. 
+Now run `index.js` again.
 
 You should see an output like this :
+
 ```sh
 node index.js
 addon {}
@@ -189,11 +193,13 @@ addon {}
 Awesome !! Now we have a working setup to start with.
 
 Before we go ahead, lets take a look at `cppsrc/main.cpp` in detail:
+
 1. `#include<napi.h>` includes the napi header file so that we can access all the helper macros, classes and functions.
 2. `NODE_API_MODULE` is a macro that accepts modulename and registerfunction as parameters.
 3. In our case registerfunction is `InitAll` and it takes two parameters which are passed by N-API. First parameter `env` is the context that needs to be passed on to most N-API function and `exports` is the object used to set the exported functions and classes via N-API.
-   
+
 The source code documentation for NODE_API_MODULE says:
+
 ```cpp
 /**
 * This code defines the entry-point for the Node addon, it tells Node where to go
@@ -207,7 +213,7 @@ The source code documentation for NODE_API_MODULE says:
 NODE_API_MODULE(NODE_GYP_MODULE_NAME, Init)
 ```
 
-To read in more depth you can visit the documentation of node-gyp here: 
+To read in more depth you can visit the documentation of node-gyp here:
 
 https://github.com/nodejs/node-addon-api/blob/master/doc/node-gyp.md
 
@@ -247,20 +253,20 @@ std::string functionexample::hello(){
   return "Hello World";
 }
 
-Napi::String functionexample::HelloWrapped(const Napi::CallbackInfo& info) 
+Napi::String functionexample::HelloWrapped(const Napi::CallbackInfo& info)
 {
   Napi::Env env = info.Env();
   Napi::String returnValue = Napi::String::New(env, functionexample::hello());
-  
+
   return returnValue;
 }
 
-Napi::Object functionexample::Init(Napi::Env env, Napi::Object exports) 
+Napi::Object functionexample::Init(Napi::Env env, Napi::Object exports)
 {
   exports.Set(
 "hello", Napi::Function::New(env, functionexample::HelloWrapped)
   );
- 
+
   return exports;
 }
 ```
@@ -271,7 +277,7 @@ Lets take some time to understand `HelloWrapped` function. Every wrapped functio
 
 Every wrapped function takes in `CallbackInfo` as the input parameter. This contains things like the context and the input parameters that needs to be passed to the function.
 
-`Init` function is used to just set the export key as `hello` with corresponding wrapped function `HelloWrapped `.
+`Init` function is used to just set the export key as `hello` with corresponding wrapped function `HelloWrapped `.
 
 Now we need to make our `node-gyp` know that we have added extra c++ files. So make the following changes to `binding.gyp`, `main.cpp` and `index.js`
 
@@ -300,12 +306,12 @@ index f016c4e..f62ed77 100644
 @@ -1,7 +1,8 @@
  #include <napi.h>
 +#include "Samples/functionexample.h"
- 
+
  Napi::Object InitAll(Napi::Env env, Napi::Object exports) {
 -  return exports;
 +  return functionexample::Init(env, exports);
  }
- 
+
  NODE_API_MODULE(testaddon, InitAll)
 
 
@@ -323,32 +329,36 @@ index 65f955e..e91b98f 100644
 ```
 
 **Remember : Any change in c++ src files will need recompilation before you can use the changes in NodeJS.**
- 
+
 So make sure you run `npm run build` again after changing c++ files.
 
 Also when you add a new header file/cpp file :
-1. Add it to `binding.gyp` 
-2. Add it to `main.cpp` 
+
+1. Add it to `binding.gyp`
+2. Add it to `main.cpp`
 3. Do `npm rebuild` and access it via JS.
-   
-Now run it! 
+
+Now run it!
 
 ```
 node index.js 
 ```
+
 You should see the output as follows:
+
 ```
 node index.js
 addon { hello: [Function] }
 Hello World
 ```
+
 Voila 🚀 Now we have a hello world from C++ world into JS World!
 
 ---
 
 ## How about functions with input parameters ?
 
-Lets say that the function that we want to export has both input and output params. 
+Lets say that the function that we want to export has both input and output params.
 
 For example:
 
@@ -357,6 +367,7 @@ int add(int a, int b){
   return a + b;
 }
 ```
+
 To add the function we will make the following changes:
 
 ```diff
@@ -367,7 +378,7 @@ index 0bd9bc2..37b7eb9 100644
 @@ -4,13 +4,33 @@ std::string functionexample::hello(){
      return "Hello World";
  }
- 
+
 +int functionexample::add(int a, int b){
 +  return a + b;
 +}
@@ -377,19 +388,19 @@ index 0bd9bc2..37b7eb9 100644
      Napi::String returnValue = Napi::String::New(env, functionexample::hello());
      return returnValue;
  }
- 
+
 +
 +Napi::Number functionexample::AddWrapped(const Napi::CallbackInfo& info) {
 +    Napi::Env env = info.Env();
 +    if (info.Length() < 2 || !info[0].IsNumber() || !info[1].IsNumber()) {
 +        Napi::TypeError::New(env, "Number expected").ThrowAsJavaScriptException();
-+    } 
++    }
 +
 +    Napi::Number first = info[0].As<Napi::Number>();
 +    Napi::Number second = info[1].As<Napi::Number>();
 +
 +    int returnValue = functionexample::add(first.Int32Value(), second.Int32Value());
-+    
++
 +    return Napi::Number::New(env, returnValue);
 +}
 +
@@ -398,26 +409,26 @@ index 0bd9bc2..37b7eb9 100644
 +    exports.Set("add", Napi::Function::New(env, functionexample::AddWrapped));
      return exports;
  }
- 
- 
+
+
 diff --git a/cppsrc/Samples/functionexample.h b/cppsrc/Samples/functionexample.h
 index 44563aa..e15aa7b 100644
 --- a/cppsrc/Samples/functionexample.h
 +++ b/cppsrc/Samples/functionexample.h
 @@ -4,6 +4,10 @@ namespace functionexample {
- 
+
      std::string hello();
      Napi::String HelloWrapped(const Napi::CallbackInfo& info);
 -    Napi::Object Init(Napi::Env env, Napi::Object exports);
- 
+
 +    int add(int a, int b);
 +    Napi::Number AddWrapped(const Napi::CallbackInfo& info);
 +
 +    Napi::Object Init(Napi::Env env, Napi::Object exports);
-+    
++
  }
- 
- 
+
+
 diff --git a/index.js b/index.js
 index e91b98f..72860f8 100644
 --- a/index.js
@@ -432,7 +443,7 @@ index e91b98f..72860f8 100644
 
 ```
 
-**Explanation:** 
+**Explanation:**
 
 1. We added a simple `add` function.
 2. We added the wrapper for the add function : `AddWrapped` which is used to interface the add function with N-API.
@@ -460,6 +471,7 @@ Awesome 🥳
 Lets create a simple C++ class that stores a double value. The member functions are pretty self explanatory.
 
 `cppsrc/Samples/actualclass.cpp`
+
 ```cpp
 /* cppsrc/Samples/actualclass.cpp */
 
@@ -482,6 +494,7 @@ double ActualClass::add(double toAdd)
 ```
 
 `cppsrc/Samples/actualclass.h`
+
 ```cpp
 /* cppsrc/Samples/actualclass.h */
 
@@ -496,13 +509,14 @@ class ActualClass {
 ```
 
 I believe the above code is pretty straightforward and self explanatory.
-To export this class to JS side we will need to create a wrapper class. Lets name the wrapper class as `ClassExample `.
+To export this class to JS side we will need to create a wrapper class. Lets name the wrapper class as `ClassExample `.
 
 Create the wrapper Class as follows:
 
 > Please look at the `classexample.h` first and try to grasp the intent of the Wrapper class before going to the implementation.
 
 `cppsrc/Samples/classexample.h`
+
 ```cpp
 /* cppsrc/Samples/classexample.h */
 
@@ -516,7 +530,7 @@ class ClassExample : public Napi::ObjectWrap<ClassExample> {
 
  private:
   static Napi::FunctionReference constructor; //reference to store the class definition that needs to be exported to JS
-  Napi::Value GetValue(const Napi::CallbackInfo& info); //wrapped getValue function 
+  Napi::Value GetValue(const Napi::CallbackInfo& info); //wrapped getValue function
   Napi::Value Add(const Napi::CallbackInfo& info); //wrapped add function
   ActualClass *actualClass_; //internal instance of actualclass used to perform actual operations.
 };
@@ -524,6 +538,7 @@ class ClassExample : public Napi::ObjectWrap<ClassExample> {
 ```
 
 `cppsrc/Samples/classexample.cpp`
+
 ```cpp
 /* cppsrc/Samples/classexample.cpp */
 
@@ -588,17 +603,18 @@ Lets take a good look at the header file of our wrapper class `classexample.h`:
 
 As mentioned before, Anything that needs to be exported to JS world needs to be wrapped with N-API. Hence:
 
-1. First step is to create a wrapper class which extends `Napi::ObjectWrap<ClassExample>` . 
+1. First step is to create a wrapper class which extends `Napi::ObjectWrap<ClassExample>` .
 2. Just like in case of functions we need a `Init` method to set the export key.
 3. Except the `static Napi::FunctionReference constructor;` rest all the methods are self explanatory.
-   
+
 Now, lets take a look at the actual implementation `classexample.cpp`.
 
 1. `ClassExample::Init` function is responsible to create and set the export key. Here we will export the class as `ClassExample` to the JS side.
-   
+
 Important part here is:
+
 ```cpp
-Napi::Function func = DefineClass(env, "ClassExample", 
+Napi::Function func = DefineClass(env, "ClassExample",
 {
   InstanceMethod("add", &ClassExample::Add),
   InstanceMethod("getValue", &ClassExample::GetValue),
@@ -617,11 +633,11 @@ I think of it as the js context that needs to be passed around to most NAPI func
 1. Now lets see the implementation of `ClassExample::Add` function.
 
 ```cpp
-Napi::Value ClassExample::Add(const Napi::CallbackInfo& info) 
+Napi::Value ClassExample::Add(const Napi::CallbackInfo& info)
 {
   Napi::Env env = info.Env();
   Napi::HandleScope scope(env);
-  
+
   if (info.Length() != 1 || !info[0].IsNumber()) {
      Napi::TypeError::New(env, "Numberexpected").ThrowAsJavaScriptException();
   }
@@ -630,9 +646,10 @@ Napi::Value ClassExample::Add(const Napi::CallbackInfo& info)
   return Napi::Number::New(info.Env(), answer);
 }
 ```
-- Here input params are checked first using info from `env`. 
+
+- Here input params are checked first using info from `env`.
 - Now, to read a value from JS side we read it like `info[0].As<Napi::Number>();`.
-- Since C++ is a strongly typed language and JS is not. We have to convert every value that we get from JS side to its appropriate type. After we convert the value we simply call the internal `actualClass` instance and return the value. 
+- Since C++ is a strongly typed language and JS is not. We have to convert every value that we get from JS side to its appropriate type. After we convert the value we simply call the internal `actualClass` instance and return the value.
 - But since the value is a double we need to wrap it with a Napi::Number instance so that it can be passed to the JS side.
 
 **We are not done yet. Remember we need to now add entries to tell the compiler to compile the new source files we added.**
@@ -653,8 +670,8 @@ index 2d188af..031bf18 100644
          ],
          'include_dirs': [
              "<!@(node -p \"require('node-addon-api').include\")"
-             
-             
+
+
 diff --git a/cppsrc/main.cpp b/cppsrc/main.cpp
 index f62ed77..2b739d3 100644
 --- a/cppsrc/main.cpp
@@ -663,13 +680,13 @@ index f62ed77..2b739d3 100644
  #include <napi.h>
  #include "Samples/functionexample.h"
 +#include "Samples/classexample.h"
- 
+
  Napi::Object InitAll(Napi::Env env, Napi::Object exports) {
 -  return functionexample::Init(env, exports);
 +  functionexample::Init(env, exports);
 +  return ClassExample::Init(env, exports);
  }
- 
+
 -NODE_API_MODULE(testaddon, InitAll)
 +NODE_API_MODULE(NODE_GYP_MODULE_NAME, InitAll)
 
@@ -691,10 +708,11 @@ index 72860f8..d849e0e 100644
 ```
 
 Make the above changes and run `npm run build`, followed by `node index.js`.
- 
+
 Notice that we have to both `classexample.cpp` and `actualclass.cpp` in the `binding.gyp`. The reason is that both classes are written by us. If you have a thrid party library c++ file. Then you would need to include the precompiled dynamic library in the `libraries` section of `binding.gyp` instead.
 
 **Output:**
+
 ```
 node index.js
 addon { hello: [Function],
@@ -705,9 +723,10 @@ add  15
 Testing class initial value :  4.3
 After adding 3.3 :  7.6
 ```
+
 That was easy 😂 Wasn't it 😜?
 
-This **should be enough for most use cases**. But if you need to know how to send *class instances back/any complex object between JS and C++* read on.
+This **should be enough for most use cases**. But if you need to know how to send _class instances back/any complex object between JS and C++_ read on.
 
 ---
 
@@ -716,19 +735,18 @@ This **should be enough for most use cases**. But if you need to know how to sen
 Lets say we have a use case like below:
 
 ```js
-const prevInstance = new testAddon.ClassExample(4.3);
-console.log('Initial value : ', prevInstance.getValue());
-console.log('After adding 3.3 : ', prevInstance.add(3.3));
-const newFromExisting = new testAddon.ClassExample(prevInstance);
-console.log('Testing class initial value for derived instance');
-console.log(newFromExisting.getValue()); 
+const prevInstance = new testAddon.ClassExample(4.3)
+console.log('Initial value : ', prevInstance.getValue())
+console.log('After adding 3.3 : ', prevInstance.add(3.3))
+const newFromExisting = new testAddon.ClassExample(prevInstance)
+console.log('Testing class initial value for derived instance')
+console.log(newFromExisting.getValue())
 ```
 
 Here, we have an instance of `ClassExample` in `prevInstance`.
 
-And we want a new instance `newFromExisting` which has same value of `prevInstance`. For that, we want to pass the existing instance `prevInstance` to the constructor of `ClassExample `. Since, `prevInstance` is not a primitive value like int, double etc. The expected output of the last `console.log` should be `7.6` .
+And we want a new instance `newFromExisting` which has same value of `prevInstance`. For that, we want to pass the existing instance `prevInstance` to the constructor of `ClassExample `. Since, `prevInstance` is not a primitive value like int, double etc. The expected output of the last `console.log` should be `7.6` .
 Lets see how we can do that:
-
 
 ```diff
 diff --git a/cppsrc/Samples/classexample.cpp b/cppsrc/Samples/classexample.cpp
@@ -737,11 +755,11 @@ index 8dfa3cc..834f7ea 100644
 +++ b/cppsrc/Samples/classexample.cpp
 @@ -22,8 +22,17 @@ ClassExample::ClassExample(const Napi::CallbackInfo& info) : Napi::ObjectWrap<Cl
    Napi::HandleScope scope(env);
- 
+
    int length = info.Length();
 -  if (length != 1 || !info[0].IsNumber()) {
 -    Napi::TypeError::New(env, "Number expected").ThrowAsJavaScriptException();
-+  
++
 +  if (length != 1) {
 +    Napi::TypeError::New(env, "Only one argument expected").ThrowAsJavaScriptException();
 +  }
@@ -753,11 +771,11 @@ index 8dfa3cc..834f7ea 100644
 +    this->actualClass_ = new ActualClass(parent_actual_class_instance->getValue());
 +    return;
    }
- 
+
    Napi::Number value = info[0].As<Napi::Number>();
 @@ -51,4 +60,8 @@ Napi::Value ClassExample::Add(const Napi::CallbackInfo& info) {
    double answer = this->actualClass_->add(toAdd.DoubleValue());
- 
+
    return Napi::Number::New(info.Env(), answer);
 +}
 +
@@ -777,12 +795,12 @@ index 1f0cf69..7f6237f 100644
    static Napi::Object Init(Napi::Env env, Napi::Object exports);
    ClassExample(const Napi::CallbackInfo& info);
 +  ActualClass* GetInternalInstance();
- 
+
   private:
    static Napi::FunctionReference constructor;
-   
-   
-   
+
+
+
 diff --git a/index.js b/index.js
 index d849e0e..efce991 100644
 --- a/index.js
@@ -790,7 +808,7 @@ index d849e0e..efce991 100644
 @@ -3,8 +3,13 @@ console.log('addon',testAddon);
  console.log('hello ', testAddon.hello());
  console.log('add ', testAddon.add(5, 10));
- 
+
 +const prevInstance = new testAddon.ClassExample(4.3);
 +console.log('Initial value : ', prevInstance.getValue());
 +console.log('After adding 3.3 : ', prevInstance.add(3.3));
@@ -799,13 +817,12 @@ index d849e0e..efce991 100644
 +
 +console.log('Testing class initial value for derived instance');
 +console.log(newFromExisting.getValue());
- 
+
 -const classInstance = new testAddon.ClassExample(4.3);
 -console.log('Testing class initial value : ',classInstance.getValue());
 -console.log('After adding 3.3 : ',classInstance.add(3.3));
  module.exports = testAddon;
 ```
-
 
 In the above changes.
 
@@ -823,9 +840,10 @@ this->actualClass_ = new ActualClass(parent_actual_class_instance->getValue());
 
 return;
 ```
+
 So we Unwrap the object using the `unwrap` method and then to get to the `actualClass` instance of in the `ClassExample` we defined an additional method called `GetInternalInstance` which simply returns the internal `actualClass` reference. Finally, we take the value from `actualClass` instance and create new `actualClass` instance for the new `ClassExample` instance.
 
-Lets again run it! 
+Lets again run it!
 
 ```
 npm run build
@@ -833,6 +851,7 @@ node index.js
 ```
 
 **Output:**
+
 ```
 node index.js
 Initial value :  4.3

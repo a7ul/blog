@@ -6,7 +6,6 @@ featuredImage: renderer_in_short.png
 slug: react-custom-renderer-1
 ---
 
-
 This part will cover **the basics** needed to understand the renderer along with setup of boilerplate and initial configuration.
 
 - We will cover inital render phase in <a href='/react-custom-renderer-2/' target='_blank'>⚛️✌️ Part 2/3 - Beginners guide to Custom React Renderers...</a> and
@@ -106,7 +105,7 @@ class MyButton extends React.Component {
   }
 }
 
-const Content = props => <p>{props.text}</p>
+const Content = (props) => <p>{props.text}</p>
 
 const App = () => {
   return (
@@ -146,7 +145,7 @@ To explain it lets take an example:
 Here **Content** is a functional component.
 
 ```js
-const Content = props => {
+const Content = (props) => {
   return <p style={props.style}>{props.text}</p>
 }
 ```
@@ -267,7 +266,7 @@ Now modify **src/index.js** to look like this:
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-const Text = props => {
+const Text = (props) => {
   return <p className={props.className}>{props.content}</p>
 }
 
@@ -306,7 +305,7 @@ import React from 'react'
 // import ReactDOM from "react-dom";
 import CustomRenderer from './renderer'
 
-const Text = props => {
+const Text = (props) => {
   return <p className={props.className}>{props.content}</p>
 }
 

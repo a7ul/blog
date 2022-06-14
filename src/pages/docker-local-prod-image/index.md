@@ -6,19 +6,19 @@ featuredImage: architecture.jpg
 slug: docker-local-production-image
 ---
 
-*If you haven't read my previous post on [how to use Docker for local development](/docker-local-environment/). I highly recommend you read it before this.*
+_If you haven't read my previous post on [how to use Docker for local development](/docker-local-environment/). I highly recommend you read it before this._
 
 At Anyfin, we have completely embraced docker for both local development environment and production deployments. Using Docker in local development allows us to maintain a consistent environment on everyone's machine irrespective of their installed OS or dependencies. Hence, if we were to bump up a dependency like Node.js version for a service it propagates to all the developers when they do a git pull.
 
 To explain it better, let's take an example.
 
 > The complete source code used in this repo can be found here: https://github.com/a7ul/blog-same-docker-local-prod-example
+
 ## Example
 
 Let's say we have a backend Node.js service called **api-service** which depends on postgres database.
 
 ![example architecture](./architecture.svg)
-
 
 A typical setup would have three parts:
 
@@ -42,6 +42,7 @@ The folder structure can look something like this:
 ```
 
 `docker-compose.yml`
+
 ```yml
 version: '3.8'
 volumes:
@@ -49,8 +50,8 @@ volumes:
 services:
   api:
     build:
-      context: "./api"
-      dockerfile: "Dockerfile.development"
+      context: './api'
+      dockerfile: 'Dockerfile.development'
     command: sh -c "yarn install && yarn start"
     environment:
       - NODE_ENV=development
@@ -70,10 +71,10 @@ services:
       - POSTGRES_PASSWORD=secret
     ports:
       - 5432:5432
-
 ```
 
 `./api/Dockerfile.development` - development docker image
+
 ```c
 FROM node:16-alpine
 
@@ -83,6 +84,7 @@ RUN apk add --update graphicsmagick
 ```
 
 `./api/Dockerfile` - production docker image
+
 ```c
 FROM node:16-alpine
 
@@ -100,7 +102,6 @@ COPY . .
 
 CMD ["node", "index.js"]
 ```
-
 
 In order to run locally we would do:
 
@@ -121,7 +122,6 @@ We were using this setup for a while but over time we realised that anytime we u
 This was manual and if not done properly could lead to us using different dependencies for development and production.
 Hence, we tried to merge both the Dockerfiles into one.
 
-
 ## Multi stage Dockerfiles to the rescue
 
 Multi stage Dockerfile has multiple stages inside the same Dockerfile. This implies that we can have multiple docker images from the same Dockerfile.
@@ -129,14 +129,15 @@ Multi stage Dockerfile has multiple stages inside the same Dockerfile. This impl
 With multi stage dockerfile our setup will now only have a single Dockferfile for both production build and local development.
 
 `./api/Dockerfile`
+
 ```c
 # base image contains the dependencies and no application code
-FROM node:16-alpine as base  
+FROM node:16-alpine as base
 
 RUN apk add --update graphicsmagick
 
 # prod image inherits from base and adds application code
-FROM base as prod 
+FROM base as prod
 
 WORKDIR /home/node/app
 COPY package.json yarn.lock ./
@@ -180,10 +181,9 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=secret
     ports:
-      - 5432:5432 
+      - 5432:5432
 
 ```
-
 
 In order to run locally we would do:
 
@@ -197,8 +197,6 @@ and for building production docker image we could do
 cd api
 docker build . -t api:latest
 ```
-
-
 
 This way each service can just specify one single Dockerfile and we could reuse it for both development and production 🚀
 

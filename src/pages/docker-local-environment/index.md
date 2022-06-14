@@ -470,12 +470,11 @@ To remove all docker images:
 docker rmi $(docker images) -f
 ```
 
-
 ### How to use the same Dockerfile for both local development and production build?
 
-I wrote a follow up post all about this here: 
+I wrote a follow up post all about this here:
 
-> [🐳 Use the same Dockerfile for both local development and production with multi-stage builds](/docker-local-production-image) 
+> [🐳 Use the same Dockerfile for both local development and production with multi-stage builds](/docker-local-production-image)
 
 <br/>
 🧙‍ Thats all folks! Thanks for reading!

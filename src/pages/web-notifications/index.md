@@ -501,7 +501,7 @@ Now lets get back to **service.js**
 ```js
 // urlB64ToUint8Array is a magic function that will encode the base64 public key
 // to Array buffer which is needed by the subscription option
-const urlB64ToUint8Array = base64String => {
+const urlB64ToUint8Array = (base64String) => {
   const padding = '='.repeat((4 - (base64String.length % 4)) % 4)
   const base64 = (base64String + padding).replace(/\-/g, '+').replace(/_/g, '/')
   const rawData = atob(base64)
@@ -550,7 +550,7 @@ So lets change the **service.js** file to add functionality to save the subscrip
 ```js
 // urlB64ToUint8Array is a magic function that will encode the base64 public key
 // to Array buffer which is needed by the subscription option
-const urlB64ToUint8Array = base64String => {
+const urlB64ToUint8Array = (base64String) => {
   const padding = '='.repeat((4 - (base64String.length % 4)) % 4)
   const base64 = (base64String + padding).replace(/\-/g, '+').replace(/_/g, '/')
   const rawData = atob(base64)
@@ -562,7 +562,7 @@ const urlB64ToUint8Array = base64String => {
 }
 
 // saveSubscription saves the subscription to the backend
-const saveSubscription = async subscription => {
+const saveSubscription = async (subscription) => {
   const SERVER_URL = 'http://localhost:4000/save-subscription'
   const response = await fetch(SERVER_URL, {
     method: 'post',
@@ -597,7 +597,7 @@ Next step is to save subscription at the backend and then use the subscription t
 In your **service.js** add
 
 ```js
-self.addEventListener('push', function(event) {
+self.addEventListener('push', function (event) {
   if (event.data) {
     console.log('Push event!! ', event.data.text())
   } else {
@@ -664,7 +664,7 @@ app.get('/', (req, res) => res.send('Hello World!'))
 
 const dummyDb = { subscription: null } //dummy in memory store
 
-const saveToDatabase = async subscription => {
+const saveToDatabase = async (subscription) => {
   // Since this is a demo app, I am going to save this in a dummy in memory store. Do not do this in your apps.
   // Here you should be writing your db logic to save it.
   dummyDb.subscription = subscription
@@ -753,7 +753,7 @@ app.get('/', (req, res) => res.send('Hello World!'))
 
 const dummyDb = { subscription: null } //dummy in memory store
 
-const saveToDatabase = async subscription => {
+const saveToDatabase = async (subscription) => {
   // Since this is a demo app, I am going to save this in a dummy in memory store. Do not do this in your apps.
   // Here you should be writing your db logic to save it.
   dummyDb.subscription = subscription
@@ -840,7 +840,7 @@ The final **service.js** file looks like this:
 ```js
 // urlB64ToUint8Array is a magic function that will encode the base64 public key
 // to Array buffer which is needed by the subscription option
-const urlB64ToUint8Array = base64String => {
+const urlB64ToUint8Array = (base64String) => {
   const padding = '='.repeat((4 - (base64String.length % 4)) % 4)
   const base64 = (base64String + padding).replace(/\-/g, '+').replace(/_/g, '/')
   const rawData = atob(base64)
@@ -851,7 +851,7 @@ const urlB64ToUint8Array = base64String => {
   return outputArray
 }
 
-const saveSubscription = async subscription => {
+const saveSubscription = async (subscription) => {
   const SERVER_URL = 'http://localhost:4000/save-subscription'
   const response = await fetch(SERVER_URL, {
     method: 'post',
@@ -878,7 +878,7 @@ self.addEventListener('activate', async () => {
   }
 })
 
-self.addEventListener('push', function(event) {
+self.addEventListener('push', function (event) {
   if (event.data) {
     console.log('Push event!! ', event.data.text())
     showLocalNotification('Yolo', event.data.text(), self.registration)

@@ -53,26 +53,26 @@ Lets take few scenarios.
 If you are using the standalone Apollo Server to run your application, you could authenticate the user in the context layer like so:
 
 ```js
-import { ApolloServer } from 'apollo-server';
+import { ApolloServer } from 'apollo-server'
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   context: ({ req }) => {
     // Get the user token from the headers.
-    const token = req.headers.authorization || '';
+    const token = req.headers.authorization || ''
 
     // Try to retrieve a user with the token
-    const user = getUser(token);
+    const user = getUser(token)
 
     // The resolvers can now access the user via the context
-    return { user };
+    return { user }
   },
-});
+})
 
 server.listen().then(({ url }) => {
-  console.log(`🚀 Server ready at ${url}`);
-});
+  console.log(`🚀 Server ready at ${url}`)
+})
 ```
 
 ## apollo-server-express (Apollo Server Express)
@@ -81,12 +81,12 @@ In the case of Apollo Server with Express or similar, you can authenticate the u
 Hence, here if the jwt is expired we could return early with a 401 error to the client.
 
 ```js
-import { ApolloServer, gql } from 'apollo-server-express';
-import express from 'express';
-import { expressjwt } from 'express-jwt';
+import { ApolloServer, gql } from 'apollo-server-express'
+import express from 'express'
+import { expressjwt } from 'express-jwt'
 
 async function startApolloServer(typeDefs, resolvers) {
-  const app = express();
+  const app = express()
 
   // 1. Authenticate the user before passing request to apollo server
   app.use(
@@ -95,7 +95,7 @@ async function startApolloServer(typeDefs, resolvers) {
       credentialsRequired: false,
       algorithms: ['HS256'],
     })
-  );
+  )
 
   const server = new ApolloServer({
     typeDefs,
@@ -104,17 +104,17 @@ async function startApolloServer(typeDefs, resolvers) {
       // 2. Map the authenticated user from express to the context
       user: req.auth,
     }),
-  });
+  })
 
-  await server.start();
-  server.applyMiddleware({ app });
+  await server.start()
+  server.applyMiddleware({ app })
 
   app.listen({ port: 3000 }, () =>
     console.log(`🚀 Server ready at http://localhost:3000${server.graphqlPath}`)
-  );
+  )
 }
 
-await startApolloServer(typeDefs, resolvers);
+await startApolloServer(typeDefs, resolvers)
 ```
 
 ## Infrastructure layer
@@ -134,20 +134,20 @@ In the initial stages of building our GraphQL application, the most basic approa
 ```js
 context: ({ req }) => {
   // try to retrieve a user with the token
-  const user = getUser(req);
+  const user = getUser(req)
 
   // Block if non authenticated users should not be allowed to access any data
   if (!user) {
-    throw new AuthenticationError('you must be logged in');
+    throw new AuthenticationError('you must be logged in')
   }
 
   // Also check user roles/permissions inside the retrieved user here
   if (!user.roles.includes('admin')) {
-    throw new ForbiddenError('you must be an admin');
+    throw new ForbiddenError('you must be an admin')
   }
   // add the user to the context
-  return { user };
-};
+  return { user }
+}
 ```
 
 ## Role based access control or RBAC
@@ -301,35 +301,35 @@ Next, lets create a `getAuthorizedSchema` function that will take a GraphQL sche
 **src/graphql/directives.js**
 
 ```js
-import { mapSchema, getDirective, MapperKind } from '@graphql-tools/utils';
+import { mapSchema, getDirective, MapperKind } from '@graphql-tools/utils'
 
 export function getAuthorizedSchema(schema) {
   const authorizedSchema = mapSchema(schema, {
     // Executes once for each object field definition in the schema
     [MapperKind.OBJECT_FIELD]: (fieldConfig) => {
       // 1. Try to get the @auth directive config on the field
-      const fieldAuthDirective = getDirective(schema, fieldConfig, 'auth')?.[0];
+      const fieldAuthDirective = getDirective(schema, fieldConfig, 'auth')?.[0]
 
       // 2. If a @auth directive is found, replace the field's resolver with a custom resolver
       if (fieldAuthDirective) {
         // 2.1. Get the original resolver on the field
-        const originalResolver = fieldConfig.resolve ?? defaultFieldResolver;
+        const originalResolver = fieldConfig.resolve ?? defaultFieldResolver
         // 2.2. Replace the field's resolver with a custom resolver
         fieldConfig.resolve = (source, args, context, info) => {
-          const user = context.user;
-          const fieldPermissions = fieldAuthDirective.permissions;
+          const user = context.user
+          const fieldPermissions = fieldAuthDirective.permissions
           if (!isAuthorized(fieldPermissions, user)) {
             // 2.3 If the user doesn't have the required permissions, throw an error
-            throw new ForbiddenError('Unauthorized');
+            throw new ForbiddenError('Unauthorized')
           }
           // 2.4 Otherwise call the original resolver and return the result
-          return originalResolver(source, args, context, info);
-        };
+          return originalResolver(source, args, context, info)
+        }
       }
-      return fieldConfig;
+      return fieldConfig
     },
-  });
-  return authorizedSchema;
+  })
+  return authorizedSchema
 }
 ```
 
@@ -337,21 +337,21 @@ where `isAuthorized` function would check if the user has the required permissio
 
 ```js
 function isAuthorized(fieldPermissions, user) {
-  const userRoles = user?.roles ?? [];
-  const userPermissions = new Set();
+  const userRoles = user?.roles ?? []
+  const userPermissions = new Set()
   // 1. Expand user roles to permissions
   userRoles.forEach((roleKey) => {
-    const role = RolePermissions[roleKey] ?? RolePermissions.anonymous;
-    role.permissions?.forEach((permission) => userPermissions.add(permission));
-  });
+    const role = RolePermissions[roleKey] ?? RolePermissions.anonymous
+    role.permissions?.forEach((permission) => userPermissions.add(permission))
+  })
 
   // 2. Check if atleast one of the user's permissions matches that of required for accessing the field
   for (const permission of fieldPermissions) {
     if (userPermissions.has(permission)) {
-      return true;
+      return true
     }
   }
-  return false;
+  return false
 }
 ```
 
@@ -360,10 +360,10 @@ Now we can use the `getAuthorizedSchema` function just before apollo server is c
 ```js
 async function startApolloServer(typeDefs, resolvers) {
   // Create the base executable schema
-  let schema = makeExecutableSchema({ typeDefs, resolvers });
+  let schema = makeExecutableSchema({ typeDefs, resolvers })
 
   // Transform the schema by applying directive logic
-  schema = getAuthorizedSchema(schema);
+  schema = getAuthorizedSchema(schema)
 
   // Provide the transformed schema to the ApolloServer constructor
   const server = new ApolloServer({
@@ -371,16 +371,16 @@ async function startApolloServer(typeDefs, resolvers) {
     context: ({ req }) => ({
       user: req.auth,
     }),
-  });
+  })
 
-  await server.start();
+  await server.start()
 
   server.listen().then(({ url }) => {
-    console.log(`🚀 Server ready at ${url}`);
-  });
+    console.log(`🚀 Server ready at ${url}`)
+  })
 }
 
-await startApolloServer(typeDefs, resolvers);
+await startApolloServer(typeDefs, resolvers)
 ```
 
 ### Code link
@@ -534,18 +534,18 @@ let add a new function `gatherTypePermissions` which will parse through the sche
 ```js
 function gatherTypePermissions(schema) {
   // 1. Create a map to store a type and its permissions
-  const typePermissionMapping = new Map();
+  const typePermissionMapping = new Map()
   mapSchema(schema, {
     // 2. Executes once for each type definition in the schema
     [MapperKind.OBJECT_TYPE]: (typeConfig) => {
-      const typeAuthDirective = getDirective(schema, typeConfig, 'auth')?.[0];
-      const typeLevelPermissions = typeAuthDirective?.permissions ?? [];
+      const typeAuthDirective = getDirective(schema, typeConfig, 'auth')?.[0]
+      const typeLevelPermissions = typeAuthDirective?.permissions ?? []
       // 3. Collect permissions for each type
-      typePermissionMapping.set(typeConfig.name, typeLevelPermissions);
-      return typeConfig;
+      typePermissionMapping.set(typeConfig.name, typeLevelPermissions)
+      return typeConfig
     },
-  });
-  return typePermissionMapping;
+  })
+  return typePermissionMapping
 }
 ```
 
@@ -707,8 +707,8 @@ function shouldDenyFieldByDefault(fieldPermissions, typePermissions) {
   // Check if a field has either field or type permissions
   // If no, then return true (meaning deny this field)
   const hasNoPermissions =
-    fieldPermissions.length === 0 && typePermissions.length === 0;
-  return hasNoPermissions;
+    fieldPermissions.length === 0 && typePermissions.length === 0
+  return hasNoPermissions
 }
 ```
 
