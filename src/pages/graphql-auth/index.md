@@ -9,19 +9,19 @@ slug: graphql-auth
 GraphQL is a great way to build strongly typed, self documenting applications. One of the key concepts in GraphQL is that the server provides a single endpoint where it exposes all the data in a graph like structure that the clients can request from.
 Hence, our application needs to control who (authentication) can see and interact with what parts (authorization) of the data it provides.
 
-There are multiple ways to introduce authentication and authorization into our GraphQL application. In this post we will be design our GraphQL application security with the following characteristics:
+There are multiple ways to introduce authentication and authorization into our GraphQL application. In this post we will be designing our GraphQL application security with the following characteristics:
 
-- **Declarative** - We define all the access control rules in the schema itself. This makes it easier to understand and maintain the access declaratively as the schema evolves. Effectively, our schema also becomes the source of truth for the access control rules.
-- **Role based access control (RBAC)** - Allow users to access different parts of the data based on their role.
-- **Deny first and explicit authorization** - Following the principle of least privilege, we would like to deny access to fields that are not explicitly authorized. This is a good way to prevent accidental access to sensitive data.
+- **Declarative** - We will define all the access control rules in the schema itself. This makes it easier to maintain and understand access rules as the schema evolves. Essentially, our schema also becomes the source of truth for all the access control rules.
+- **Flexible Role based access control (RBAC)** - Allow different typeof users to access different parts of the graph based on their role.
+- **Deny first and explicit authorization** - Our authentication system should be based on the principle of least privilege. Unless explicitly authorized all access should be denied. This is a good way to prevent accidental access to sensitive data.
 
-These could be implemented in any language that supports GraphQL. In this post, we will be using [Apollo](https://www.apollographql.com/) to see how we can implement these concepts.
+The concepts we introduce here could be implemented in any language that supports GraphQL. In this post, we will be implementing these using [Apollo](https://www.apollographql.com/) and JavaScript.
 
 # Authentication
 
 > **Authentication** is determining if a given user is logged in, and subsequently determining who the user is.
 
-Typically, when a request comes in, it goes through the following layers inside a typical GraphQL server:
+Typically, when a request comes in, it goes through the following layers inside a GraphQL server:
 
 ```mermaid
 flowchart LR
@@ -40,13 +40,13 @@ flowchart LR
 
 - **Schema**: The schema layer parses the GraphQL query and determines if the query is valid.
 - **Context**: The context layer is responsible for setting up a context object that is passed to all the resolvers of the query. A new context is created for every request.
-- **Resolvers**: The resolvers layer contain the business logic to fetch and transform data to be returned to the client.
+- **Resolvers**: The resolver layer contains the business logic of the application.
 
 <br/>
 
-Since GraphQL is unopinionated about the authentication process, we can implement authentication at various stages of the request lifecycle. But ideally, we should be authenticating our users as early as possible. We could also use many different authentication methods, such as JWT, OpenID Connect, etc. Here, we will not cover these methods but focus on GraphQL.
+Since, GraphQL is unopinionated about the authentication process, we can implement authentication at any of the stages of the request lifecycle. But ideally, we should be authenticating our users as early as possible. There is also no limitation on the type of authentication method, such as JWT, OpenID Connect, etc. Here, we will not cover these methods but focus on GraphQL.
 
-Lets take few scenarios.
+Lets take few scenarios to see how authentication could be implemented.
 
 ## apollo-server (Apollo Server)
 
@@ -77,8 +77,8 @@ server.listen().then(({ url }) => {
 
 ## apollo-server-express (Apollo Server Express)
 
-In the case of Apollo Server with Express or similar, you can authenticate the user even before the request reaches the apollo server.
-Hence, here if the jwt is expired we could return early with a 401 error to the client.
+In the case of Apollo Server with Express or similar, we can authenticate the user even before the request reaches the apollo server using an express middleware.
+For example, if we are using JWT for authentication and if we receive a request with an expired jwt, we could return early with a 401 error to the client.
 
 ```js
 import { ApolloServer, gql } from 'apollo-server-express';
@@ -129,7 +129,7 @@ After a request is authenticated and the user is known, we can determine what th
 
 ## Basic all or nothing approach
 
-In the initial stages of building our GraphQL application, the most basic approach we can do is deny unauthorized or users with incorrect roles the ability to execute a query at all. Since this is an all or nothing approach, it could also be used in highly restrictive environments that provide no publicly accessible fields or like an internal tool or an independent microservice that shouldn't be exposed to the public.
+In the initial stages of building a GraphQL application, the most basic approach to authorization we can follow is to deny users with incorrect permissions / roles the ability to execute any query. This is an all or nothing approach, hence it could also be used in cases such as highly restrictive environmetns that provide no publicly accessible fields or maybe we have an internal tool / microservice that shouldn't be exposed to the public.
 
 ```js
 context: ({ req }) => {
@@ -152,15 +152,15 @@ context: ({ req }) => {
 
 ## Role based access control or RBAC
 
-Typically as the project grows we would have users with different roles. For example, we could have users with roles such as **employee**, **customer**, **guest** or even other **services** etc. The basic all or nothing approach would then not be able to cut it. Along with users with different roles, we would also have growing types of data with different access requirements.
+As the project grows, we would have users who have different roles accessing our application. For example, we could have users with roles such as **employee**, **customer**, **guest** or it could even be other **services** accessing our application etc. Along with users, our schema would also have different data types that have different access requirements. Hence, the basic all or nothing approach would then not cut it.
 
-In order to support role based access to different parts of our GraphQL schema (and hence different types of data), we can think about authorization in terms of **roles** and **permissions**.
+We would instead need to introduce RBAC (role based access control) to our GraphQL schema. In order to support this, we can think about authorization in terms of **roles** and **permissions**.
 
 ### Roles
 
-Roles are identifiers assigned to different users of the application to restrict their access. For example, we can assign an employee the role **employee** and a customer the role **customer**. In practice, this could also be more complex with users having multiple roles like **["employee", "roles-editor"]** or **["employee-readonly", "billing-manager"]**, etc.
+Roles are identifiers assigned to different **groups of users** of the application to restrict their access. For example, we can assign an employee the role **employee** and a customer the role **customer**. In practice, this could be more complex with users having multiple roles too, like **["employee", "roles-editor"]** or **["employee-readonly", "billing-manager"]**, etc.
 
-if we are using JWTs for auth then we could even assign them as part of the payload of a user's jwt token:
+If we are using JWTs for auth then we could assign them as part of the payload of a user's jwt token since the roles are not really sensitive information.
 
 ```json
 {
@@ -174,9 +174,11 @@ if we are using JWTs for auth then we could even assign them as part of the payl
 
 ### Permissions
 
-Permissions are identifiers assigned to different groups of data in your application. We would assign permissions to each field in the GraphQL schema to mark its access requirements. The idea is to use an **@auth** GraphQL schema directive to annotate permissions for each field (We will look at **@auth**'s implementation in a bit).
+Permissions are identifiers assigned to different **groups of data** in your application. For example, all fields of a Invoice type can have the permission **invoice:read** to denote that a user should have read permission for invoices to access these fields in the schema.
 
-For example, consider a GraphQL schema with the following **@auth** anotations:
+The idea is to use an **@auth schema directive** to annotate permissions for each field in the GraphQL schema itself. (We will look at schema directive and @auth's implementation in detail in a bit).
+
+For example, consider a GraphQL schema with the following @auth anotations:
 
 ```graphql
 directive @auth(permissions: [String!]) on FIELD_DEFINITION
@@ -215,16 +217,16 @@ type Customer {
 
 Here, each field has a permission assigned to it. There are few scenarios here:
 
-- **customers** field should only be accessible to users with the permission `customer:read`.
-- **me** field should only be accessible to the currently logged in customer. Here we annotated the field with a `self:customer` permission. This could be any string, but in our auth system, lets consider this to be a special purpose permission which would only be assigned to the customers. Hence, any field annotated with `self:customer` will only be accessible to the currently logged in customer and not to any other user.
+- **customers** field should only be accessible to users with the permission **customer:read**.
+- **me** field should only be accessible to the currently logged in customer. Here, we annotated the field with a **self:customer** permission. This could be any string, but in our auth system, lets consider this to be a special purpose permission which would only be assigned to the tokens generated for a customer. Hence, any field annotated with **self:customer** will only be accessible to the currently logged in customer and not to any other user. Similarly, we could have **self:employee**, **self:admin**, etc
 - **login** mutation has no permissions assigned to it and hence it should be accessible to all users
-- **updateCustomer** mutation should only be accessible to employees with the permission `customer:write`.
-- **updateEmployeeRole** mutation should only be accessible to certain employees with higher privileges (with the permission `iam:write`).
-- **Customer.internalNotes** field should only be accessible to employees with the permission `notes:read` and not to the customer too. It also shows, that we should be able to restrict access at any level of the GraphQL schema.
+- **updateCustomer** mutation should only be accessible to employees with the permission **customer:write**.
+- **updateEmployeeRole** mutation should only be accessible to certain employees with higher privileges (with the permission **iam:write**).
+- **Customer.internalNotes** field should only be accessible to employees with the permission **notes:read** and not to the customer themselves. Also, we should be able to restrict access at any level of the GraphQL schema.
 
 ### Linking roles and permissions
 
-Now in order to link roles to these permissions, we can think of roles as a _collection_ of permissions.
+Now in order to link roles to these permissions, we can think of **roles as a collection of permissions**.
 Extending the previous example, the mapping of roles to permissions could look like this:
 
 ```json
@@ -252,28 +254,28 @@ Extending the previous example, the mapping of roles to permissions could look l
 
 Here,
 
-- **anonymous** role has no permissions assigned to it. This could be the default role for all users. Hence they would only have access to the public fields.
+- **anonymous** role has no permissions assigned to it. This could be the default role for all users. Hence they would only have access to the fields that are public with no permission requirements.
 - **customer** role could have only the special purpose permission **self:customer** assigned to it. This way they would only have access to fields marked with **self:customer**.
-- We could also have multiple roles assigned to a user. For example an employee could have read only access with **employee-readonly** role, while another employee could have higher privilege with roles such as **employee** and **roles-editor**.
+- A user can also have multiple roles. For example, we could have certain employees that can only read only access (We can have a **employee-readonly** role for this purpose where the user would get **customer:read**, **notes:read** permissions) while some employees might have write access + access to maybe editing roles of other users (Here, we can assign the user multiple roles such as **employee** and **roles-editor** meaning they will have the combined permissions of both roles).
 - **profile-service** Another use case of the roles system could be to provide access to other interal / external services to only certain parts of the GraphQL schema. Here, if we imagine a hypothetical **profile-service** that would have the role **profile-service**. With this role, it would only have read access to the customer data since it only has **customer:read** permission.
 
 Separating roles and permissions provides us with a lot of flexibility in managing role based access to our GraphQL schema.
 Roles reflect the type of users in the business while permissions usually are closer to the type of data we have.
-Both roles and permissions evolve independently over time as the type of users and data grows. Hence, as we scale our application, the roles-permission mapping enables us to have a fine grained and granular access control mechanism for our data and users.
+Both roles and permissions evolve independently over time as the type of users and data grow. Hence, as we scale our application, the roles-permissions mapping would enable us to have a fine grained and granular access control mechanism for our data and users.
 
 # Implementation of @auth
 
 ## Field level authorization
 
-As mentioned above, for authorization, we will be using the **@auth** schema directive to annotate permissions for each field. A schema directive in GraphQL decorates part of the GraphQL schema with additional configuration in order to add custom functionality. More details about directives here: https://www.apollographql.com/docs/apollo-server/schema/directives/
+As mentioned above, for authorization, we will be using the @auth schema directive to annotate permissions for each field. A schema directive in GraphQL decorates part of the GraphQL schema with additional configuration in order to add custom functionality. More details about directives here: https://www.apollographql.com/docs/apollo-server/schema/directives/
 
-Our aim is to implement an **@auth** schema directive to perform authorization on a field before our query is executed by its resolvers.
+Our aim is to implement an @auth schema directive to perform authorization on a field before our query is executed by its resolvers.
 
 In order to implement a schema directive for fields we will first need to declare it in our schema.
-Once declared, we can then go ahead and annotate our fields with the **@auth** directive.
+Once declared, we can then go ahead and annotate our fields with the @auth directive.
 
 ```graphql
-# Definition
+# Declaration
 directive @auth(permissions: [String!]) on FIELD_DEFINITION
 
 type Query {
@@ -285,7 +287,7 @@ type Query {
 In order to implement @auth directive's functionality, we would need to perform the following steps:
 
 - Parse the GraphQL schema and walk through each field
-- When we encounter a field with **@auth** directive, we will replace the field's resolver with a custom resolver.
+- When we encounter a field with @auth directive, we will replace the field's resolver with a custom resolver.
 - The custom resolver's job would be to check if a user has the required permissions and if they do, call the field's original resolver and return the result. If the user doesn't have the required permissions, we would throw an error.
 
 ### Code
@@ -296,7 +298,7 @@ We would need to install the following packages:
 npm install @graphql-tools/schema @graphql-tools/utils
 ```
 
-Next, lets create a `getAuthorizedSchema` function that will take a GraphQL schema as input and return a new schema with the **@auth** directive implemented.
+Next, lets create a **getAuthorizedSchema** function that will take a GraphQL schema as input and return a new schema with the functionality of **@auth directive** implemented.
 
 **src/graphql/directives.js**
 
@@ -333,7 +335,7 @@ export function getAuthorizedSchema(schema) {
 }
 ```
 
-where `isAuthorized` function would check if the user has the required permissions for the field.
+where **isAuthorized** function would check if the user has the required permissions for the field.
 
 ```js
 function isAuthorized(fieldPermissions, user) {
@@ -355,7 +357,7 @@ function isAuthorized(fieldPermissions, user) {
 }
 ```
 
-Now we can use the `getAuthorizedSchema` function just before apollo server is created:
+Now we can use the **getAuthorizedSchema** function just before apollo server is created:
 
 ```js
 async function startApolloServer(typeDefs, resolvers) {
@@ -431,9 +433,9 @@ type Invoice {
 }
 ```
 
-Here, we want to only allow users with permission **invoice:read** to access the customer invoices. To do so we added a field level authorization directive **@auth(permissions: ["invoice:read"])** to our query **getCustomerInvoices**.
+Here, if you look at **getCustomerInvoices** query, we want to allow only those users who have the permission **invoice:read** to access it. To do so we added a field level authorization directive `@auth(permissions: ["invoice:read"])` to our query **getCustomerInvoices**.
 
-But, the invoice for a customer is also exposed via the type Customer's **invoices** field. Hence, a user with **customer:read** can read a customer's invoice even if they dont have the **invoice:read** permission via the query
+But, the invoice for a customer is also exposed via the **Customer** type's **invoices** field. Hence, a user with **customer:read** can read a customer's invoice even if they dont have the **invoice:read** permission via the following query
 
 ```graphql
 query {
@@ -447,11 +449,11 @@ query {
 }
 ```
 
-A quick fix for this issue would be to add an **@auth** directive to the type Customer's **invoices** field. But, this feels like we have to manually keep track of new fields that are added to the schema and add **@auth** to block access. This is error prone and can cause accidental leaks. Ideally, our auth system should be designed in a way that it prevents this behaviour by default.
+A **quick fix** for this issue would be to add an @auth directive to the **Customer** type's **invoices** field. But, this feels like we have to manually keep track of new fields that are added to the schema and add @auth to block access. This is error prone and can cause accidental leaks. Ideally, our auth system should be designed in a way that it prevents this behaviour by default.
 
-**The solution** to this problem is to make it possible to add an **@auth** directive at the **type level**.
+**The solution** to this problem is to make it possible to add an **@auth directive at the type level**.
 
-We could add **@auth** to the type **Invoice**
+That is, we could add @auth to the type **Invoice** like so
 
 ```graphql
 type Query {
@@ -481,7 +483,7 @@ type Invoice @auth(permissions: ["invoice:read"]) {
 }
 ```
 
-By adding **@auth to the type Invoice**, we are saying that by default all the fields of the type **Invoice** will be accessible only to users with permission **invoice:read**. Hence, even if you a user can read the type **Invoice**, they will not be able to read the fields of the the type if they dont have the permission **invoice:read**.
+By adding **@auth to the type Invoice**, we are saying that by default all the fields of the type **Invoice** will be accessible only to users with permission **invoice:read**. Hence, even if you a user can read a field of type **Invoice**, they will not be able to read the fields of the Invoice type if they dont have the permission **invoice:read**.
 
 Both of these are essentially equivalent:
 
@@ -525,9 +527,7 @@ type Invoice @auth(permissions: ["invoice:read"]) {
 }
 ```
 
-Next, before we modify our `getAuthorizedSchema` function to support **@auth** directive at the type level,
-
-let add a new function `gatherTypePermissions` which will parse through the schema and return a map of types and their permissions.
+Before we modify our **getAuthorizedSchema** function to support @auth directive at the type level, we will first add a new helper function **gatherTypePermissions** which will go through the schema and return a map of types and their permissions.
 
 **src/graphql/directives.js**
 
@@ -549,7 +549,7 @@ function gatherTypePermissions(schema) {
 }
 ```
 
-Now, lets modify `getAuthorizedSchema` to use the type level permissions.
+Next, lets modify **getAuthorizedSchema** to use the type level permissions we gathered with **gatherTypePermissions**.
 
 ```diff
 export function getAuthorizedSchema(schema) {
@@ -563,10 +563,10 @@ export function getAuthorizedSchema(schema) {
        const fieldAuthDirective = getDirective(schema, fieldConfig, "auth")?.[0];
 +      // 1.1 Get the permissions for the field
 +      const fieldPermissions = fieldAuthDirective?.permissions ?? [];
-+      // 1.1 Get the permissions for the field's type
++      // 1.2 Get the permissions for the field's type
 +      const typePermissions = typePermissionMapping.get(typeName) ?? [];
 
-       // 2. If a @auth directive is found, replace the field's resolver with a custom resolver
+       // 2. If an @auth directive is found, replace the field's resolver with a custom resolver
 -      if (fieldAuthDirective) {
 +      if (fieldPermissions.length > 0 || typePermissions.length > 0) {
          // 2.1. Get the original resolver on the field
@@ -608,7 +608,7 @@ and finally add support for **typePermissions** to **isAuthorized** function.
 
 ```
 
-Now the following query should return unauthorized error for a user with only `customer:read` and no `invoice:read` permission, since the invoice fields now required `invoice:read` permission.
+Now the following query should return unauthorized error for a user with only **customer:read** and no **invoice:read** permission, since the invoice fields now requires users to have **invoice:read** permission.
 
 ```graphql
 query {
@@ -641,7 +641,7 @@ query {
 > }
 > ```
 >
-> Here all fields of the type **Invoice** will have the default **invoice:read** permission but the field **signedBy** will only have **admin:read** permission.
+> Here, all fields of the type **Invoice** can be access by users with **invoice:read** permission but the field **signedBy** can only be access with users having **admin:read** permission.
 
 ### Code link
 
@@ -659,7 +659,9 @@ query {
 
 ## Deny first and explicit authorization
 
-With type + field level authorization, we now get a lot of control over managing access to the data graph. But in the current approach we consider a field without an **@auth** directive as **publicly accessible**. This approach is essentially a blocklist approach, ie, we are blocking access by adding **@auth**. But, following the principle of least privilege, we should be doing the reverse. We should be denying access to fields by default and only open up access if a field has an **@auth** directive specified. This way our auth system would automatically prevent fields that were accidentally exposed without an **@auth** directive. And if we need few fields to be public we could annotate those fields with a special permission (For example: **@auth(permissions: ['self:anyone'])**) so that our **@auth** directive can skip authorization on. This way as the schema grows, we can be explicit about and keep track of these publicly accessible fields along with avoiding unintentional leaks.
+With **type + field level authorization**, we now get a lot of control over managing access to the data graph. But in the current approach we consider a field without an @auth directive as **publicly accessible**. This approach is essentially a blocklist approach, ie, we are blocking access by adding @auth.
+
+But if we are following the principle of least privilege, we should be doing the reverse. We should be denying access to fields by default and only open up access if a field has an @auth directive specified. This way our auth system would automatically prevent fields that were accidentally exposed without an @auth directive.
 
 Lets take an example to understand this better:
 
@@ -689,12 +691,16 @@ type Query {
   # This is good since it prevented accidental leak ✅
   customers: [Customer]
   # Public health query - Since we added @auth here and
-  # explicitly marked it as publicly accessible with self:anyone,
-  # its accessible ✅
+  # explicitly marked it as publicly accessible with self:anyone
+  # to make it accessible ✅
   health: String @auth(permission: ["self:anyone"])
   me: Customer @auth(permissions: ["self:customer"]) ✅
 }
 ```
+
+<br/>
+
+If you noticed, we introduced another special purpose permission **self:anyone**. This is because, few fields in our schema need to be publicly accessible, but with deny first approach any field without @auth will be blocked by default. Hence, to allow public access explicitly, we could annotate those fields with a special permission **self:anyone** (this could be any string though) so that our @auth directive can skip authorization on these. This way as the schema grows, we can be explicit about and keep track of these publicly accessible fields along with avoiding unintentional leaks.
 
 ### Code
 
@@ -775,8 +781,8 @@ query {
 }
 ```
 
-Then the following query also fails with a **ForbiddenError** even though we marked it with **@auth(permission: ["self:anyone"])**.
-This is because our **@auth** directive doesnt know yet that it has to allow access to any field / type marked with **@auth(permission: ["self:anyone"])**.
+Then the following query also fails with a **ForbiddenError** even though we marked it with `@auth(permission: ["self:anyone"])`.
+This is because our @auth directive doesn't know yet that it has to allow access to any field / type marked with `@auth(permission: ["self:anyone"])`.
 
 Lets fix that by modifying our **isAuthorized** function.
 
@@ -794,7 +800,9 @@ Lets fix that by modifying our **isAuthorized** function.
  }
 ```
 
-### Caveats to deny by default approach
+If we run the health query again, it should return the health query's result.
+
+### Caveats of deny by default approach
 
 - **Deny by default approach is applied to all types and fields irrespective of whether they are top level types or not**.
   Lets take the following schema as an example
@@ -821,9 +829,9 @@ Lets fix that by modifying our **isAuthorized** function.
   ```
 
   We would expect that the query would succeed since we explicitly marked the mutation with **self:anyone**.
-  But it should fail because the mutation returns a type **AccessToken** whose field dont have any permissions. So the fields of the AccessToken type are also denied by default.
+  But it should fail because the mutation returns a type **AccessToken** whose fields are not annotated with any permissions. Hence, **the fields of the AccessToken type are also denied by default**.
 
-  To fix this we add an **@auth(permission: ["self:anyone"])** to the AccessToken type like so.
+  To fix this we can add an `@auth(permission: ["self:anyone"])` to the AccessToken type like so.
 
   ```diff
   -type AccessToken {
@@ -833,8 +841,8 @@ Lets fix that by modifying our **isAuthorized** function.
   ```
 
 - **We should skip internal apollo types otherwise our directive will deny them too by default**.
-  Apollo has some types and fields that it uses internally. For example, **\_\_typename**, **\_entities**, **\_service**, etc
-  We should skip these types and fields from our **@auth** directive
+  Apollo has some types and fields that it uses internally. For example, **\_\_typename**, **\_entities**, **\_service**, etc.
+  We should skip these types and fields from our @auth directive.
 
   To skip these we can make the following change to **shouldDenyFieldByDefault** function:
 
@@ -871,11 +879,11 @@ Lets fix that by modifying our **isAuthorized** function.
 
 # Summary
 
-GraphQL is a really powerful tool for building apis that are versionless and well documented. As we introduce more types and fields to our schema, we need to make sure that we do so in a secure way. The **@auth** directive in this post allows us to introduce security to our schema with following characteristics:
+GraphQL is a really powerful tool for building apis that are versionless and well documented. As we introduce more types and fields to our schema, we need to make sure that we do so in a secure way. The **@auth** schema directive introduced in this post will allow us to introduce security to our schema with the following characteristics:
 
 - **Declarative** - We can use our schema as a documentation and source of truth for authorization.
-- **Flexible** - Type and field permissions allows us to introduce RBAC with ease without sacrificing DX.
-- **Deny first and explicit authorization** - Follows the principle of least privilege, so we deny access to fields that are not explicitly authorized in order to prevent accidental access to sensitive data.
+- **Flexible** - Roles + Type and field level permissions allows us to introduce RBAC with ease without sacrificing DX.
+- **Deny first and explicit authorization** - Follows the principle of least privilege such that we deny access to fields that are not explicitly authorized. Thus automatically preventing accidental leaks of sensitive data.
 
 > The entire code for this post can be found at: https://github.com/a7ul/blog-graphql-auth-example
 
