@@ -1,5 +1,5 @@
 ---
-title: 🦄 Authentication, authorization and RBAC for GraphQL Servers in depth
+title: 🦄 Deep dive on authentication, authorization and RBAC for GraphQL Servers
 date: 2022-06-14T12:00:00.000Z
 keywords: graphql, apollo, authentication, federation, supergraph, jwt, authorization, deny, rbac
 featuredImage: authentication.jpg
