@@ -46,8 +46,8 @@ const BlogPostTemplate = (props) => {
   const siteTitle = get(props, 'data.site.siteMetadata.title');
   const postTitle = `${post.frontmatter.title}`;
   const { location } = props;
-  const disqusConfig = { identifier: post.id, title: postTitle };
   const url = `${config.url}${get(post, 'frontmatter.slug', '')}`;
+  const disqusConfig = { url, identifier: post.id, title: postTitle };
 
   return (
     <Layout location={location}>
